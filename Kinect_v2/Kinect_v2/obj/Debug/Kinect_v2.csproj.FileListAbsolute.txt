@@ -1,1 +1,10 @@
 C:\Users\voyag\Documents\Project_Kinect\Kinect_v2\Kinect_v2\bin\Debug\Kinect_v2.exe.config
+C:\Users\voyag\Documents\Project_Kinect\Kinect_v2\Kinect_v2\bin\Debug\Kinect_v2.exe
+C:\Users\voyag\Documents\Project_Kinect\Kinect_v2\Kinect_v2\bin\Debug\Kinect_v2.pdb
+C:\Users\voyag\Documents\Project_Kinect\Kinect_v2\Kinect_v2\obj\Debug\Kinect_v2.csprojResolveAssemblyReference.cache
+C:\Users\voyag\Documents\Project_Kinect\Kinect_v2\Kinect_v2\obj\Debug\Kinect_v2.Form1.resources
+C:\Users\voyag\Documents\Project_Kinect\Kinect_v2\Kinect_v2\obj\Debug\Kinect_v2.MenuForm.resources
+C:\Users\voyag\Documents\Project_Kinect\Kinect_v2\Kinect_v2\obj\Debug\Kinect_v2.Properties.Resources.resources
+C:\Users\voyag\Documents\Project_Kinect\Kinect_v2\Kinect_v2\obj\Debug\Kinect_v2.csproj.GenerateResource.Cache
+C:\Users\voyag\Documents\Project_Kinect\Kinect_v2\Kinect_v2\obj\Debug\Kinect_v2.exe
+C:\Users\voyag\Documents\Project_Kinect\Kinect_v2\Kinect_v2\obj\Debug\Kinect_v2.pdb

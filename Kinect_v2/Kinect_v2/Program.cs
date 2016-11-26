@@ -16,7 +16,10 @@ namespace Kinect_v2
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+
+            KinectForm kinectForm = new KinectForm();
+            Application.Run(kinectForm.menu);
+            kinectForm.Main();
         }
     }
 }

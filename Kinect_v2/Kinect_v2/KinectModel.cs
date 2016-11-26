@@ -8,5 +8,9 @@ namespace Kinect_v2
 {
     class KinectModel
     {
+
+        public KinectModel () {
+            
+        }
     }
 }
