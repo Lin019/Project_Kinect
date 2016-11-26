@@ -12,5 +12,7 @@ namespace Kinect_v2
         public KinectModel () {
             
         }
+
+
     }
 }

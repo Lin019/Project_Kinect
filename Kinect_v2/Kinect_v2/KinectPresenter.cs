@@ -27,7 +27,6 @@ namespace Kinect_v2
                 handJointForm = new HandJointForm();
                 Application.Run(handJointForm);
             }
-            
         } 
     }
 }
