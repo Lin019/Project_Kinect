@@ -1,33 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.Kinect;
+using System.Drawing.Imaging;
 
 namespace Kinect_v2
 {
-    class KinectForm
+    public partial class KinectForm : Form
     {
-        public KinectModel model;
-        public MenuForm menu;
-        public HandJointForm handJointForm;
-
-        public KinectForm() {
-            
-            menu = new MenuForm();
-            model = new KinectModel();
+        public KinectForm()
+        {
+            InitializeComponent();
         }
 
-        public void Main() {
+        private void KinectForm_Load(object sender, EventArgs e)
+        {
 
-            if (menu.GetBtnClick() == "hand")
-            {
-                handJointForm = new HandJointForm();
-                Application.Run(handJointForm);
-            }
-            
-        } 
+        }
     }
 }

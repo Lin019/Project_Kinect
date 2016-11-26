@@ -17,7 +17,7 @@ namespace Kinect_v2
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            KinectForm kinectForm = new KinectForm();
+            KinectPresenter kinectForm = new KinectPresenter();
             Application.Run(kinectForm.menu);
             kinectForm.Main();
         }

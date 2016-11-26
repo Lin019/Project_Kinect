@@ -8,3 +8,5 @@ C:\Users\voyag\Documents\Project_Kinect\Kinect_v2\Kinect_v2\obj\Debug\Kinect_v2.
 C:\Users\voyag\Documents\Project_Kinect\Kinect_v2\Kinect_v2\obj\Debug\Kinect_v2.csproj.GenerateResource.Cache
 C:\Users\voyag\Documents\Project_Kinect\Kinect_v2\Kinect_v2\obj\Debug\Kinect_v2.exe
 C:\Users\voyag\Documents\Project_Kinect\Kinect_v2\Kinect_v2\obj\Debug\Kinect_v2.pdb
+C:\Users\voyag\Documents\Project_Kinect\Kinect_v2\Kinect_v2\obj\Debug\Kinect_v2.HandJointForm.resources
+C:\Users\voyag\Documents\Project_Kinect\Kinect_v2\Kinect_v2\obj\Debug\Kinect_v2.KinectForm.resources
