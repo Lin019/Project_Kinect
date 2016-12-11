@@ -8,7 +8,7 @@ using Microsoft.Kinect;
 
 namespace Kinect_v2
 {
-    class KinectPresenter
+    public class KinectPresenter
     {
         public KinectModel model;
         public MenuForm menu;
@@ -27,6 +27,8 @@ namespace Kinect_v2
                 handJointForm = new HandJointForm();
                 Application.Run(handJointForm);
             }
-        } 
+        }
+        
+         
     }
 }

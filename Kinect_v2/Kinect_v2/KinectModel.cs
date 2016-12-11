@@ -6,13 +6,12 @@ using System.Threading.Tasks;
 
 namespace Kinect_v2
 {
-    class KinectModel
+    public class KinectModel
     {
-
-        public KinectModel () {
+        
+        public KinectModel ()
+        {
             
         }
-
-
     }
 }
