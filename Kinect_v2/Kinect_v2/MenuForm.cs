@@ -34,5 +34,11 @@ namespace Kinect_v2
             btnClick = "hand";
             this.Close();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            btnClick = "record";
+            this.Close();
+        }
     }
 }
