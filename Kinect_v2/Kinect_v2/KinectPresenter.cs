@@ -15,14 +15,14 @@ namespace Kinect_v2
         public HandJointForm handJointForm;
         public SampleRecordFrom sampleRecordForm;
 
-        public string closedWindow;
-
-        public KinectPresenter() {
-            
+        public KinectPresenter() {     
             menu = new MenuForm();
             model = new KinectModel();
         }
 
+        /// <summary>
+        /// Control forms to open or close
+        /// </summary>
         public void Main() {
 
             if (menu.GetBtnClick() == "hand")
@@ -36,14 +36,31 @@ namespace Kinect_v2
                 Application.Run(sampleRecordForm);
             }
         }
-        public void OpenCamera(PictureBox picBox1, PictureBox picBox2)
+
+        /// <summary>
+        /// Open kinect sensor and reader
+        /// </summary>
+        public void OpenCamera()
         {
-            model.Form_Load(picBox1, picBox2);
+            model.Form_Load();
         }
 
-        public void DrawSkeleton(Body body, PictureBox pictureBox)
+        /// <summary>
+        /// show RGB video
+        /// </summary>
+        /// <param name="pictureBox">the pictureBox to show RGB video</param>
+        public void ShowColorVideo(PictureBox pictureBox)
         {
-            model.DrawSkeleton(body, pictureBox);
+            model.SetColorVideoAt(pictureBox);
+        }
+
+        /// <summary>
+        /// show skeleton
+        /// </summary>
+        /// <param name="pictureBox">the pictureBox to show skeleton</param>
+        public void ShowSkeletonVideo(PictureBox pictureBox)
+        {
+            model.SetSkeletonAt(pictureBox);
         } 
     }
 }

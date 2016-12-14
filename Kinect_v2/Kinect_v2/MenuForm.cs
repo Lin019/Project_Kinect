@@ -35,7 +35,7 @@ namespace Kinect_v2
             this.Close();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnRecordSample_Click(object sender, EventArgs e)
         {
             btnClick = "record";
             this.Close();

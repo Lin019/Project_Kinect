@@ -13,10 +13,6 @@ namespace Kinect_v2
 {
     public class KinectModel
     {
-        private ArrayList sequences;
-        private PictureBox pictureBox;
-
-
         public KinectModel ()
         {
             
@@ -24,37 +20,89 @@ namespace Kinect_v2
 
         #region Camera
 
-        private KinectSensor KsOpen = null; //啟動Kinect感測器
-        private FrameDescription frameDes = null;  //frame的描述
-        private ColorFrameReader colorReader; //讀取彩色影像
+        /// <summary>
+        /// kinect sensor
+        /// </summary>
+        private KinectSensor kinectSensor = null;
 
-        private Bitmap bmp; //給pictureBox
+        /// <summary>
+        /// the description of the frame
+        /// </summary>
+        private FrameDescription frameDes = null;
+
+        /// <summary>
+        /// the reader to get the color frame data
+        /// </summary>
+        private ColorFrameReader colorReader;
+
+        /// <summary>
+        /// bitmap to store the RGB frame
+        /// </summary>
+        private Bitmap bmp;
         private UInt32 size;
         private Rectangle rect;
 
+        /// <summary>
+        /// the reader to get the body data
+        /// </summary>
         BodyFrameReader bodyFrameReader = null;
+
+        /// <summary>
+        /// store all bodies data
+        /// </summary>
         Body[] bodies = null;
 
-        private PictureBox pictureBox1, pictureBox2;
+        /// <summary>
+        /// skeletonPicBox to show the video at View
+        /// </summary>
+        private PictureBox colorPicBox, skeletonPicBox;
 
-        public void Form_Load(PictureBox picBox1, PictureBox picBox2)
+        /// <summary>
+        /// determine whether to show video or not
+        /// </summary>
+        private bool showColor, showSkeleton;
+
+        /// <summary>
+        /// initialize all the sensor and reader
+        /// </summary>
+        public void Form_Load()
         {
-            KsOpen = KinectSensor.GetDefault(); //Kinect v2感測器獲取
-            KsOpen.Open();
+            kinectSensor = KinectSensor.GetDefault(); //Kinect v2感測器獲取
+            kinectSensor.Open();
 
-            frameDes = KsOpen.ColorFrameSource.FrameDescription;
+            frameDes = kinectSensor.ColorFrameSource.FrameDescription;
             //RGB攝影機的位元圖格式數據流的數據(1920x1080p)
             bmp = new Bitmap(frameDes.Width, frameDes.Height, PixelFormat.Format32bppRgb);
             rect = new Rectangle(0, 0, frameDes.Width, frameDes.Height);
             size = (uint)(frameDes.Width * frameDes.Height * 4);
 
-            pictureBox1 = picBox1;
-            pictureBox2 = picBox2;
-
-            colorReader = KsOpen.ColorFrameSource.OpenReader(); //從感測器接收到的彩色數據中開啟彩色Reader
+            //open colorReader and get color data
+            colorReader = kinectSensor.ColorFrameSource.OpenReader();
             colorReader.FrameArrived += colorReader_FrameArrived;
-            bodyFrameReader = KsOpen.BodyFrameSource.OpenReader();
+
+            //open bodyReader and get body data
+            bodyFrameReader = kinectSensor.BodyFrameSource.OpenReader();
             bodyFrameReader.FrameArrived += bodyReader_FrameArrived;
+        }
+
+        /// <summary>
+        /// Set the skeletonPicBox to show RGB frames
+        /// </summary>
+        /// <param name="picBox">the skeletonPicBox to show the RGB frames</param>
+        public void SetColorVideoAt(PictureBox picBox)
+        {
+            colorPicBox = picBox;
+            showColor = true;
+        }
+
+        /// <summary>
+        /// Set the skeletonPicBox to show Skeleton
+        /// </summary>
+        /// <param name="picBox">the skeletonPicBox to show the skeleton</param>
+        public void SetSkeletonAt(PictureBox picBox)
+        {
+            skeletonPicBox = picBox;
+            showSkeleton = true;
         }
 
         private void colorReader_FrameArrived(object sender, ColorFrameArrivedEventArgs e)
@@ -63,7 +111,7 @@ namespace Kinect_v2
             //throw new NotImplementedException();
             using (ColorFrame colorFrame = e.FrameReference.AcquireFrame())
             {
-                if (colorFrame != null)
+                if (colorFrame != null && colorPicBox != null && showColor)
                 {
                     //.NET Compact Framework 提供 LockBits 方法的支援
                     //這個方法可讓您在未受管理的記憶體緩衝區中操作點陣圖的像素陣列
@@ -73,7 +121,8 @@ namespace Kinect_v2
                     colorFrame.CopyConvertedFrameDataToIntPtr(cBitmapData.Scan0, size, ColorImageFormat.Bgra);
                     bmp.UnlockBits(cBitmapData);
 
-                    pictureBox1.Image = bmp;
+                    
+                    colorPicBox.Image = bmp;
                 }
             }
         }
@@ -102,8 +151,8 @@ namespace Kinect_v2
                         IReadOnlyDictionary<JointType, Joint> joints = body.Joints;
                         Dictionary<JointType, Point> jointPoints = new Dictionary<JointType, Point>();
 
-
-                        DrawSkeleton(body, pictureBox2);
+                        if (skeletonPicBox != null && showSkeleton)
+                            DrawSkeleton(body);
 
                     }
                 }
@@ -114,17 +163,23 @@ namespace Kinect_v2
 
         #region draw
 
-        public void DrawSkeleton(Body body, PictureBox pictureBox)
+        /// <summary>
+        /// Draw the skeleton
+        /// </summary>
+        /// <param name="body">body data</param>
+        /// <param name="skeletonPicBox">the skeletonPicBox to show skeleton</param>
+        public void DrawSkeleton(Body body)
         {
             if (body == null) return;
 
-            this.pictureBox = pictureBox;
-
+            //Draw all the point of the joints
             foreach (Joint joint in body.Joints.Values)
             {
-                //DrawPoint(joint);
+                DrawPoint(joint);
             }
 
+            //Draw all the line of the body's skeletons
+            #region draw lines
             DrawLine(body.Joints[JointType.Head], body.Joints[JointType.Neck]);
             DrawLine(body.Joints[JointType.Neck], body.Joints[JointType.SpineShoulder]);
             DrawLine(body.Joints[JointType.SpineShoulder], body.Joints[JointType.ShoulderLeft]);
@@ -149,45 +204,56 @@ namespace Kinect_v2
             DrawLine(body.Joints[JointType.KneeRight], body.Joints[JointType.AnkleRight]);
             DrawLine(body.Joints[JointType.AnkleLeft], body.Joints[JointType.FootLeft]);
             DrawLine(body.Joints[JointType.AnkleRight], body.Joints[JointType.FootRight]);
-            
+            #endregion
         }
 
+        /// <summary>
+        /// Draw the point of the joints
+        /// </summary>
+        /// <param name="joint">joints of the body</param>
         public void DrawPoint(Joint joint)
         {
             SolidBrush brush = new SolidBrush(Color.Red);
-            int X1 = (int)(joint.Position.X * pictureBox.Width + 100);
-            int Y1 = (int)(-joint.Position.Y * pictureBox.Width + 100);
+            int X1 = (int)(joint.Position.X * skeletonPicBox.Width + 100);
+            int Y1 = (int)(-joint.Position.Y * skeletonPicBox.Width + 100);
             int X2 = 10;
             int Y2 = 10;
 
             Rectangle rect = new Rectangle(X1, Y1, X2, Y2);
 
-            if (pictureBox != null)
+            if (skeletonPicBox != null)
             {
-                using (Graphics g = pictureBox.CreateGraphics())
+                using (Graphics g = skeletonPicBox.CreateGraphics())
                     g.FillEllipse(brush, rect);
             }
               
         }
 
+        /// <summary>
+        /// Draw the line of the skeleton
+        /// </summary>
+        /// <param name="first">first joint as the beginning point</param>
+        /// <param name="second">second joint as the destination point</param>
         public void DrawLine(Joint first, Joint second)
         {
             if (first.TrackingState == TrackingState.NotTracked || second.TrackingState == TrackingState.NotTracked) return;
 
             Pen pen = new Pen(Color.LightBlue, 8);
-            int X1 = (int)(first.Position.X * pictureBox.Width / 1.8 + 150);
-            int Y1 = (int)(-first.Position.Y * pictureBox.Height / 1.8 + 150);
-            int X2 = (int)(second.Position.X * pictureBox.Width / 1.8 + 150);
-            int Y2 = (int)(-second.Position.Y * pictureBox.Height / 1.8 + 150);
+            int X1 = (int)(first.Position.X * skeletonPicBox.Width / 1.8 + 150);
+            int Y1 = (int)(-first.Position.Y * skeletonPicBox.Height / 1.8 + 150);
+            int X2 = (int)(second.Position.X * skeletonPicBox.Width / 1.8 + 150);
+            int Y2 = (int)(-second.Position.Y * skeletonPicBox.Height / 1.8 + 150);
 
-            if (pictureBox != null)
+            if (skeletonPicBox != null)
             {
-                using (Graphics g = pictureBox.CreateGraphics())
+                using (Graphics g = skeletonPicBox.CreateGraphics())
                 {
                     g.DrawLine(pen, X2, Y2, X1, Y1);
                     
                 }
-                pictureBox2.Invalidate();
+
+                //refersh the skeletonPicBox
+                skeletonPicBox.Invalidate();
             }
         }
 

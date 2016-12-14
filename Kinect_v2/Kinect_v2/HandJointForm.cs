@@ -26,15 +26,16 @@ namespace Kinect_v2
 
         private void HandJointForm_Load(object sender, EventArgs e)
         {
+            //set the pictureBox to avoid flickering
             typeof(PictureBox).InvokeMember("DoubleBuffered",
                 BindingFlags.SetProperty | BindingFlags.Instance | BindingFlags.NonPublic,
                 null, pictureBox2, new object[] { true });
 
             this.pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
 
-            presenter.OpenCamera(pictureBox1, pictureBox2);
-        }
-
-          
+            presenter.OpenCamera();
+            presenter.ShowColorVideo(pictureBox1);
+            presenter.ShowSkeletonVideo(pictureBox2);
+        }     
     }
 }
