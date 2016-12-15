@@ -8,11 +8,27 @@ using System.Collections;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Drawing.Imaging;
+using System.IO;
+
 
 namespace Kinect_v2
 {
     public class KinectModel
     {
+        private string myDocPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+
+        private const int FRAMES_COUNT = 12;
+
+        private string fileName;
+
+        private ProgressBar progressBar;
+
+        private ArrayList sequence;
+
+        private bool record;
+
+        private Timer frameCountTimer;
+
         public KinectModel ()
         {
             
@@ -50,7 +66,7 @@ namespace Kinect_v2
         /// <summary>
         /// store all bodies data
         /// </summary>
-        Body[] bodies = null;
+        Body body = null;
 
         /// <summary>
         /// skeletonPicBox to show the video at View
@@ -135,27 +151,28 @@ namespace Kinect_v2
             {
                 if (bodyFrame != null)
                 {
-                    if (bodies == null) { bodies = new Body[bodyFrame.BodyCount]; }
-                    bodyFrame.GetAndRefreshBodyData(bodies);
+                    //if (bodies == null) { bodies = new Body[bodyFrame.BodyCount]; }
+                    //bodyFrame.GetAndRefreshBodyData(bodies);
                     dataReceived = true;
                 }
             }
 
             if (dataReceived)
             {
-
-                foreach (Body body in bodies)
+                if (body.IsTracked)
                 {
-                    if (body.IsTracked)
+                    if (skeletonPicBox != null && showSkeleton)
+                        DrawSkeleton(body);
+
+                    if (record)
                     {
-                        IReadOnlyDictionary<JointType, Joint> joints = body.Joints;
-                        Dictionary<JointType, Point> jointPoints = new Dictionary<JointType, Point>();
-
-                        if (skeletonPicBox != null && showSkeleton)
-                            DrawSkeleton(body);
-
+                        frameCountTimer = new Timer();
+                        frameCountTimer.Interval = 250;
+                        frameCountTimer.Start();
+                        frameCountTimer.Tick += frameCountTimer_Tick;
                     }
                 }
+                
             }
         }
 
@@ -255,6 +272,86 @@ namespace Kinect_v2
                 //refersh the skeletonPicBox
                 skeletonPicBox.Invalidate();
             }
+        }
+
+        #endregion
+
+        #region save and load
+
+        public void StartRecord(string fileName, ProgressBar bar)
+        {
+            this.fileName = fileName;
+            this.progressBar = bar;
+            progressBar.Maximum = FRAMES_COUNT;
+            progressBar.Minimum = 0;
+            progressBar.Step = 1;
+
+            if (sequence == null)
+            {
+                sequence = new ArrayList();
+                record = true;
+            }
+            else if (sequence.Count == FRAMES_COUNT)
+            {
+                record = false;
+                SaveSample(sequence, fileName);
+            }
+        }
+
+        public void frameCountTimer_Tick(object sender, EventArgs e)
+        {
+            if (sender == frameCountTimer)
+            {
+                if (sequence.Count <= FRAMES_COUNT)
+                {
+                    sequence.Add(body);
+
+                    if (!progressBar.Enabled)
+                    {
+                        progressBar.PerformStep();
+                    }
+                }
+            }
+        }
+        /// <summary>
+        /// Save gesture data into text file
+        /// </summary>
+        /// <param name="bodySequence">the body data array of the sample gesture</param>
+        /// <param name="fileName">file name</param>
+        public void SaveSample(ArrayList bodySequence, string fileName)
+        {
+            using (StreamWriter sw = new StreamWriter(myDocPath + @fileName))
+            {
+                foreach (Body body in bodySequence)
+                {
+                    sw.WriteLine(body);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Load sample gesture from the file
+        /// </summary>
+        /// <param name="fileName">the file that store sample gesture</param>
+        /// <returns>the squence of the body datas</returns>
+        public ArrayList LoadSample (string fileName)
+        {
+            ArrayList bodySquence = null;
+
+            using (StreamReader sr = new StreamReader(myDocPath + @fileName))
+            {
+                string body;
+                int framesCount = 0;
+                while (!sr.EndOfStream)
+                {
+                    body = sr.ReadLine();
+                    bodySquence.Add(body);
+                    framesCount++;
+                }
+
+                if (framesCount != FRAMES_COUNT) return null;
+            }
+            return bodySquence;
         }
 
         #endregion

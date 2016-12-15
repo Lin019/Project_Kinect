@@ -62,5 +62,10 @@ namespace Kinect_v2
         {
             model.SetSkeletonAt(pictureBox);
         } 
+
+        public void StartRecord(string fileName, ProgressBar bar)
+        {
+            model.StartRecord(fileName, bar);
+        }
     }
 }
