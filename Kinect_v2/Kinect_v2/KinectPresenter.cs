@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.Kinect;
+using System.Collections;
+
 
 namespace Kinect_v2
 {
@@ -13,9 +15,13 @@ namespace Kinect_v2
         public KinectModel model;
         public MenuForm menu;
         public HandJointForm handJointForm;
-        public SampleRecordFrom sampleRecordForm;
+        public SampleRecordForm sampleRecordForm;
 
-        public KinectPresenter() {     
+        private int showSampleCount;
+
+        public KinectPresenter() {
+
+            showSampleCount = 0;
             menu = new MenuForm();
             model = new KinectModel();
         }
@@ -32,7 +38,7 @@ namespace Kinect_v2
             }
             else if (menu.GetBtnClick() == "record")
             {
-                sampleRecordForm = new SampleRecordFrom(this);
+                sampleRecordForm = new SampleRecordForm(this);
                 Application.Run(sampleRecordForm);
             }
         }
@@ -63,9 +69,21 @@ namespace Kinect_v2
             model.SetSkeletonAt(pictureBox);
         } 
 
-        public void StartRecord(string fileName, ProgressBar bar)
+        //temp isCompareClick. label.
+        public void StartRecord(string fileName, ProgressBar bar, bool IsCompareClick, Label label)
         {
-            model.StartRecord(fileName, bar);
+            model.StartRecord(fileName, bar, IsCompareClick, label);
+        }
+
+        public void OpenFile(string fileName, PictureBox pictureBox, Label error)
+        {
+            error.Visible = false;
+            model.LoadSample(fileName, pictureBox, error);
+        }
+
+        public void Recognize(Label lblGesture)
+        {
+            model.Recognize("hands");
         }
     }
 }

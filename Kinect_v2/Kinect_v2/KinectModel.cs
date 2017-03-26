@@ -9,6 +9,8 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.Drawing.Imaging;
 using System.IO;
+using Newtonsoft.Json;
+using System.Runtime.Serialization;
 
 
 namespace Kinect_v2
@@ -17,21 +19,37 @@ namespace Kinect_v2
     {
         private string myDocPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
 
-        private const int FRAMES_COUNT = 12;
-
+        private const int FRAMES_COUNT = 22;
+        private const int HANDS_JOINTS = 12;
         private string fileName;
 
         private ProgressBar progressBar;
+        SkeletonFileConvertor FileConvertor;
+        private List<Skeleton> sequence;
+        private Body tempBody;
 
-        private ArrayList sequence;
+        private ArrayList bodySequence;
+        private int showSkeletonCount;
 
         private bool record;
 
         private Timer frameCountTimer;
 
+        private Gesture dtwGesture;
+
+        private DtwGestureRecognizer dtw;
+
+        private Label lbl_error;
+        /// <summary>
+        /// temp.
+        /// </summary>
+        private bool IsCompare;
+
         public KinectModel ()
         {
-            
+            sequence = new List<Skeleton>();
+            FileConvertor = new SkeletonFileConvertor();
+            dtw = new DtwGestureRecognizer(3, 0.6, 2, 20);
         }
 
         #region Camera
@@ -66,8 +84,10 @@ namespace Kinect_v2
         /// <summary>
         /// store all bodies data
         /// </summary>
-        Body body = null;
+        Body[] bodies = null;
+        bool bodiesTracked;
 
+        private Skeleton skeleton;
         /// <summary>
         /// skeletonPicBox to show the video at View
         /// </summary>
@@ -151,28 +171,34 @@ namespace Kinect_v2
             {
                 if (bodyFrame != null)
                 {
-                    //if (bodies == null) { bodies = new Body[bodyFrame.BodyCount]; }
-                    //bodyFrame.GetAndRefreshBodyData(bodies);
+                    if (bodies == null) { bodies = new Body[bodyFrame.BodyCount]; }
+                    bodyFrame.GetAndRefreshBodyData(bodies);
                     dataReceived = true;
                 }
             }
 
             if (dataReceived)
             {
-                if (body.IsTracked)
+                foreach (Body body in bodies)
                 {
-                    if (skeletonPicBox != null && showSkeleton)
-                        DrawSkeleton(body);
-
-                    if (record)
+                    if (body.IsTracked)
                     {
-                        frameCountTimer = new Timer();
-                        frameCountTimer.Interval = 250;
-                        frameCountTimer.Start();
-                        frameCountTimer.Tick += frameCountTimer_Tick;
+                        tempBody = body;
+                        if (skeletonPicBox != null && showSkeleton)
+                            DrawSkeleton(body);
+                        bodiesTracked = true;
+                        
                     }
                 }
-                
+                if (record && bodiesTracked)
+                {
+                    record = false;
+                    bodiesTracked = false;
+                    frameCountTimer = new Timer();
+                    frameCountTimer.Interval = 250;
+                    frameCountTimer.Start();
+                    frameCountTimer.Tick += new EventHandler(frameCountTimer_Tick);
+                }
             }
         }
 
@@ -184,174 +210,140 @@ namespace Kinect_v2
         /// Draw the skeleton
         /// </summary>
         /// <param name="body">body data</param>
-        /// <param name="skeletonPicBox">the skeletonPicBox to show skeleton</param>
+        /// <param name="pictureBox">the pictureBox to show skeleton</param>
         public void DrawSkeleton(Body body)
         {
             if (body == null) return;
 
-            //Draw all the point of the joints
-            foreach (Joint joint in body.Joints.Values)
-            {
-                DrawPoint(joint);
-            }
-
-            //Draw all the line of the body's skeletons
-            #region draw lines
-            DrawLine(body.Joints[JointType.Head], body.Joints[JointType.Neck]);
-            DrawLine(body.Joints[JointType.Neck], body.Joints[JointType.SpineShoulder]);
-            DrawLine(body.Joints[JointType.SpineShoulder], body.Joints[JointType.ShoulderLeft]);
-            DrawLine(body.Joints[JointType.SpineShoulder], body.Joints[JointType.ShoulderRight]);
-            DrawLine(body.Joints[JointType.SpineShoulder], body.Joints[JointType.SpineMid]);
-            DrawLine(body.Joints[JointType.ShoulderLeft], body.Joints[JointType.ElbowLeft]);
-            DrawLine(body.Joints[JointType.ShoulderRight], body.Joints[JointType.ElbowRight]);
-            DrawLine(body.Joints[JointType.ElbowLeft], body.Joints[JointType.WristLeft]);
-            DrawLine(body.Joints[JointType.ElbowRight], body.Joints[JointType.WristRight]);
-            DrawLine(body.Joints[JointType.WristLeft], body.Joints[JointType.HandLeft]);
-            DrawLine(body.Joints[JointType.WristRight], body.Joints[JointType.HandRight]);
-            DrawLine(body.Joints[JointType.HandLeft], body.Joints[JointType.HandTipLeft]);
-            DrawLine(body.Joints[JointType.HandRight], body.Joints[JointType.HandTipRight]);
-            DrawLine(body.Joints[JointType.HandTipLeft], body.Joints[JointType.ThumbLeft]);
-            DrawLine(body.Joints[JointType.HandTipRight], body.Joints[JointType.ThumbRight]);
-            DrawLine(body.Joints[JointType.SpineMid], body.Joints[JointType.SpineBase]);
-            DrawLine(body.Joints[JointType.SpineBase], body.Joints[JointType.HipLeft]);
-            DrawLine(body.Joints[JointType.SpineBase], body.Joints[JointType.HipRight]);
-            DrawLine(body.Joints[JointType.HipLeft], body.Joints[JointType.KneeLeft]);
-            DrawLine(body.Joints[JointType.HipRight], body.Joints[JointType.KneeRight]);
-            DrawLine(body.Joints[JointType.KneeLeft], body.Joints[JointType.AnkleLeft]);
-            DrawLine(body.Joints[JointType.KneeRight], body.Joints[JointType.AnkleRight]);
-            DrawLine(body.Joints[JointType.AnkleLeft], body.Joints[JointType.FootLeft]);
-            DrawLine(body.Joints[JointType.AnkleRight], body.Joints[JointType.FootRight]);
-            #endregion
+            Skeleton skeleton = new Skeleton(skeletonPicBox);
+            skeleton.SetJointPoints(body);
+            //skeleton.Draw(skeletonPicBox);
         }
-
-        /// <summary>
-        /// Draw the point of the joints
-        /// </summary>
-        /// <param name="joint">joints of the body</param>
-        public void DrawPoint(Joint joint)
-        {
-            SolidBrush brush = new SolidBrush(Color.Red);
-            int X1 = (int)(joint.Position.X * skeletonPicBox.Width + 100);
-            int Y1 = (int)(-joint.Position.Y * skeletonPicBox.Width + 100);
-            int X2 = 10;
-            int Y2 = 10;
-
-            Rectangle rect = new Rectangle(X1, Y1, X2, Y2);
-
-            if (skeletonPicBox != null)
-            {
-                using (Graphics g = skeletonPicBox.CreateGraphics())
-                    g.FillEllipse(brush, rect);
-            }
-              
-        }
-
-        /// <summary>
-        /// Draw the line of the skeleton
-        /// </summary>
-        /// <param name="first">first joint as the beginning point</param>
-        /// <param name="second">second joint as the destination point</param>
-        public void DrawLine(Joint first, Joint second)
-        {
-            if (first.TrackingState == TrackingState.NotTracked || second.TrackingState == TrackingState.NotTracked) return;
-
-            Pen pen = new Pen(Color.LightBlue, 8);
-            int X1 = (int)(first.Position.X * skeletonPicBox.Width / 1.8 + 150);
-            int Y1 = (int)(-first.Position.Y * skeletonPicBox.Height / 1.8 + 150);
-            int X2 = (int)(second.Position.X * skeletonPicBox.Width / 1.8 + 150);
-            int Y2 = (int)(-second.Position.Y * skeletonPicBox.Height / 1.8 + 150);
-
-            if (skeletonPicBox != null)
-            {
-                using (Graphics g = skeletonPicBox.CreateGraphics())
-                {
-                    g.DrawLine(pen, X2, Y2, X1, Y1);
-                    
-                }
-
-                //refersh the skeletonPicBox
-                skeletonPicBox.Invalidate();
-            }
-        }
-
         #endregion
 
         #region save and load
 
-        public void StartRecord(string fileName, ProgressBar bar)
+        //temp IsCompareClick.
+        public void StartRecord(string fileName, ProgressBar bar, bool IsCompareClick, Label label)
         {
+            lbl_error = label;
             this.fileName = fileName;
             this.progressBar = bar;
-            progressBar.Maximum = FRAMES_COUNT;
-            progressBar.Minimum = 0;
-            progressBar.Step = 1;
-
-            if (sequence == null)
-            {
-                sequence = new ArrayList();
-                record = true;
-            }
-            else if (sequence.Count == FRAMES_COUNT)
-            {
-                record = false;
-                SaveSample(sequence, fileName);
-            }
+            progressBar.Maximum = FRAMES_COUNT + 1;
+            record = true;
+            //temp IsCompare.
+            IsCompare = IsCompareClick;
         }
 
-        public void frameCountTimer_Tick(object sender, EventArgs e)
+        private void frameCountTimer_Tick(object sender, EventArgs e)
         {
-            if (sender == frameCountTimer)
+            if (sequence.Count < FRAMES_COUNT)
             {
-                if (sequence.Count <= FRAMES_COUNT)
+                foreach (Body body in bodies)
                 {
-                    sequence.Add(body);
-
-                    if (!progressBar.Enabled)
+                    if (body.IsTracked)
                     {
-                        progressBar.PerformStep();
+                        Skeleton tempSke = new Skeleton();
+                        tempSke.SetJointPoints(body);
+                        //if (sequence.Count >= 1 && body.Joints[JointType.WristLeft].Position.X == sequence.get.Joints[JointType.WristLeft].Position.X) Console.WriteLine("DETECTED!!");
+                        sequence.Add(tempSke);
+                        Console.WriteLine(body.Joints[JointType.WristLeft].Position.X);                 
                     }
                 }
+                
+                progressBar.Value += 1;
+                //Console.WriteLine(sequence.Count + "=" + sequence..Joints[JointType.WristLeft].Position.X);
+                Console.WriteLine();
+            }
+            
+            else if (sequence.Count >= FRAMES_COUNT)
+            {
+                frameCountTimer.Stop();
+                record = false;
+                progressBar.Value = 0;
+                progressBar.Visible = false;
+                Console.WriteLine("----");
+                //Console.WriteLine(sequence[2].Joints[JointType.WristLeft].Position.X);
+                //Console.WriteLine(sequence[4].Joints[JointType.WristLeft].Position.X);
+                Console.WriteLine();
+
+                //temp.
+                if (!IsCompare) FileConvertor.Save(sequence, fileName);
+                else Recognize("hands");
+                //sequence.Clear();
+            }           
+        }
+        
+        public void LoadSample(string fileName, PictureBox pictureBox, Label error)
+        {
+            bodySequence = new ArrayList();
+            bodySequence = SkeletonFileConvertor.Load(fileName);
+
+            if (bodySequence == null)
+            {
+                error.Visible = true;
+                return;
+            }
+            else error.Visible = false;
+                 
+            showSkeletonCount = 0;
+            Timer drawTimer = new Timer();
+            drawTimer.Interval = 250;
+            drawTimer.Start();
+            drawTimer.Tick += new EventHandler(DrawTimer_Tick);
+
+            skeletonPicBox = pictureBox;
+            skeleton = new Skeleton(skeletonPicBox);
+
+            if (showSkeletonCount >= FRAMES_COUNT)
+            {
+                drawTimer.Stop();
+                showSkeletonCount = 0;
+                return;
             }
         }
-        /// <summary>
-        /// Save gesture data into text file
-        /// </summary>
-        /// <param name="bodySequence">the body data array of the sample gesture</param>
-        /// <param name="fileName">file name</param>
-        public void SaveSample(ArrayList bodySequence, string fileName)
+
+        private void DrawTimer_Tick(object sender, EventArgs e)
         {
-            using (StreamWriter sw = new StreamWriter(myDocPath + @fileName))
-            {
-                foreach (Body body in bodySequence)
-                {
-                    sw.WriteLine(body);
-                }
+            showSkeletonCount++;
+            if (showSkeletonCount < FRAMES_COUNT)
+            {   
+                skeleton = (Skeleton)bodySequence[showSkeletonCount];
+                skeletonPicBox.Refresh();
+                skeleton.Draw(skeletonPicBox);
+                
             }
         }
+        #endregion
 
-        /// <summary>
-        /// Load sample gesture from the file
-        /// </summary>
-        /// <param name="fileName">the file that store sample gesture</param>
-        /// <returns>the squence of the body datas</returns>
-        public ArrayList LoadSample (string fileName)
+        #region DTW
+
+        
+        
+
+        public void Recognize(string bodypart)
         {
-            ArrayList bodySquence = null;
+            dtwGesture = new Gesture(sequence);
+            List<ArrayList> seqHands = new List<ArrayList>();
 
-            using (StreamReader sr = new StreamReader(myDocPath + @fileName))
-            {
-                string body;
-                int framesCount = 0;
-                while (!sr.EndOfStream)
-                {
-                    body = sr.ReadLine();
-                    bodySquence.Add(body);
-                    framesCount++;
-                }
-
-                if (framesCount != FRAMES_COUNT) return null;
+            if (bodypart == "hands")
+            {               
+                seqHands.Add(dtwGesture.JointSequence[(int)JointPointType.ShoulderLeft]);
+                seqHands.Add(dtwGesture.JointSequence[(int)JointPointType.ElbowLeft]);
+                seqHands.Add(dtwGesture.JointSequence[(int)JointPointType.WristLeft]);
+                seqHands.Add(dtwGesture.JointSequence[(int)JointPointType.HandLeft]);
+                seqHands.Add(dtwGesture.JointSequence[(int)JointPointType.HandTipLeft]);
+                seqHands.Add(dtwGesture.JointSequence[(int)JointPointType.ThumbLeft]);
+                seqHands.Add(dtwGesture.JointSequence[(int)JointPointType.ShoulderRight]);
+                seqHands.Add(dtwGesture.JointSequence[(int)JointPointType.ElbowRight]);
+                seqHands.Add(dtwGesture.JointSequence[(int)JointPointType.WristRight]);
+                seqHands.Add(dtwGesture.JointSequence[(int)JointPointType.HandRight]);
+                seqHands.Add(dtwGesture.JointSequence[(int)JointPointType.HandTipRight]);
+                seqHands.Add(dtwGesture.JointSequence[(int)JointPointType.ThumbRight]);
+                
+                lbl_error.Text = dtw.Recognize(seqHands, bodypart);
+                lbl_error.Visible = true;
             }
-            return bodySquence;
         }
 
         #endregion

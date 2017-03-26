@@ -36,6 +36,7 @@ namespace Kinect_v2
             presenter.OpenCamera();
             presenter.ShowColorVideo(pictureBox1);
             presenter.ShowSkeletonVideo(pictureBox2);
-        }     
+            //presenter.Recongnize(label_recognize);
+        }
     }
 }

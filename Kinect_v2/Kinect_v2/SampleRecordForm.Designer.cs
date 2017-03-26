@@ -1,6 +1,6 @@
 ﻿namespace Kinect_v2
 {
-    partial class SampleRecordFrom
+    partial class SampleRecordForm
     {
         /// <summary>
         /// Required designer variable.
@@ -35,6 +35,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label_countdown = new System.Windows.Forms.Label();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.btnOpenFile = new System.Windows.Forms.Button();
+            this.label_error = new System.Windows.Forms.Label();
+            this.button3 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
@@ -57,7 +60,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(485, 450);
+            this.button1.Location = new System.Drawing.Point(574, 450);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(130, 39);
             this.button1.TabIndex = 2;
@@ -101,11 +104,45 @@
             this.progressBar1.Size = new System.Drawing.Size(221, 28);
             this.progressBar1.TabIndex = 6;
             // 
-            // SampleRecordFrom
+            // btnOpenFile
+            // 
+            this.btnOpenFile.Location = new System.Drawing.Point(418, 452);
+            this.btnOpenFile.Name = "btnOpenFile";
+            this.btnOpenFile.Size = new System.Drawing.Size(125, 37);
+            this.btnOpenFile.TabIndex = 7;
+            this.btnOpenFile.Text = "開啟";
+            this.btnOpenFile.UseVisualStyleBackColor = true;
+            this.btnOpenFile.Click += new System.EventHandler(this.btnOpenFile_Click);
+            // 
+            // label_error
+            // 
+            this.label_error.AutoSize = true;
+            this.label_error.Font = new System.Drawing.Font("新細明體", 18F);
+            this.label_error.ForeColor = System.Drawing.Color.Crimson;
+            this.label_error.Location = new System.Drawing.Point(766, 225);
+            this.label_error.Name = "label_error";
+            this.label_error.Size = new System.Drawing.Size(170, 36);
+            this.label_error.TabIndex = 8;
+            this.label_error.Text = "查無資料!";
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(418, 379);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(125, 39);
+            this.button3.TabIndex = 10;
+            this.button3.Text = "比對";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // SampleRecordForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1122, 511);
+            this.Controls.Add(this.button3);
+            this.Controls.Add(this.label_error);
+            this.Controls.Add(this.btnOpenFile);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.label_countdown);
             this.Controls.Add(this.label1);
@@ -113,7 +150,7 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.pictureBox1);
-            this.Name = "SampleRecordFrom";
+            this.Name = "SampleRecordForm";
             this.Text = "SampleRecordFrom";
             this.Load += new System.EventHandler(this.SampleRecordFrom_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -132,5 +169,8 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label_countdown;
         private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.Button btnOpenFile;
+        private System.Windows.Forms.Label label_error;
+        private System.Windows.Forms.Button button3;
     }
 }

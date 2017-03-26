@@ -30,6 +30,7 @@
         {
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.label_recognize = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
@@ -39,7 +40,7 @@
             this.pictureBox1.Location = new System.Drawing.Point(13, 13);
             this.pictureBox1.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(714, 555);
+            this.pictureBox1.Size = new System.Drawing.Size(714, 460);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
@@ -52,11 +53,24 @@
             this.pictureBox2.TabIndex = 1;
             this.pictureBox2.TabStop = false;
             // 
+            // label_recognize
+            // 
+            this.label_recognize.AutoSize = true;
+            this.label_recognize.BackColor = System.Drawing.Color.Transparent;
+            this.label_recognize.Font = new System.Drawing.Font("新細明體", 16F);
+            this.label_recognize.ForeColor = System.Drawing.Color.Crimson;
+            this.label_recognize.Location = new System.Drawing.Point(757, 32);
+            this.label_recognize.Name = "label_recognize";
+            this.label_recognize.Size = new System.Drawing.Size(205, 32);
+            this.label_recognize.TabIndex = 3;
+            this.label_recognize.Text = "__UNKNOWN";
+            // 
             // HandJointForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1394, 581);
+            this.Controls.Add(this.label_recognize);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.pictureBox1);
             this.DoubleBuffered = true;
@@ -67,6 +81,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -74,5 +89,6 @@
 
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.Label label_recognize;
     }
 }
