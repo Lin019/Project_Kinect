@@ -21,6 +21,9 @@ namespace Kinect_v2
 
         private bool IsCompareClick;
 
+        public PictureBox RGBPicBox { get { return pictureBox1; } }
+        public PictureBox skeletonPicBox { get { return pictureBox2; } }
+
         public SampleRecordForm(KinectPresenter presenter)
         {
             InitializeComponent();
@@ -38,16 +41,13 @@ namespace Kinect_v2
         private void SampleRecordFrom_Load(object sender, EventArgs e)
         {
             this.pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-
             presenter.OpenCamera();
-            presenter.ShowColorVideo(pictureBox1);
-            presenter.ShowSkeletonVideo(pictureBox2);
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnRecord_Click(object sender, EventArgs e)
         {
             fileName = txtBox_fileName.Text;
-            IsCompareClick = false;
+            //IsCompareClick = false;
 
             if (fileName != null)
             {               
@@ -85,14 +85,16 @@ namespace Kinect_v2
             presenter.OpenFile(fileName, pictureBox2, label_error);
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void btnRecognize_Click(object sender, EventArgs e)
         {
             IsCompareClick = true;
 
-            captureCountdownTimer = new Timer();
-            captureCountdownTimer.Interval = 1000;
-            captureCountdownTimer.Start();
-            captureCountdownTimer.Tick += CaptureCountdown;
+            //presenter.Recognize();
+        }
+
+        private void label_error_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

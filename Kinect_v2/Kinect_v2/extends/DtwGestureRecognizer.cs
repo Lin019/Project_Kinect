@@ -45,6 +45,8 @@ namespace Kinect_v2
 
         private List<ArrayList> seqJointPoint;
 
+        private readonly ArrayList _sequences;
+
         /// <summary>
         /// Initializes a new instance of the DtwGestureRecognizer class
         /// First DTW constructor
@@ -87,6 +89,8 @@ namespace Kinect_v2
         {
             _dimension = dim;
             _sampleGestures = new List<Gesture>();
+            _sequences = new ArrayList();
+            _sequences = SkeletonFileConvertor.Load("test042701");
             _labels = new ArrayList();
             _globalThreshold = threshold;
             _firstThreshold = firstThreshold;
@@ -146,18 +150,7 @@ namespace Kinect_v2
                 for (int i = 0; i < _sampleGestures.Count; i++)
                 {
                     seqJointPoint.Add(new ArrayList());
-                    seqJointPoint[i].Add(_sampleGestures[i].JointSequence[(int)JointPointType.ShoulderLeft]);
-                    seqJointPoint[i].Add(_sampleGestures[i].JointSequence[(int)JointPointType.ElbowLeft]);
-                    seqJointPoint[i].Add(_sampleGestures[i].JointSequence[(int)JointPointType.WristLeft]);
-                    seqJointPoint[i].Add(_sampleGestures[i].JointSequence[(int)JointPointType.HandLeft]);
-                    seqJointPoint[i].Add(_sampleGestures[i].JointSequence[(int)JointPointType.HandTipLeft]);
-                    seqJointPoint[i].Add(_sampleGestures[i].JointSequence[(int)JointPointType.ThumbLeft]);
-                    seqJointPoint[i].Add(_sampleGestures[i].JointSequence[(int)JointPointType.ShoulderRight]);
-                    seqJointPoint[i].Add(_sampleGestures[i].JointSequence[(int)JointPointType.ElbowRight]);
-                    seqJointPoint[i].Add(_sampleGestures[i].JointSequence[(int)JointPointType.WristRight]);
                     seqJointPoint[i].Add(_sampleGestures[i].JointSequence[(int)JointPointType.HandRight]);
-                    seqJointPoint[i].Add(_sampleGestures[i].JointSequence[(int)JointPointType.HandTipRight]);
-                    seqJointPoint[i].Add(_sampleGestures[i].JointSequence[(int)JointPointType.ThumbRight]);
                 }
             }
             for (int j = 0; j < 12; j++)
@@ -186,6 +179,54 @@ namespace Kinect_v2
             }
             Console.WriteLine((minDist < _globalThreshold ? classification : "__UNKNOWN") + "2");
             return (minDist < _globalThreshold ? classification : "__UNKNOWN") + "2";
+        }
+
+        public string Recognize(List<Skeleton> sequence)
+        {
+
+            Gesture test = new Gesture(sequence);
+            List<Gesture> examples = new List<Gesture>();
+            examples.Add(new Gesture("right_hand_up"));
+            examples.Add(new Gesture("right_hand_down"));
+
+            double d, maxDist = double.PositiveInfinity;
+            double minDist = double.PositiveInfinity;
+            string name = "", finalName = "";
+            for (int j = 0; j < examples.Count; j++)
+            {
+                for (int i = 0; i < 24; i++)
+                {
+                    d = Dtw(test.JointSequence[i], examples[j].JointSequence[i]);
+                    Console.WriteLine(d);
+                    if (d < maxDist) maxDist = d;
+                }
+                Console.WriteLine("------------");
+                if (maxDist < minDist && maxDist != 0)
+                {
+                    minDist = maxDist;
+                    name = examples[j].name;
+                }
+                if (name == "right_hand_up") finalName = "right_hand_down";
+                else if (name == "right_hand_down") finalName = "right_hand_up";
+            }
+            Console.WriteLine("===========");
+            Console.WriteLine(minDist);
+            return (minDist < _globalThreshold ? finalName : "__UNKNOWN");
+        }
+
+        public string Recognize()
+        {
+            Gesture test = new Gesture("test052101");
+            Gesture example1 = new Gesture("test052101");
+            double d, maxDist = 0;
+            for (int i = 0; i < 24; i++)
+            {
+                d = Dtw(test.JointSequence[i], example1.JointSequence[i]);
+                Console.WriteLine(d);
+                if (d > maxDist) maxDist = d;
+            }
+
+            return (maxDist < _globalThreshold ? "test052101" : "__UNKNOWN") ;
         }
 
         /// <summary>
@@ -246,16 +287,50 @@ namespace Kinect_v2
             }
 
             // Find best between seq2 and an ending (postfix) of seq1.
-            double bestMatch = double.PositiveInfinity;
+            /*double bestMatch = double.PositiveInfinity;
             for (int i = 1; i < (seq1R.Count + 1) - _minimumLength; i++)
             {
                 if (tab[i, seq2R.Count] < bestMatch)
                 {
                     bestMatch = tab[i, seq2R.Count];
                 }
-            }
+            }*/
 
-            return bestMatch;
+            double minDist = 0;
+            int x = 0, y = 0;
+            
+            while(x != seq1R.Count || y != seq2R.Count)
+            {
+                if (y == 22)
+                {
+                    minDist++;
+                    x++;
+                }
+                else if (x == 22)
+                {
+                    minDist++;
+                    y++;
+                }
+                else if (tab[x+1, y+1] < tab[x+1, y] && tab[x+1, y+1] < tab[x, y+1])
+                {
+                    minDist++;
+                    x++;
+                    y++;
+                }
+                else if(tab[x+1, y] < tab[x, y+1])
+                {
+                    minDist++;
+                    x++;
+                }
+                else
+                {
+                    minDist++;
+                    y++;
+                }
+            }
+            
+
+            return minDist;
         }
 
         /// <summary>
@@ -293,5 +368,7 @@ namespace Kinect_v2
 
             return Math.Sqrt(d);
         }
+
+        
     }
 }

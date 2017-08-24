@@ -1,0 +1,14 @@
+﻿<Window x:Class="Kinect_WpfProject.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:Kinect_WpfProject.ViewModel"
+        Title="MainWindow" Height="350" Width="525">
+    <Window.DataContext>
+        <!-- 實例化PostViewModel -->
+        <local:PostsViewModel/>
+    </Window.DataContext>
+    <Grid>
+        <Label  Content="{Binding PostsTitle}"    Height="28" HorizontalAlignment="Left" Margin="12,12,0,0" Name="label1" VerticalAlignment="Top" />
+        <Button Content="Button" Height="23" HorizontalAlignment="Left" Margin="145,13,0,0" Name="button1" VerticalAlignment="Top" Width="75" Command="{Binding UpdateTitleName}" />
+    </Grid>
+</Window>

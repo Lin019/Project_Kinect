@@ -21,6 +21,7 @@ namespace Kinect_v2
         public HandJointForm(KinectPresenter presenter)
         {
             this.presenter = presenter;
+            this.DoubleBuffered = true;
             InitializeComponent();
         }
 
@@ -34,9 +35,12 @@ namespace Kinect_v2
             this.pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
 
             presenter.OpenCamera();
-            presenter.ShowColorVideo(pictureBox1);
-            presenter.ShowSkeletonVideo(pictureBox2);
             //presenter.Recongnize(label_recognize);
+        }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
