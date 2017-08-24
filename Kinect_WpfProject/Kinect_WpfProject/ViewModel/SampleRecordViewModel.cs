@@ -12,7 +12,7 @@ using System.Windows.Input;
 
 namespace Kinect_WpfProject.ViewModel
 {
-    class KinectViewModel
+    class SampleRecordViewModel
     {
         public double[] x1 { get; set; }
         public double[] y1 { get; set; }
@@ -47,7 +47,7 @@ namespace Kinect_WpfProject.ViewModel
 
         private JointPoint[] jointPoints;
 
-        public KinectViewModel()
+        public SampleRecordViewModel()
         {
             x1 = new double[Common.BONE_COUNT];
             y1 = new double[Common.BONE_COUNT];

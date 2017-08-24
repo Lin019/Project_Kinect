@@ -5,7 +5,7 @@
         Title="SampleRecord" Height="363.971" Width="606.617">
     <Window.DataContext>
         <!-- 實例化PostViewModel -->
-        <local:KinectViewModel/>
+        <local:SampleRecordViewModel/>
     </Window.DataContext>
     <Grid>
         <Grid HorizontalAlignment="Left" Height="266" Margin="359,22,0,0" VerticalAlignment="Top" Width="215">
