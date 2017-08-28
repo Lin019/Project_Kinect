@@ -2,14 +2,17 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:Kinect_WpfProject.ViewModel"
+        xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
         Title="SampleRecord" Height="363.971" Width="606.617">
     <Window.DataContext>
         <!-- 實例化PostViewModel -->
-        <local:KinectViewModel/>
+        <local:SampleRecordViewModel/>
+
     </Window.DataContext>
     <Grid>
         <Grid HorizontalAlignment="Left" Height="266" Margin="359,22,0,0" VerticalAlignment="Top" Width="215">
-            <Line X1="{Binding x1[0]}" Y1="{Binding y1[0]}" X2="{Binding x2[0]}" Y2="{Binding y2[0]}" Stroke="LightBlue" StrokeThickness="4" />
+
+            <Line X1="{Binding x1[0], diag:PresentationTraceSources.TraceLevel=High, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged }" Y1="{Binding y1[0]}" X2="{Binding x2[0]}" Y2="{Binding y2[0]}" Stroke="LightBlue" StrokeThickness="4" />
             <Line X1="{Binding x1[1]}" Y1="{Binding y1[1]}" X2="{Binding x2[1]}" Y2="{Binding y2[1]}" Stroke="LightBlue" StrokeThickness="4" />
             <Line X1="{Binding x1[2]}" Y1="{Binding y1[2]}" X2="{Binding x2[2]}" Y2="{Binding y2[2]}" Stroke="LightBlue" StrokeThickness="4" />
             <Line X1="{Binding x1[3]}" Y1="{Binding y1[3]}" X2="{Binding x2[3]}" Y2="{Binding y2[3]}" Stroke="LightBlue" StrokeThickness="4" />

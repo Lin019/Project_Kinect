@@ -55,6 +55,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Model\Skeleton.cs" />
+    <Compile Include="ViewModel\DebuggerConverter.cs" />
     <Compile Include="View\Menu.xaml.cs">
       <DependentUpon>Menu.xaml</DependentUpon>
     </Compile>
@@ -76,7 +77,7 @@
     <Compile Include="Model\KinectModel.cs" />
     <Compile Include="Model\RelayCommand.cs" />
     <Compile Include="Model\SkeletonFileConvertor.cs" />
-    <Compile Include="ViewModel\KinectViewModel.cs" />
+    <Compile Include="ViewModel\SampleRecordViewModel.cs" />
     <Compile Include="ViewModel\PostsViewModel.cs" />
     <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

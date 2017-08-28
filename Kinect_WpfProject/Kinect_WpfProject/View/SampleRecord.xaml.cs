@@ -23,7 +23,7 @@ namespace Kinect_WpfProject.View
         public SampleRecord()
         {
             InitializeComponent();
-            DataContext = new KinectViewModel();
+            DataContext = new SampleRecordViewModel();
         }
     }
 }

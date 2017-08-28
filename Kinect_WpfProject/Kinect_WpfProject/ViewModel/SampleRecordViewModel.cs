@@ -6,18 +6,56 @@ using System.Threading.Tasks;
 using Kinect_WpfProject.Model;
 using Kinect_WpfProject.Extends;
 using System.Collections;
-using System.Timers;
+using System.Threading;
 using Kinect_WpfProject.View;
 using System.Windows.Input;
+using System.ComponentModel;
+using System.Windows;
+using System.Collections.ObjectModel;
 
 namespace Kinect_WpfProject.ViewModel
 {
-    class KinectViewModel
+    class SampleRecordViewModel:INotifyPropertyChanged
     {
-        public double[] x1 { get; set; }
-        public double[] y1 { get; set; }
-        public double[] x2 { get; set; }
-        public double[] y2 { get; set; }
+        private ObservableCollection<double> _x1, _y1, _x2, _y2;
+
+        public ObservableCollection<double> x1 
+        {
+            get { return _x1; }
+            set
+            {
+                _x1 = value;
+                NotifyPropertyChanged("x1");
+            }
+        }
+
+        public ObservableCollection<double> y1
+        {
+            get { return _y1; }
+            set
+            {
+                _y1 = value;
+                NotifyPropertyChanged("y1");
+            }
+        }
+        public ObservableCollection<double> x2
+        {
+            get { return _x2; }
+            set
+            {
+                _x2 = value;
+                NotifyPropertyChanged("x2");
+            }
+        }
+        public ObservableCollection<double> y2
+        {
+            get { return _y2; }
+            set
+            {
+                _y2 = value;
+                NotifyPropertyChanged("y2");
+            }
+        }
 
         public string fileName { get; set; }
 
@@ -38,21 +76,41 @@ namespace Kinect_WpfProject.ViewModel
         }
 
         private ArrayList bodySequence;
-        private Skeleton skeleton;
         private int showSkeletonCount;
         
-        private Boolean loading;
-        private int progressValue;
         private int lineCount;
 
         private JointPoint[] jointPoints;
 
-        public KinectViewModel()
+        private Timer Timer;
+
+        public SampleRecordViewModel()
         {
-            x1 = new double[Common.BONE_COUNT];
-            y1 = new double[Common.BONE_COUNT];
-            x2 = new double[Common.BONE_COUNT];
-            y2 = new double[Common.BONE_COUNT];
+            x1 = new ObservableCollection<double>();
+            y1 = new ObservableCollection<double>();
+            x2 = new ObservableCollection<double>();
+            y2 = new ObservableCollection<double>();
+
+            _x1 = new ObservableCollection<double>();
+            _y1 = new ObservableCollection<double>();
+            _x2 = new ObservableCollection<double>();
+            _y2 = new ObservableCollection<double>();
+
+            for (int i = 0; i < Common.BONE_COUNT; i++ )
+            {
+                x1.Add(0);
+                y1.Add(0);
+                x2.Add(0);
+                y2.Add(0);
+
+                _x1.Add(0);
+                _y1.Add(0);
+                _x2.Add(0);
+                _y2.Add(0);
+            }
+
+            
+
             bodySequence = new ArrayList();
         }
 
@@ -76,36 +134,48 @@ namespace Kinect_WpfProject.ViewModel
             bodySequence = SkeletonFileConvertor.Load(fileName);
             
             showSkeletonCount = 0;
-            System.Timers.Timer drawTimer = new System.Timers.Timer();
-            drawTimer.Interval = 250;
-            drawTimer.Elapsed += new ElapsedEventHandler(DrawTimer_Tick);
-            drawTimer.Enabled = true;
-
-            skeleton = new Skeleton();
+            StartTimer();
 
             if (showSkeletonCount >= Common.FRAMES_COUNT)
             {
-                loading = false;
-                drawTimer.Enabled = false;
+                StopTimer();
                 showSkeletonCount = 0;
                 return;
             }
         }
 
-        private void DrawTimer_Tick(object sender, EventArgs e)
+        #region Timer
+
+        public void StartTimer()
         {
-            showSkeletonCount++;
-            if (showSkeletonCount < Common.FRAMES_COUNT)
+            StopTimer();
+            Timer = new Timer(x => Timer_Tick(), null, 0, 500);
+        }
+
+        public void StopTimer()
+        {
+            if (Timer != null)
             {
-                progressValue++;
-                skeleton = (Skeleton)bodySequence[showSkeletonCount];
-                DrawSkeleton(skeleton);
-            }
-            else if (loading)
-            {
-                progressValue = 0;
+                Timer.Dispose();
+                Timer = null;
             }
         }
+
+        private void Timer_Tick()
+        {
+            if (showSkeletonCount < Common.FRAMES_COUNT)
+            {
+                
+                Skeleton skeleton = new Skeleton();
+                skeleton = (Skeleton)bodySequence[showSkeletonCount];
+                DrawSkeleton(skeleton);
+                showSkeletonCount++;
+            }
+        }
+
+        #endregion
+
+        #region Draw
 
         private void DrawSkeleton(Skeleton skeleton)
         {
@@ -145,6 +215,11 @@ namespace Kinect_WpfProject.ViewModel
             DrawLine(JointPointType.HipRight, JointPointType.KneeRight);
             DrawLine(JointPointType.KneeRight, JointPointType.AnkleRight);
             DrawLine(JointPointType.AnkleRight, JointPointType.FootRight);
+
+            x1 = _x1;
+            y1 = _y1;
+            x2 = _x2;
+            y2 = _y2;
         }
 
         private void DrawLine(JointPointType point1, JointPointType point2)
@@ -155,12 +230,26 @@ namespace Kinect_WpfProject.ViewModel
         
         private void SetLine(JointPoint first, JointPoint second)
         {
-            x1[lineCount] = first.X;
-            y1[lineCount] = first.Y;
-            x2[lineCount] = second.X;
-            y2[lineCount] = second.Y;
+            _x1[lineCount] = first.X * Common.SKELETON_SCALE + Common.SKELETON_POSITION_SHIFT;
+            _y1[lineCount] = -(first.Y * Common.SKELETON_SCALE) + Common.SKELETON_POSITION_SHIFT;
+            _x2[lineCount] = second.X * Common.SKELETON_SCALE + Common.SKELETON_POSITION_SHIFT;
+            _y2[lineCount] = -(second.Y * Common.SKELETON_SCALE) + Common.SKELETON_POSITION_SHIFT;
 
             lineCount++;
         }
+
+        #endregion
+
+        #region INotifyPropertyChanged
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void NotifyPropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        #endregion
     }
 }
