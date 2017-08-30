@@ -77,10 +77,6 @@ namespace Kinect_WpfProject.ViewModel
 
         private ArrayList bodySequence;
         private int showSkeletonCount;
-        
-        private int lineCount;
-
-        private JointPoint[] jointPoints;
 
         private Timer Timer;
 
@@ -146,13 +142,13 @@ namespace Kinect_WpfProject.ViewModel
 
         #region Timer
 
-        public void StartTimer()
+        private void StartTimer()
         {
             StopTimer();
-            Timer = new Timer(x => Timer_Tick(), null, 0, 500);
+            Timer = new Timer(x => Timer_Tick(), null, 0, Common.TIMER_PERIOD);
         }
 
-        public void StopTimer()
+        private void StopTimer()
         {
             if (Timer != null)
             {
@@ -167,78 +163,21 @@ namespace Kinect_WpfProject.ViewModel
             {
                 
                 Skeleton skeleton = new Skeleton();
-                skeleton = (Skeleton)bodySequence[showSkeletonCount];
-                DrawSkeleton(skeleton);
-                showSkeletonCount++;
+                skeleton = (Skeleton)bodySequence[showSkeletonCount++];
+                SetSkeletonLines(skeleton);
             }
         }
 
         #endregion
 
-        #region Draw
 
-        private void DrawSkeleton(Skeleton skeleton)
+        private void SetSkeletonLines(Skeleton skeleton)
         {
-            jointPoints = skeleton.jointPoints;
-            lineCount = 0;
-
-            //Spine
-            DrawLine(JointPointType.Head, JointPointType.Neck);
-            DrawLine(JointPointType.Head, JointPointType.SpineShoulder);
-            DrawLine(JointPointType.SpineShoulder, JointPointType.SpineMid);
-            DrawLine(JointPointType.SpineMid, JointPointType.SpineBase);
-
-            //Left arm
-            DrawLine(JointPointType.SpineShoulder, JointPointType.ShoulderLeft);
-            DrawLine(JointPointType.ShoulderLeft, JointPointType.ElbowLeft);
-            DrawLine(JointPointType.ElbowLeft, JointPointType.WristLeft);
-            DrawLine(JointPointType.WristLeft, JointPointType.HandLeft);
-            DrawLine(JointPointType.HandLeft, JointPointType.HandTipLeft);
-            DrawLine(JointPointType.HandLeft, JointPointType.ThumbLeft);
-
-            //Right arm
-            DrawLine(JointPointType.SpineShoulder, JointPointType.ShoulderRight);
-            DrawLine(JointPointType.ShoulderRight, JointPointType.ElbowRight);
-            DrawLine(JointPointType.ElbowRight, JointPointType.WristRight);
-            DrawLine(JointPointType.WristRight, JointPointType.HandRight);
-            DrawLine(JointPointType.HandRight, JointPointType.HandTipRight);
-            DrawLine(JointPointType.HandRight, JointPointType.ThumbRight);
-
-            //Left leg
-            DrawLine(JointPointType.SpineBase, JointPointType.HipLeft);
-            DrawLine(JointPointType.HipLeft, JointPointType.KneeLeft);
-            DrawLine(JointPointType.KneeLeft, JointPointType.AnkleLeft);
-            DrawLine(JointPointType.AnkleLeft, JointPointType.FootLeft);
-
-            //Right leg
-            DrawLine(JointPointType.SpineBase, JointPointType.HipRight);
-            DrawLine(JointPointType.HipRight, JointPointType.KneeRight);
-            DrawLine(JointPointType.KneeRight, JointPointType.AnkleRight);
-            DrawLine(JointPointType.AnkleRight, JointPointType.FootRight);
-
-            x1 = _x1;
-            y1 = _y1;
-            x2 = _x2;
-            y2 = _y2;
+            x1 = new ObservableCollection<double>(skeleton.getDrawingSequences()["x1"]);
+            y1 = new ObservableCollection<double>(skeleton.getDrawingSequences()["y1"]);
+            x2 = new ObservableCollection<double>(skeleton.getDrawingSequences()["x2"]);
+            y2 = new ObservableCollection<double>(skeleton.getDrawingSequences()["y2"]);
         }
-
-        private void DrawLine(JointPointType point1, JointPointType point2)
-        {
-            SetLine(jointPoints[(int)point1], jointPoints[(int)point2]);
-        }
-
-        
-        private void SetLine(JointPoint first, JointPoint second)
-        {
-            _x1[lineCount] = first.X * Common.SKELETON_SCALE + Common.SKELETON_POSITION_SHIFT;
-            _y1[lineCount] = -(first.Y * Common.SKELETON_SCALE) + Common.SKELETON_POSITION_SHIFT;
-            _x2[lineCount] = second.X * Common.SKELETON_SCALE + Common.SKELETON_POSITION_SHIFT;
-            _y2[lineCount] = -(second.Y * Common.SKELETON_SCALE) + Common.SKELETON_POSITION_SHIFT;
-
-            lineCount++;
-        }
-
-        #endregion
 
         #region INotifyPropertyChanged
 

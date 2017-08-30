@@ -71,7 +71,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Extends\Common.cs" />
-    <Compile Include="Model\Drawer.cs" />
     <Compile Include="Model\DtwGestureRecognizer.cs" />
     <Compile Include="Model\Gesture.cs" />
     <Compile Include="Model\KinectModel.cs" />
@@ -111,6 +110,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="ClassDiagram1.cd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
