@@ -151,7 +151,6 @@ namespace Kinect_WpfProject
             x2.Add (second.X * Common.SKELETON_SCALE + Common.SKELETON_POSITION_SHIFT);
             y2.Add( -(second.Y * Common.SKELETON_SCALE) + Common.SKELETON_POSITION_SHIFT);
         }
-        
     }
     enum JointPointType
     {

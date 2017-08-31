@@ -29,36 +29,48 @@ namespace Kinect_WpfProject
             dtw = new DtwGestureRecognizer(3, 34, 2, 20);
         }
 
+        private List<ArrayList> AddSequence(string bodypart)
+        {
+            List<ArrayList> sequence = new List<ArrayList>();
+            if (bodypart == "hands")
+            {
+                sequence.Add(dtwGesture.JointSequence[(int)JointPointType.ShoulderLeft]);
+                sequence.Add(dtwGesture.JointSequence[(int)JointPointType.ElbowLeft]);
+                sequence.Add(dtwGesture.JointSequence[(int)JointPointType.WristLeft]);
+                sequence.Add(dtwGesture.JointSequence[(int)JointPointType.HandLeft]);
+                sequence.Add(dtwGesture.JointSequence[(int)JointPointType.HandTipLeft]);
+                sequence.Add(dtwGesture.JointSequence[(int)JointPointType.ThumbLeft]);
+                sequence.Add(dtwGesture.JointSequence[(int)JointPointType.ShoulderRight]);
+                sequence.Add(dtwGesture.JointSequence[(int)JointPointType.ElbowRight]);
+                sequence.Add(dtwGesture.JointSequence[(int)JointPointType.WristRight]);
+                sequence.Add(dtwGesture.JointSequence[(int)JointPointType.HandRight]);
+                sequence.Add(dtwGesture.JointSequence[(int)JointPointType.HandTipRight]);
+                sequence.Add(dtwGesture.JointSequence[(int)JointPointType.ThumbRight]);
+            }
+            return sequence;
+        }
         #region DTW
 
         public void Recognize(List<Skeleton> sequence, string bodypart)
         {
             dtwGesture = new Gesture(sequence);
             List<ArrayList> seqHands = new List<ArrayList>();
-
-            if (bodypart == "hands")
-            {
-                seqHands.Add(dtwGesture.JointSequence[(int)JointPointType.ShoulderLeft]);
-                seqHands.Add(dtwGesture.JointSequence[(int)JointPointType.ElbowLeft]);
-                seqHands.Add(dtwGesture.JointSequence[(int)JointPointType.WristLeft]);
-                seqHands.Add(dtwGesture.JointSequence[(int)JointPointType.HandLeft]);
-                seqHands.Add(dtwGesture.JointSequence[(int)JointPointType.HandTipLeft]);
-                seqHands.Add(dtwGesture.JointSequence[(int)JointPointType.ThumbLeft]);
-                seqHands.Add(dtwGesture.JointSequence[(int)JointPointType.ShoulderRight]);
-                seqHands.Add(dtwGesture.JointSequence[(int)JointPointType.ElbowRight]);
-                seqHands.Add(dtwGesture.JointSequence[(int)JointPointType.WristRight]);
-                seqHands.Add(dtwGesture.JointSequence[(int)JointPointType.HandRight]);
-                seqHands.Add(dtwGesture.JointSequence[(int)JointPointType.HandTipRight]);
-                seqHands.Add(dtwGesture.JointSequence[(int)JointPointType.ThumbRight]);
-
-                dtw.Recognize(seqHands, bodypart);
-            }
-            else
-            {
-                Console.WriteLine(dtw.Recognize(sequence));
-            }
+            seqHands = AddSequence(bodypart);
+            dtw.Recognize(sequence);
+            
+            //Console.WriteLine(dtw.Recognize(sequence));
         }
 
+        public string Recognize(ArrayList bodySequence)
+        {
+            List<Skeleton> seq = new List<Skeleton>();
+
+            for (int i = 0; i < bodySequence.Count; i++ )
+            {
+                seq.Add((Skeleton)bodySequence[i]);
+            }
+            return dtw.Recognize(seq);
+        }
         #endregion
     }
 }

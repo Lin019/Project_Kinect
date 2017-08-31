@@ -28,7 +28,6 @@ namespace Kinect_WpfProject.ViewModel
                 NotifyPropertyChanged("x1");
             }
         }
-
         public ObservableCollection<double> y1
         {
             get { return _y1; }
@@ -59,6 +58,17 @@ namespace Kinect_WpfProject.ViewModel
 
         public string fileName { get; set; }
 
+        private string gestureName = "none";
+        public string GestureName
+        {
+            get { return gestureName; }
+            set 
+            {
+                gestureName = value;
+                NotifyPropertyChanged("gestureName");
+            }
+        }
+
         private ICommand _LoadSample;
         public ICommand LoadSample 
         { 
@@ -73,6 +83,22 @@ namespace Kinect_WpfProject.ViewModel
                 }
                 return _LoadSample;
             } 
+        }
+
+        private ICommand _Recognize;
+        public ICommand Recognize
+        {
+            get
+            {
+                if (_Recognize == null)
+                {
+                    _Recognize = new RelayCommand(
+                        this.RecognizeExecute,
+                        this.CanRecognizeExecute
+                    );
+                }
+                return _Recognize;
+            }
         }
 
         private ArrayList bodySequence;
@@ -104,9 +130,6 @@ namespace Kinect_WpfProject.ViewModel
                 _x2.Add(0);
                 _y2.Add(0);
             }
-
-            
-
             bodySequence = new ArrayList();
         }
 
@@ -140,6 +163,16 @@ namespace Kinect_WpfProject.ViewModel
             }
         }
 
+        private bool CanRecognizeExecute()
+        {
+            return true;
+        }
+
+        private void RecognizeExecute()
+        {
+            KinectModel _model = new KinectModel();
+            GestureName = _model.Recognize(bodySequence);
+        }
         #region Timer
 
         private void StartTimer()
@@ -163,8 +196,9 @@ namespace Kinect_WpfProject.ViewModel
             {
                 
                 Skeleton skeleton = new Skeleton();
-                skeleton = (Skeleton)bodySequence[showSkeletonCount++];
+                skeleton = (Skeleton)bodySequence[showSkeletonCount];
                 SetSkeletonLines(skeleton);
+                showSkeletonCount++;
             }
         }
 
