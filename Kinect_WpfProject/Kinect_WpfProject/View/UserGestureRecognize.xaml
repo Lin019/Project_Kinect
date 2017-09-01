@@ -1,14 +1,13 @@
-﻿<Window x:Class="Kinect_WpfProject.View.SampleRecord"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+﻿<Window x:Class="Kinect_WpfProject.View.UserGestureRecognize"
+ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:Kinect_WpfProject.ViewModel"
         xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
-        Closing="SampleRecordForm_Closing"
-        Title="錄製標準動作" Height="363.971" Width="606.617">
+        Closing="UserGestureRecognizeForm_Closing"
+        Title="使用者動作比對" Height="363.971" Width="606.617">
     <Window.DataContext>
         <!-- 實例化PostViewModel -->
-        <local:SampleRecordViewModel/>
-
+        <local:UserGestureRecognizeViewModel/>
     </Window.DataContext>
     <Grid>
         <Grid Margin="32,22,315,113">
@@ -44,18 +43,12 @@
 
         </Grid>
 
-        <TextBox HorizontalAlignment="Left" Height="24" Margin="97,253,0,0" TextWrapping="Wrap" Text="{Binding fileName}" VerticalAlignment="Top" Width="138"/>
-
-        <Button Content="開啟" HorizontalAlignment="Left" Height="24" Margin="250,253,0,0" VerticalAlignment="Top" Width="56" >
+        <Button Content="比對" HorizontalAlignment="Left" Margin="239,265,0,0" VerticalAlignment="Top" Width="56" Height="23">
             <Button.InputBindings>
-                <MouseBinding Gesture="LeftDoubleClick" Command="{Binding LoadSample}" />
+                <MouseBinding Gesture="LeftDoubleClick" Command="{Binding Recognize}" />
             </Button.InputBindings>
         </Button>
-
-        <Button Content="儲存" HorizontalAlignment="Left" Margin="250,291,0,0" VerticalAlignment="Top" Width="56" Height="23">
-            <Button.InputBindings>
-                <MouseBinding Gesture="LeftDoubleClick" Command="{Binding Save}" />
-            </Button.InputBindings>
-        </Button>
+        <Label Content="{Binding GestureName}" HorizontalAlignment="Left" Margin="314,22,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Window>
+

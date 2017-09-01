@@ -1,5 +1,4 @@
-﻿using Kinect_WpfProject.ViewModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -17,17 +16,16 @@ using System.Windows.Shapes;
 namespace Kinect_WpfProject.View
 {
     /// <summary>
-    /// SampleRecord.xaml 的互動邏輯
+    /// UserGestureRecognize.xaml 的互動邏輯
     /// </summary>
-    public partial class SampleRecord : Window
+    public partial class UserGestureRecognize : Window
     {
-        public SampleRecord()
+        public UserGestureRecognize()
         {
             InitializeComponent();
-            DataContext = new SampleRecordViewModel();
         }
 
-        void SampleRecordForm_Closing(object sender, CancelEventArgs e)
+        void UserGestureRecognizeForm_Closing(object sender, CancelEventArgs e)
         {
             Menu menu = new Menu();
             App.Current.MainWindow = menu;

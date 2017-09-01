@@ -24,7 +24,15 @@ namespace Kinect_WpfProject.View
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void btn_UserGestureRecognize_Click(object sender, RoutedEventArgs e)
+        {
+            UserGestureRecognize userGestureRecognizeForm = new UserGestureRecognize();
+            App.Current.MainWindow = userGestureRecognizeForm;
+            this.Close();
+            userGestureRecognizeForm.Show();
+        }
+
+        private void btn_SampleRecord_Click(object sender, RoutedEventArgs e)
         {
             SampleRecord sampleRecordForm = new SampleRecord();
             App.Current.MainWindow = sampleRecordForm;

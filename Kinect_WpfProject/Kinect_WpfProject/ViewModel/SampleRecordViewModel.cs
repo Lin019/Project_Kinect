@@ -58,49 +58,6 @@ namespace Kinect_WpfProject.ViewModel
 
         public string fileName { get; set; }
 
-        private string gestureName = "none";
-        public string GestureName
-        {
-            get { return gestureName; }
-            set 
-            {
-                gestureName = value;
-                NotifyPropertyChanged("gestureName");
-            }
-        }
-
-        private ICommand _LoadSample;
-        public ICommand LoadSample 
-        { 
-            get 
-            {
-                if (_LoadSample == null)
-                {
-                    _LoadSample = new RelayCommand(
-                        this.LoadSampleExecute,
-                        this.CanLoadSampleExecute
-                    );
-                }
-                return _LoadSample;
-            } 
-        }
-
-        private ICommand _Recognize;
-        public ICommand Recognize
-        {
-            get
-            {
-                if (_Recognize == null)
-                {
-                    _Recognize = new RelayCommand(
-                        this.RecognizeExecute,
-                        this.CanRecognizeExecute
-                    );
-                }
-                return _Recognize;
-            }
-        }
-
         private ArrayList bodySequence;
         private int showSkeletonCount;
 
@@ -133,6 +90,21 @@ namespace Kinect_WpfProject.ViewModel
             bodySequence = new ArrayList();
         }
 
+        private ICommand _LoadSample;
+        public ICommand LoadSample
+        {
+            get
+            {
+                if (_LoadSample == null)
+                {
+                    _LoadSample = new RelayCommand(
+                        this.LoadSampleExecute,
+                        this.CanLoadSampleExecute
+                    );
+                }
+                return _LoadSample;
+            }
+        }
         private bool CanLoadSampleExecute()
         {
             try
@@ -145,7 +117,6 @@ namespace Kinect_WpfProject.ViewModel
             }
             return true;
         }
-
         private void LoadSampleExecute()
         {
             bodySequence = new ArrayList();
@@ -163,16 +134,32 @@ namespace Kinect_WpfProject.ViewModel
             }
         }
 
-        private bool CanRecognizeExecute()
+        private ICommand _Save;
+        public ICommand Save
+        {
+            get
+            {
+                if (_Save == null)
+                {
+                    _Save = new RelayCommand(
+                        this.SaveExecute,
+                        this.CanSaveExecute
+                    );
+                }
+                return _Save;
+            }
+        }
+        private bool CanSaveExecute()
         {
             return true;
         }
-
-        private void RecognizeExecute()
+        private void SaveExecute()
         {
-            KinectModel _model = new KinectModel();
-            GestureName = _model.Recognize(bodySequence);
+            /*
+             * WIP: Save file
+            */
         }
+
         #region Timer
 
         private void StartTimer()
@@ -194,7 +181,6 @@ namespace Kinect_WpfProject.ViewModel
         {
             if (showSkeletonCount < Common.FRAMES_COUNT)
             {
-                
                 Skeleton skeleton = new Skeleton();
                 skeleton = (Skeleton)bodySequence[showSkeletonCount];
                 SetSkeletonLines(skeleton);
