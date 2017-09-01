@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Kinect_WpfProject.Extends;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,32 +11,30 @@ namespace Kinect_WpfProject
     class Gesture
     {
         public List<Skeleton> skeletons;
-        private const int FRAMES_COUNT = 22;
         public string name;
         public List<ArrayList> JointSequence;
+
         public Gesture(string name)
         {
             this.name = name;
-            
-            skeletons = SkeletonFileConvertor.Load(name).Cast<Skeleton>().ToList();
-            JointSequence = new List<ArrayList>(25);
-            
-            for (int i = 0; i < 25; i++)
-            {               
-                JointSequence.Add(new ArrayList());
-                for (int j = 0; j < FRAMES_COUNT; j++)
-                    JointSequence[i].Add(skeletons[j].jointPoints[i]);                
-            }
+            this.skeletons = SkeletonFileConvertor.Load(name).Cast<Skeleton>().ToList();
+            setJointSequence();
         }
 
         public Gesture(List<Skeleton> skeletons)
         {
+            this.skeletons = skeletons;
+            setJointSequence();
+        }
+
+        private void setJointSequence()
+        {
             JointSequence = new List<ArrayList>();
             
-            for (int i = 0; i < 25; i++)
+            for (int i = 0; i < Common.JOINTS_COUNT; i++)
             {
                 JointSequence.Add(new ArrayList());
-                for (int j = 0; j < FRAMES_COUNT; j++)
+                for (int j = 0; j < Common.FRAMES_COUNT; j++)
                     JointSequence[i].Add(skeletons[j].jointPoints[i]);
             }
         }
