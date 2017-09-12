@@ -106,6 +106,7 @@ namespace Kinect_WpfProject.ViewModel
                 progressValue = 0;
             }
         }
+         
 
         private void DrawSkeleton(Skeleton skeleton)
         {
