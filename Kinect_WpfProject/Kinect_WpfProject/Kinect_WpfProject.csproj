@@ -55,11 +55,16 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Model\Skeleton.cs" />
+    <Compile Include="ViewModel\DebuggerConverter.cs" />
+    <Compile Include="ViewModel\UserGestureRecognizeViewModel.cs" />
     <Compile Include="View\Menu.xaml.cs">
       <DependentUpon>Menu.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\SampleRecord.xaml.cs">
       <DependentUpon>SampleRecord.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UserGestureRecognize.xaml.cs">
+      <DependentUpon>UserGestureRecognize.xaml</DependentUpon>
     </Compile>
     <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -70,7 +75,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Extends\Common.cs" />
-    <Compile Include="Model\Drawer.cs" />
     <Compile Include="Model\DtwGestureRecognizer.cs" />
     <Compile Include="Model\Gesture.cs" />
     <Compile Include="Model\KinectModel.cs" />
@@ -87,6 +91,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\SampleRecord.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UserGestureRecognize.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -110,6 +118,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="ClassDiagram1.cd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

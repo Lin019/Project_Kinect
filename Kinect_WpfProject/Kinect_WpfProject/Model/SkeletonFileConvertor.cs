@@ -10,7 +10,7 @@ using Kinect_WpfProject.Extends;
 
 namespace Kinect_WpfProject
 {
-    class SkeletonFileConvertor
+    public class SkeletonFileConvertor
     {
         /// <summary>
         /// the path of MyDocuments
@@ -81,7 +81,7 @@ namespace Kinect_WpfProject
         /// <returns></returns>
         public static ArrayList Load(string fileName)
         {
-            //file.Close();
+            file.Close();
             ArrayList bodySequence = new ArrayList();
             bool IsFound = false;
             using (StreamReader sr = new StreamReader(path))

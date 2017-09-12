@@ -130,69 +130,25 @@ namespace Kinect_WpfProject
             _labels.Add(lab);
         }
 
-        /// <summary>
-        /// Recognize gesture in the given sequence.
-        /// It will always assume that the gesture ends on the last observation of that sequence.
-        /// If the distance between the last observations of each sequence is too great, or if the overall DTW distance between the two sequence is too great, no gesture will be recognized.
-        /// </summary>
-        /// <param name="seq">The sequence to recognise</param>
-        /// <returns>The recognised gesture name</returns>
-        public string Recognize(List<ArrayList> seq, string bodypart)
-        {   
-            string[] intervalClassification = new string[Common.HANDS_JOINTS_COUNT];
-            double minDist = double.PositiveInfinity;
-            seqJointPoint = new List<ArrayList>();
-            string classification = "__UNKNOWN";
-            
-            if (bodypart == "hands")
-            {
-                for (int i = 0; i < _sampleGestures.Count; i++)
-                {
-                    seqJointPoint.Add(new ArrayList());
-                    seqJointPoint[i].Add(_sampleGestures[i].JointSequence[(int)JointPointType.HandRight]);
-                }
-            }
-            for (int j = 0; j < Common.HANDS_JOINTS_COUNT; j++)
-            {
-                for (int i = 0; i < _sampleGestures.Count; i++)
-                {
-                    ArrayList example = new ArrayList(seqJointPoint[i]);
-
-                    if (Dist2((JointPoint)seq[j][seq[j].Count - 1], (JointPoint)((ArrayList)example[j])[21]) < _firstThreshold)
-                    {
-                        double d = Dtw(seq[j], (ArrayList)example[j]) / ((ArrayList)example[j]).Count;
-                        if (d < minDist)
-                        {
-                            minDist = d;
-                            intervalClassification[j] = _sampleGestures[i].name;
-                        }
-                    }
-                }
-                int count = 0;
-                for (int i = 0; i < 11; i++)
-                {
-                    if (intervalClassification[i] == intervalClassification[i + 1]) count++;
-                }
-                if (count == 11) classification = intervalClassification[11];
-                else classification = "__UNKNOWN";
-            }
-            Console.WriteLine((minDist < _globalThreshold ? classification : "__UNKNOWN") + "2");
-            return (minDist < _globalThreshold ? classification : "__UNKNOWN") + "2";
-        }
-
         public string Recognize(List<Skeleton> sequence)
         {
 
             Gesture test = new Gesture(sequence);
             List<Gesture> examples = new List<Gesture>();
-            examples.Add(new Gesture("right_hand_up"));
-            examples.Add(new Gesture("right_hand_down"));
+            List<string> exampleNames = new List<string>();
+            exampleNames = SkeletonFileConvertor.GetAllSampleNames();
 
+            for (int i = 0; i < exampleNames.Count; i++ )
+            {
+                examples.Add(new Gesture(exampleNames[i]));
+            }
+            
             double d, maxDist = double.PositiveInfinity;
             double minDist = double.PositiveInfinity;
             string name = "", finalName = "";
             for (int j = 0; j < examples.Count; j++)
             {
+                Console.WriteLine("@" + exampleNames[j]);
                 for (int i = 0; i < 24; i++)
                 {
                     d = Dtw(test.JointSequence[i], examples[j].JointSequence[i]);
@@ -205,27 +161,12 @@ namespace Kinect_WpfProject
                     minDist = maxDist;
                     name = examples[j].name;
                 }
-                if (name == "right_hand_up") finalName = "right_hand_down";
-                else if (name == "right_hand_down") finalName = "right_hand_up";
+                finalName = name;
             }
             Console.WriteLine("===========");
             Console.WriteLine(minDist);
+            Console.WriteLine(finalName);
             return (minDist < _globalThreshold ? finalName : "__UNKNOWN");
-        }
-
-        public string Recognize()
-        {
-            Gesture test = new Gesture("test052101");
-            Gesture example1 = new Gesture("test052101");
-            double d, maxDist = 0;
-            for (int i = 0; i < 24; i++)
-            {
-                d = Dtw(test.JointSequence[i], example1.JointSequence[i]);
-                Console.WriteLine(d);
-                if (d > maxDist) maxDist = d;
-            }
-
-            return (maxDist < _globalThreshold ? "test052101" : "__UNKNOWN") ;
         }
 
         /// <summary>
@@ -368,6 +309,55 @@ namespace Kinect_WpfProject
             return Math.Sqrt(d);
         }
 
-        
+
+        /// <summary>
+        /// Recognize gesture in the given sequence.
+        /// It will always assume that the gesture ends on the last observation of that sequence.
+        /// If the distance between the last observations of each sequence is too great, or if the overall DTW distance between the two sequence is too great, no gesture will be recognized.
+        /// </summary>
+        /// <param name="seq">The sequence to recognise</param>
+        /// <returns>The recognised gesture name</returns>
+        public string Recognize(List<ArrayList> seq, string bodypart)
+        {
+            string[] intervalClassification = new string[Common.HANDS_JOINTS_COUNT];
+            double minDist = double.PositiveInfinity;
+            seqJointPoint = new List<ArrayList>();
+            string classification = "__UNKNOWN";
+
+            if (bodypart == "hands")
+            {
+                for (int i = 0; i < _sampleGestures.Count; i++)
+                {
+                    seqJointPoint.Add(new ArrayList());
+                    seqJointPoint[i].Add(_sampleGestures[i].JointSequence[(int)JointPointType.HandRight]);
+                }
+            }
+            for (int j = 0; j < Common.HANDS_JOINTS_COUNT; j++)
+            {
+                for (int i = 0; i < _sampleGestures.Count; i++)
+                {
+                    ArrayList example = new ArrayList(seqJointPoint[i]);
+
+                    if (Dist2((JointPoint)seq[j][seq[j].Count - 1], (JointPoint)((ArrayList)example[j])[21]) < _firstThreshold)
+                    {
+                        double d = Dtw(seq[j], (ArrayList)example[j]) / ((ArrayList)example[j]).Count;
+                        if (d < minDist)
+                        {
+                            minDist = d;
+                            intervalClassification[j] = _sampleGestures[i].name;
+                        }
+                    }
+                }
+                int count = 0;
+                for (int i = 0; i < 11; i++)
+                {
+                    if (intervalClassification[i] == intervalClassification[i + 1]) count++;
+                }
+                if (count == 11) classification = intervalClassification[11];
+                else classification = "__UNKNOWN";
+            }
+            Console.WriteLine((minDist < _globalThreshold ? classification : "__UNKNOWN") + "2");
+            return (minDist < _globalThreshold ? classification : "__UNKNOWN") + "2";
+        }
     }
 }

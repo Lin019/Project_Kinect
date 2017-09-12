@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Kinect_WpfProject.Extends;
+using System.Collections;
 
 namespace Kinect_WpfProject
 {
@@ -29,11 +30,18 @@ namespace Kinect_WpfProject
         /// </summary>
         public JointPoint[] jointPoints = new JointPoint[Common.JOINTS_COUNT];
 
+        private List<double> x1, x2, y1, y2;
+
         /// <summary>
         /// the pictureBox to show the skeleton
         /// </summary>
         public Skeleton()
         {
+            x1 = new List<double>();
+            x2 = new List<double>();
+            y1 = new List<double>();
+            y2 = new List<double>();
+
             for (int i = 0; i < Common.JOINTS_COUNT; i++)
             {
                 jointPoints[i].SetPoint(0,0,0);        
@@ -80,7 +88,69 @@ namespace Kinect_WpfProject
                 jointPoints[i].SetPoint(joints[i].Position.X, joints[i].Position.Y, joints[i].Position.Z);
             }
         }
-        
+
+        public Dictionary<string, List<double>> getDrawingSequences()
+        {
+            this.DrawSkeleton();
+            Dictionary<string, List<double>> sequences = new Dictionary<string,List<double>>();
+
+            sequences.Add("x1", x1);
+            sequences.Add("y1", y1);
+            sequences.Add("x2", x2);
+            sequences.Add("y2", y2);
+
+            return sequences;
+        }
+
+        private void DrawSkeleton()
+        {
+            //Spine
+            DrawLine(JointPointType.Head, JointPointType.Neck);
+            DrawLine(JointPointType.Head, JointPointType.SpineShoulder);
+            DrawLine(JointPointType.SpineShoulder, JointPointType.SpineMid);
+            DrawLine(JointPointType.SpineMid, JointPointType.SpineBase);
+
+            //Left arm
+            DrawLine(JointPointType.SpineShoulder, JointPointType.ShoulderLeft);
+            DrawLine(JointPointType.ShoulderLeft, JointPointType.ElbowLeft);
+            DrawLine(JointPointType.ElbowLeft, JointPointType.WristLeft);
+            DrawLine(JointPointType.WristLeft, JointPointType.HandLeft);
+            DrawLine(JointPointType.HandLeft, JointPointType.HandTipLeft);
+            DrawLine(JointPointType.HandLeft, JointPointType.ThumbLeft);
+
+            //Right arm
+            DrawLine(JointPointType.SpineShoulder, JointPointType.ShoulderRight);
+            DrawLine(JointPointType.ShoulderRight, JointPointType.ElbowRight);
+            DrawLine(JointPointType.ElbowRight, JointPointType.WristRight);
+            DrawLine(JointPointType.WristRight, JointPointType.HandRight);
+            DrawLine(JointPointType.HandRight, JointPointType.HandTipRight);
+            DrawLine(JointPointType.HandRight, JointPointType.ThumbRight);
+
+            //Left leg
+            DrawLine(JointPointType.SpineBase, JointPointType.HipLeft);
+            DrawLine(JointPointType.HipLeft, JointPointType.KneeLeft);
+            DrawLine(JointPointType.KneeLeft, JointPointType.AnkleLeft);
+            DrawLine(JointPointType.AnkleLeft, JointPointType.FootLeft);
+
+            //Right leg
+            DrawLine(JointPointType.SpineBase, JointPointType.HipRight);
+            DrawLine(JointPointType.HipRight, JointPointType.KneeRight);
+            DrawLine(JointPointType.KneeRight, JointPointType.AnkleRight);
+            DrawLine(JointPointType.AnkleRight, JointPointType.FootRight);
+        }
+
+        private void DrawLine(JointPointType point1, JointPointType point2)
+        {
+            SetLine(jointPoints[(int)point1], jointPoints[(int)point2]);
+        }
+
+        private void SetLine(JointPoint first, JointPoint second)
+        {
+            x1.Add(first.X * Common.SKELETON_SCALE + Common.SKELETON_POSITION_SHIFT);
+            y1.Add( -(first.Y * Common.SKELETON_SCALE) + Common.SKELETON_POSITION_SHIFT);
+            x2.Add (second.X * Common.SKELETON_SCALE + Common.SKELETON_POSITION_SHIFT);
+            y2.Add( -(second.Y * Common.SKELETON_SCALE) + Common.SKELETON_POSITION_SHIFT);
+        }
     }
     enum JointPointType
     {
