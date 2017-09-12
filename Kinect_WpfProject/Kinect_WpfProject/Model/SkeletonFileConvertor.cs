@@ -10,7 +10,7 @@ using Kinect_WpfProject.Extends;
 
 namespace Kinect_WpfProject
 {
-    class SkeletonFileConvertor
+    public class SkeletonFileConvertor
     {
         /// <summary>
         /// the path of MyDocuments
