@@ -106,7 +106,7 @@ namespace Kinect_WpfProject
         {
             //Spine
             DrawLine(JointPointType.Head, JointPointType.Neck);
-            DrawLine(JointPointType.Head, JointPointType.SpineShoulder);
+            DrawLine(JointPointType.Neck, JointPointType.SpineShoulder);
             DrawLine(JointPointType.SpineShoulder, JointPointType.SpineMid);
             DrawLine(JointPointType.SpineMid, JointPointType.SpineBase);
 

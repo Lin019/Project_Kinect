@@ -67,12 +67,20 @@ namespace Kinect_WpfProject.ViewModel
         private TimerTool skeletonTimer;
 
         private KinectModel kinectModel = new KinectModel();
-        
+        private ImageSource _image;
+        public ImageSource image
+        {
+            get { return _image; }
+            set
+            {
+                _image = value;
+                NotifyPropertyChanged("image");
+            }
+        }
 
         public SampleRecordViewModel()
         {
             kinectModel = new KinectModel();
-
             skeletonTimer = new TimerTool(Timer_Tick, 0, Common.TIMER_PERIOD);
 
             x1 = new ObservableCollection<double>();
@@ -87,8 +95,6 @@ namespace Kinect_WpfProject.ViewModel
 
             for (int i = 0; i < Common.BONE_COUNT; i++ )
             {
-
-
                 x1.Add(0);
                 y1.Add(0);
                 x2.Add(0);
@@ -178,7 +184,7 @@ namespace Kinect_WpfProject.ViewModel
         {
             if (showSkeletonCount < Common.FRAMES_COUNT)
             {
-                
+                image = kinectModel.GetRGBImage();
                 Skeleton skeleton = new Skeleton();
                 skeleton = (Skeleton)bodySequence[showSkeletonCount];
                 SetSkeletonLines(skeleton);
