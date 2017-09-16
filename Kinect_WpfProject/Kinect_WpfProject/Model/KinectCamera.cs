@@ -18,7 +18,7 @@ namespace Kinect_WpfProject.Model
 
         public KinectCamera()
         {
-            
+            OpenCamera();
         }
 
         public ImageSource GetRGBImage()
@@ -36,7 +36,7 @@ namespace Kinect_WpfProject.Model
         public void OpenCamera()
         {
             _sensor = KinectSensor.GetDefault();
-
+              
             if (_sensor != null)
             {
                 _sensor.Open();

@@ -62,11 +62,11 @@ namespace Kinect_WpfProject.ViewModel
         private ArrayList bodySequence;
         private int showSkeletonCount;
 
-        private Timer timer;
-        private Timer rgbTimer;
         private TimerTool skeletonTimer;
+        private TimerTool rgbTimer;
 
-        private KinectModel kinectModel = new KinectModel();
+        private KinectModel kinectModel;
+        private KinectCamera kinectCamera;
         private ImageSource _image;
         public ImageSource image
         {
@@ -81,7 +81,10 @@ namespace Kinect_WpfProject.ViewModel
         public SampleRecordViewModel()
         {
             kinectModel = new KinectModel();
+            kinectCamera = new KinectCamera();
             skeletonTimer = new TimerTool(Timer_Tick, 0, Common.TIMER_PERIOD);
+            rgbTimer = new TimerTool(RGBTimerTick, 0, 16);
+            rgbTimer.StartTimer();
 
             x1 = new ObservableCollection<double>();
             y1 = new ObservableCollection<double>();
@@ -180,11 +183,16 @@ namespace Kinect_WpfProject.ViewModel
 
         #region Timer
 
+        private void RGBTimerTick()
+        {
+            image = kinectCamera.GetRGBImage();
+        }
+
         private void Timer_Tick()
         {
             if (showSkeletonCount < Common.FRAMES_COUNT)
             {
-                image = kinectModel.GetRGBImage();
+                
                 Skeleton skeleton = new Skeleton();
                 skeleton = (Skeleton)bodySequence[showSkeletonCount];
                 SetSkeletonLines(skeleton);
