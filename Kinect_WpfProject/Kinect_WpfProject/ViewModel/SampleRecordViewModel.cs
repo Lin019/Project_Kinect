@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.ComponentModel;
 using System.Windows;
 using System.Collections.ObjectModel;
+using System.Windows.Media;
 
 namespace Kinect_WpfProject.ViewModel
 {
@@ -61,10 +62,19 @@ namespace Kinect_WpfProject.ViewModel
         private ArrayList bodySequence;
         private int showSkeletonCount;
 
-        private Timer Timer;
+        private Timer timer;
+        private Timer rgbTimer;
+        private TimerTool skeletonTimer;
+
+        private KinectModel kinectModel = new KinectModel();
+        
 
         public SampleRecordViewModel()
         {
+            kinectModel = new KinectModel();
+
+            skeletonTimer = new TimerTool(Timer_Tick, 0, Common.TIMER_PERIOD);
+
             x1 = new ObservableCollection<double>();
             y1 = new ObservableCollection<double>();
             x2 = new ObservableCollection<double>();
@@ -77,6 +87,8 @@ namespace Kinect_WpfProject.ViewModel
 
             for (int i = 0; i < Common.BONE_COUNT; i++ )
             {
+
+
                 x1.Add(0);
                 y1.Add(0);
                 x2.Add(0);
@@ -124,11 +136,11 @@ namespace Kinect_WpfProject.ViewModel
             bodySequence = SkeletonFileConvertor.Load(fileName);
             
             showSkeletonCount = 0;
-            StartTimer();
+            skeletonTimer.StartTimer();
 
             if (showSkeletonCount >= Common.FRAMES_COUNT)
             {
-                StopTimer();
+                skeletonTimer.StopTimer();
                 showSkeletonCount = 0;
                 return;
             }
@@ -162,25 +174,11 @@ namespace Kinect_WpfProject.ViewModel
 
         #region Timer
 
-        private void StartTimer()
-        {
-            StopTimer();
-            Timer = new Timer(x => Timer_Tick(), null, 0, Common.TIMER_PERIOD);
-        }
-
-        private void StopTimer()
-        {
-            if (Timer != null)
-            {
-                Timer.Dispose();
-                Timer = null;
-            }
-        }
-
         private void Timer_Tick()
         {
             if (showSkeletonCount < Common.FRAMES_COUNT)
             {
+                
                 Skeleton skeleton = new Skeleton();
                 skeleton = (Skeleton)bodySequence[showSkeletonCount];
                 SetSkeletonLines(skeleton);

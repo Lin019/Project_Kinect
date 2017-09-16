@@ -3,7 +3,7 @@
   <Class Name="Kinect_WpfProject.ViewModel.SampleRecordViewModel">
     <Position X="0.5" Y="0.5" Width="3.5" />
     <TypeIdentifier>
-      <HashCode>BAAAAAAIAAQgAIBEAEAAAAQIkwBAABCAAUAEAgAUAAI=</HashCode>
+      <HashCode>AAYAAIAIQAQgAIDEAEAgKAQIkwAAQACAA0AEIgAQAAA=</HashCode>
       <FileName>ViewModel\SampleRecordViewModel.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -25,14 +25,14 @@
   <Class Name="Kinect_WpfProject.Gesture">
     <Position X="6.5" Y="0.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAIAAAAAAgAAAAAAEAAAAAAAAAABAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAACIAAAAAAAAAAAAAEAAAAAAAAAABAAAA=</HashCode>
       <FileName>Model\Gesture.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Kinect_WpfProject.KinectModel">
     <Position X="6.75" Y="4.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAACAAAAAABAAAAAABAAAAAAACAAAAQAAAgAAAA=</HashCode>
+      <HashCode>AgEAAAACAAAAAABCBAAAABAAIAAAACAAAAYAgAgAAAA=</HashCode>
       <FileName>Model\KinectModel.cs</FileName>
     </TypeIdentifier>
   </Class>

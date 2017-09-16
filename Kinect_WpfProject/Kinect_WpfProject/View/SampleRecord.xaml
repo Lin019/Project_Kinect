@@ -11,9 +11,7 @@
 
     </Window.DataContext>
     <Grid>
-        <Grid Margin="32,22,315,113">
-            <MediaElement Source="http://hubblesource.stsci.edu/sources/video/clips/details/images/hst_1.mpg" Name="mePlayer" Stretch="None" />
-        </Grid>
+        
 
         <Grid HorizontalAlignment="Left" Height="266" Margin="359,22,0,0" VerticalAlignment="Top" Width="215">
 
