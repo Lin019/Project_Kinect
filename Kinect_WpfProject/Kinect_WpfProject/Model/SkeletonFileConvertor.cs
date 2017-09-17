@@ -34,32 +34,21 @@ namespace Kinect_WpfProject
         /// <param name="fileName">the name of the gesture</param>
         public void Save(List<Skeleton> bodySequence, string fileName)
         {
-            /*bool IsFound = false;
-            int line = 0;
-            using (StreamReader sr = new StreamReader(path))
+            if (!ExistSame(fileName))
             {
-                while (!sr.EndOfStream)
-                { 
-                    if (sr.ReadLine() == @"@" + fileName)
-                        IsFound = true;
-                    line++;
-                }
-                sr.Close();
-            }*/
-            using (StreamWriter sw = new StreamWriter(path, true))
-            {
-                sw.WriteLine("@" + fileName);
-                foreach (Skeleton skeleton in bodySequence)
+                using (StreamWriter sw = new StreamWriter(path, true))
                 {
-                    //Console.WriteLine(body.Joints[JointType.WristLeft].Position.X);
-                    sw.WriteLine("~");
-                    for (int i = 0; i < Common.JOINTS_COUNT; i++)
-                        WritePosition(sw, skeleton, i);
+                    sw.WriteLine("@" + fileName);
+                    foreach (Skeleton skeleton in bodySequence)
+                    {
+                        sw.WriteLine("~");
+                        for (int i = 0; i < Common.JOINTS_COUNT; i++)
+                            WritePosition(sw, skeleton, i);
+                    }
+                    sw.WriteLine("----");
+                    sw.Close();
                 }
-                sw.WriteLine("----");
-                sw.Close();
             }
-            
         }
         private static void WritePosition(StreamWriter sw, Skeleton skeleton, int jointIndex)
         {
@@ -141,6 +130,24 @@ namespace Kinect_WpfProject
                 sr.Close();
             }
             return all; 
+        }
+
+        private bool ExistSame(string fileName)
+        {
+            bool IsFound = false;
+            int line = 0;
+            using (StreamReader sr = new StreamReader(path))
+            {
+                while (!sr.EndOfStream)
+                {
+                    if (sr.ReadLine() == @"@" + fileName)
+                        IsFound = true;
+                    line++;
+                }
+                sr.Close();
+            }
+
+            return IsFound;
         }
     }
 }
