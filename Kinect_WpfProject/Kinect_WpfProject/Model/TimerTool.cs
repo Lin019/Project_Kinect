@@ -36,6 +36,11 @@ namespace Kinect_WpfProject.Model
             }
         }
 
+        public bool IsActive()
+        {
+            return (timer == null) ? false : true;
+        }
+
         private void TimerTick()
         {
             func();

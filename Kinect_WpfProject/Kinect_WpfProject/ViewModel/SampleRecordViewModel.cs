@@ -83,7 +83,7 @@ namespace Kinect_WpfProject.ViewModel
             kinectModel = new KinectModel();
             kinectCamera = new KinectCamera();
             skeletonTimer = new TimerTool(Timer_Tick, 0, Common.TIMER_PERIOD);
-            rgbTimer = new TimerTool(RGBTimerTick, 0, 16);
+            rgbTimer = new TimerTool(RGBTimerTick, 0, Common.FRAME_RATE);
             rgbTimer.StartTimer();
 
             x1 = new ObservableCollection<double>();
@@ -141,18 +141,10 @@ namespace Kinect_WpfProject.ViewModel
         private void LoadSampleExecute()
         {
             bodySequence = new ArrayList();
-
             bodySequence = SkeletonFileConvertor.Load(fileName);
             
             showSkeletonCount = 0;
             skeletonTimer.StartTimer();
-
-            if (showSkeletonCount >= Common.FRAMES_COUNT)
-            {
-                skeletonTimer.StopTimer();
-                showSkeletonCount = 0;
-                return;
-            }
         }
 
         private ICommand _Save;
@@ -186,17 +178,29 @@ namespace Kinect_WpfProject.ViewModel
         private void RGBTimerTick()
         {
             image = kinectCamera.GetRGBImage();
+
+            if (!skeletonTimer.IsActive())
+            {
+                Skeleton skeleton = new Skeleton();
+                skeleton = kinectCamera.GetSkeleton();
+                SetSkeletonLines(skeleton);
+            }
         }
 
         private void Timer_Tick()
         {
             if (showSkeletonCount < Common.FRAMES_COUNT)
             {
-                
                 Skeleton skeleton = new Skeleton();
                 skeleton = (Skeleton)bodySequence[showSkeletonCount];
                 SetSkeletonLines(skeleton);
                 showSkeletonCount++;
+            }
+            else
+            {
+                skeletonTimer.StopTimer();
+                showSkeletonCount = 0;
+                return;
             }
         }
 

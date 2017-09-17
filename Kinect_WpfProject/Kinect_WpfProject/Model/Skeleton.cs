@@ -104,6 +104,11 @@ namespace Kinect_WpfProject
 
         private void DrawSkeleton()
         {
+            x1.Clear();
+            x2.Clear();
+            y1.Clear();
+            y2.Clear();
+
             //Spine
             DrawLine(JointPointType.Head, JointPointType.Neck);
             DrawLine(JointPointType.Neck, JointPointType.SpineShoulder);

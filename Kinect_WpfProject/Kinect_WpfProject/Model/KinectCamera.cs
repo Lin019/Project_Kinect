@@ -14,10 +14,14 @@ namespace Kinect_WpfProject.Model
         private KinectSensor _sensor;
         private MultiSourceFrameReader _reader;
 
-        public ImageSource rgbImage;
+        private ImageSource rgbImage;
+
+        private Skeleton skeleton;
+        private Body[] bodies;
 
         public KinectCamera()
         {
+            skeleton = new Skeleton();
             OpenCamera();
         }
 
@@ -45,6 +49,19 @@ namespace Kinect_WpfProject.Model
                                              FrameSourceTypes.Body);
                 _reader.MultiSourceFrameArrived += Reader_MultiSourceFrameArrived;
             }
+        }
+
+        public Skeleton GetSkeleton()
+        {
+            if(bodies != null)
+            {
+                foreach(Body body in bodies)
+                {
+                    if(body.IsTracked) skeleton.SetJointPoints(body);
+                }
+            }
+                
+            return skeleton;
         }
 
         private void Reader_MultiSourceFrameArrived(object sender, MultiSourceFrameArrivedEventArgs e)
@@ -75,7 +92,8 @@ namespace Kinect_WpfProject.Model
             {
                 if (frame != null)
                 {
-                    // Do something with the frame...
+                    if (bodies == null) bodies = new Body[frame.BodyCount];
+                    frame.GetAndRefreshBodyData(bodies);
                 }
             }
         }

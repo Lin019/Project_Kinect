@@ -33,5 +33,7 @@ namespace Kinect_WpfProject.Extends
         public const int SKELETON_POSITION_SHIFT = 100;
 
         public const int TIMER_PERIOD = 300;
+
+        public const int FRAME_RATE = 300;
     }
 }
