@@ -77,7 +77,7 @@ namespace Kinect_WpfProject.ViewModel
 
         private KinectModel kinectModel;
         private KinectCamera kinectCamera;
- 
+
         public SampleRecordViewModel()
         {
             kinectModel = new KinectModel();
@@ -167,9 +167,7 @@ namespace Kinect_WpfProject.ViewModel
         }
         private void SaveExecute()
         {
-            /*
-             * WIP: Save file
-            */
+            
         }
 
         #region Timer

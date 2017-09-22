@@ -55,6 +55,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Model\KinectCamera.cs" />
+    <Compile Include="Model\Model.cs" />
     <Compile Include="Model\Skeleton.cs" />
     <Compile Include="Model\TimerTool.cs" />
     <Compile Include="ViewModel\DebuggerConverter.cs" />
