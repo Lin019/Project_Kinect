@@ -9,6 +9,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
@@ -24,15 +25,41 @@ namespace Kinect_WpfProject.View
             InitializeComponent();
         }
 
-        private void btn_UserGestureRecognize_Click(object sender, RoutedEventArgs e)
+        private Storyboard my_sb;
+        int Order = 1;
+        
+        private void button1_Click(object sender, RoutedEventArgs e)
         {
-            UserGestureRecognize userGestureRecognizeForm = new UserGestureRecognize();
-            App.Current.MainWindow = userGestureRecognizeForm;
-            this.Close();
-            userGestureRecognizeForm.Show();
+            if (Order == 1)//主畫面
+            {
+                my_sb = (Storyboard)FindResource("LeftStoryboard_F");
+                my_sb.Begin(this);//畫面切至左畫面
+                Order = 0;//畫面旗標設為左畫面
+            }
+            else if (Order == 0)//左畫面
+            {
+                my_sb = (Storyboard)FindResource("LeftStoryboard_B");
+                my_sb.Begin(this);//畫面切至主畫面
+                Order = 1;//畫面旗標設為主畫面
+            }
         }
 
-        private void btn_SampleRecord_Click(object sender, RoutedEventArgs e)
+        private void button2_Click(object sender, RoutedEventArgs e)
+        {
+            if (Order == 1)//主畫面
+            {
+                my_sb = (Storyboard)FindResource("RightStoryboard_F");//畫面切至右畫面
+                my_sb.Begin(this);
+                Order = 2;//畫面旗標設為右畫面
+            }
+            else if (Order == 2)//右畫面
+            {
+                my_sb = (Storyboard)FindResource("RightStoryboard_B");//畫面切至主畫面
+                my_sb.Begin(this);
+                Order = 1;////畫面旗標設為主畫面
+            }
+        }
+        private void button3_Click(object sender, RoutedEventArgs e)
         {
             SampleRecord sampleRecordForm = new SampleRecord();
             App.Current.MainWindow = sampleRecordForm;
