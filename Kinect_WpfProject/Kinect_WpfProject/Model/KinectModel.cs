@@ -65,15 +65,9 @@ namespace Kinect_WpfProject
             //Console.WriteLine(dtw.Recognize(sequence));
         }
 
-        public string Recognize(ArrayList bodySequence)
+        public string Recognize(List<Skeleton> bodySequence)
         {
-            List<Skeleton> seq = new List<Skeleton>();
-
-            for (int i = 0; i < bodySequence.Count; i++ )
-            {
-                seq.Add((Skeleton)bodySequence[i]);
-            }
-            return dtw.Recognize(seq);
+            return dtw.Recognize(bodySequence);
         }
         #endregion
     }

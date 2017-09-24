@@ -120,7 +120,7 @@
                     <TextBlock FontSize="36" Foreground="White" Height="408" Text="" Width="73" />
                 </Button>
                 <Button Background="#00C5CD" x:Name="button3" 
-        			HorizontalContentAlignment="Right" VerticalContentAlignment="Bottom"  Click="button3_Click"  Margin="148,-8,-38,10" Grid.ColumnSpan="2" Height="500" VerticalAlignment="Bottom" RenderTransformOrigin="0.5,0.5" Width="400">
+        			HorizontalContentAlignment="Right" VerticalContentAlignment="Bottom"  Click="button4_Click"  Margin="148,-8,-38,10" Grid.ColumnSpan="2" Height="500" VerticalAlignment="Bottom" RenderTransformOrigin="0.5,0.5" Width="400">
                     <Button.RenderTransform>
                         <TransformGroup>
                             <ScaleTransform/>
@@ -142,7 +142,7 @@
                     <TranslateTransform/>
                 </TransformGroup>
             </Canvas.RenderTransform>
-            <Image Height="277" Source="Resources/Img1.jpg" Stretch="Fill" Width="395" Canvas.Top="-5" Canvas.Left="-57"/>
+            <Image Height="277" Stretch="Fill" Width="395" Canvas.Top="-5" Canvas.Left="-57"/>
             <Button Background="#00C5CD" x:Name="button_Left" 
         			HorizontalContentAlignment="Right" VerticalContentAlignment="Bottom"  Click="button3_Click" Grid.ColumnSpan="2" Height="500" VerticalAlignment="Bottom" RenderTransformOrigin="0.5,0.5" Canvas.Left="-57" Canvas.Top="-117" Width="400">
                 <Button.RenderTransform>

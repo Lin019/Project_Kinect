@@ -12,6 +12,9 @@ namespace Kinect_WpfProject.Model
 {
     public class KinectCamera
     {
+        private const int INSTR_SAVE = 0;
+        private const int INSTR_RECORD = 1;
+
         private KinectSensor _sensor;
         private MultiSourceFrameReader _reader;
 
@@ -24,6 +27,9 @@ namespace Kinect_WpfProject.Model
         private List<Skeleton> recordSquence;
         private List<Skeleton> lastSkeletons;
         private int bodyNumber;
+        private int instr;
+
+
         private string fileName;
 
         public KinectCamera()
@@ -149,10 +155,15 @@ namespace Kinect_WpfProject.Model
         {
             if (recordSquence.Count < Common.FRAMES_COUNT)
                 recordSquence.Add(lastSkeletons[bodyNumber]);
-            else
+            else if (instr == INSTR_SAVE)
             {
                 recordTimer.StopTimer();
                 SkeletonFileConvertor.Save(recordSquence, fileName);
+            }
+            else if (instr == INSTR_RECORD)
+            {
+                KinectModel kinectModel = new KinectModel();
+                fileName = kinectModel.Recognize(recordSquence);
             }
         }
 
@@ -160,7 +171,20 @@ namespace Kinect_WpfProject.Model
         {
             recordSquence = new List<Skeleton>();
             this.fileName = fileName;
+            instr = INSTR_SAVE;
             recordTimer.StartTimer();
+        }
+        
+        public void Record()
+        {
+            recordSquence = new List<Skeleton>();
+            instr = INSTR_RECORD;
+            recordTimer.StartTimer();
+        }
+
+        public string GetFileName()
+        {
+            return fileName;
         }
     }
 }

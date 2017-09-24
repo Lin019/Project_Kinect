@@ -10,9 +10,7 @@
         <local:UserGestureRecognizeViewModel/>
     </Window.DataContext>
     <Grid>
-        <Grid Margin="32,22,315,113">
-            <MediaElement Source="http://hubblesource.stsci.edu/sources/video/clips/details/images/hst_1.mpg" Name="mePlayer" Stretch="None" />
-        </Grid>
+        <Grid Margin="32,22,315,113"/>
 
         <Grid HorizontalAlignment="Left" Height="266" Margin="359,22,0,0" VerticalAlignment="Top" Width="215">
 
@@ -48,7 +46,7 @@
                 <MouseBinding Gesture="LeftDoubleClick" Command="{Binding Recognize}" />
             </Button.InputBindings>
         </Button>
-        <Label Content="{Binding GestureName}" HorizontalAlignment="Left" Margin="314,22,0,0" VerticalAlignment="Top"/>
+        <Label Content="{Binding gestureName}" HorizontalAlignment="Left" Margin="314,22,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Window>
 

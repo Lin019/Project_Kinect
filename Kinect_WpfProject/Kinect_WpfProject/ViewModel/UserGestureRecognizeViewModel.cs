@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace Kinect_WpfProject.ViewModel
 {
@@ -16,7 +17,7 @@ namespace Kinect_WpfProject.ViewModel
     {
         private ObservableCollection<double> _x1, _y1, _x2, _y2;
 
-        public ObservableCollection<double> x1 
+        public ObservableCollection<double> x1
         {
             get { return _x1; }
             set
@@ -53,21 +54,44 @@ namespace Kinect_WpfProject.ViewModel
             }
         }
 
-        private string gestureName = "none";
-        public string GestureName
+        private string _gestureName;
+        public string gestureName
         {
-            get { return gestureName; }
-            set 
+            get { return _gestureName; }
+            set
             {
-                gestureName = value;
+                _gestureName = value;
                 NotifyPropertyChanged("gestureName");
+            }
+        }
+
+        private ImageSource _image;
+        public ImageSource image
+        {
+            get { return _image; }
+            set
+            {
+                _image = value;
+                NotifyPropertyChanged("image");
             }
         }
 
         private ArrayList bodySequence;
 
+        private TimerTool skeletonTimer;
+        private TimerTool rgbTimer;
+
+        private KinectModel kinectModel;
+        private KinectCamera kinectCamera;
+
         public UserGestureRecognizeViewModel()
         {
+            kinectModel = new KinectModel();
+            kinectCamera = new KinectCamera();
+            skeletonTimer = new TimerTool(Timer_Tick, 0, Common.TIMER_PERIOD);
+            rgbTimer = new TimerTool(RGBTimerTick, 0, Common.FRAME_RATE);
+            rgbTimer.StartTimer();
+
             x1 = new ObservableCollection<double>();
             y1 = new ObservableCollection<double>();
             x2 = new ObservableCollection<double>();
@@ -78,7 +102,7 @@ namespace Kinect_WpfProject.ViewModel
             _x2 = new ObservableCollection<double>();
             _y2 = new ObservableCollection<double>();
 
-            for (int i = 0; i < Common.BONE_COUNT; i++ )
+            for (int i = 0; i < Common.BONE_COUNT; i++)
             {
                 x1.Add(0);
                 y1.Add(0);
@@ -92,16 +116,6 @@ namespace Kinect_WpfProject.ViewModel
             }
             bodySequence = new ArrayList();
         }
-
-        private void SetSkeletonLines(Skeleton skeleton)
-        {
-            x1 = new ObservableCollection<double>(skeleton.getDrawingSequences()["x1"]);
-            y1 = new ObservableCollection<double>(skeleton.getDrawingSequences()["y1"]);
-            x2 = new ObservableCollection<double>(skeleton.getDrawingSequences()["x2"]);
-            y2 = new ObservableCollection<double>(skeleton.getDrawingSequences()["y2"]);
-        }
-
-        #region command_recognize
 
         private ICommand _Recognize;
         public ICommand Recognize
@@ -124,11 +138,50 @@ namespace Kinect_WpfProject.ViewModel
         }
         private void RecognizeExecute()
         {
-            KinectModel _model = new KinectModel();
-            GestureName = _model.Recognize(bodySequence);
+            kinectCamera.Record();
+        }
+
+        #region Timer
+
+        private void RGBTimerTick()
+        {
+            image = kinectCamera.GetRGBImage();
+            gestureName = kinectCamera.GetFileName();
+
+            if (!skeletonTimer.IsActive())
+            {
+                Skeleton skeleton = new Skeleton();
+                skeleton = kinectCamera.GetSkeleton();
+                SetSkeletonLines(skeleton);
+            }
+        }
+
+        //load skeleton timer
+        private void Timer_Tick()
+        {
+            if (bodySequence.Count > 0)
+            {
+                Skeleton skeleton = new Skeleton();
+                skeleton = (Skeleton)bodySequence[0];
+                bodySequence.RemoveAt(0);
+                SetSkeletonLines(skeleton);
+            }
+            else
+            {
+                skeletonTimer.StopTimer();
+                return;
+            }
         }
 
         #endregion
+
+        private void SetSkeletonLines(Skeleton skeleton)
+        {
+            x1 = new ObservableCollection<double>(skeleton.getDrawingSequences()["x1"]);
+            y1 = new ObservableCollection<double>(skeleton.getDrawingSequences()["y1"]);
+            x2 = new ObservableCollection<double>(skeleton.getDrawingSequences()["x2"]);
+            y2 = new ObservableCollection<double>(skeleton.getDrawingSequences()["y2"]);
+        }
 
         #region INotifyPropertyChanged
 
