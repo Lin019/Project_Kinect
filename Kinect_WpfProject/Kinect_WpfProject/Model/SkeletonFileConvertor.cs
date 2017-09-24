@@ -32,7 +32,7 @@ namespace Kinect_WpfProject
         /// </summary>
         /// <param name="bodySequence">the gesture</param>
         /// <param name="fileName">the name of the gesture</param>
-        public void Save(List<Skeleton> bodySequence, string fileName)
+        public static void Save(List<Skeleton> bodySequence, string fileName)
         {
             if (!ExistSame(fileName))
             {
@@ -132,7 +132,7 @@ namespace Kinect_WpfProject
             return all; 
         }
 
-        private bool ExistSame(string fileName)
+        private static bool ExistSame(string fileName)
         {
             bool IsFound = false;
             int line = 0;

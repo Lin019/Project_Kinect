@@ -167,7 +167,7 @@ namespace Kinect_WpfProject.ViewModel
         }
         private void SaveExecute()
         {
-            
+            kinectCamera.Save(fileName);
         }
 
         #region Timer

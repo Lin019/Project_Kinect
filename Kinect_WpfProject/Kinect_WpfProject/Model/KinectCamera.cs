@@ -1,4 +1,5 @@
-﻿using Microsoft.Kinect;
+﻿using Kinect_WpfProject.Extends;
+using Microsoft.Kinect;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,8 +20,21 @@ namespace Kinect_WpfProject.Model
         private Skeleton skeleton;
         private Body[] bodies;
 
+        private TimerTool recordTimer;
+        private List<Skeleton> recordSquence;
+        private List<Skeleton> lastSkeletons;
+        private int bodyNumber;
+        private string fileName;
+
         public KinectCamera()
         {
+            recordTimer = new TimerTool(RecordTimerTick, 0, Common.FRAME_RATE);
+            lastSkeletons = new List<Skeleton>();
+            for (int i = 0; i < 6; i++)
+            {
+                lastSkeletons.Add(new Skeleton());
+            }
+
             skeleton = new Skeleton();
             OpenCamera();
         }
@@ -55,9 +69,20 @@ namespace Kinect_WpfProject.Model
         {
             if(bodies != null)
             {
-                foreach(Body body in bodies)
+                for(int i = 0; i < 6; i++)
                 {
-                    if(body.IsTracked) skeleton.SetJointPoints(body);
+                    if (bodies[i].IsTracked)
+                    {
+                        Skeleton tempSkeleton = new Skeleton();
+                        tempSkeleton.SetJointPoints(bodies[i]);
+
+                        if (tempSkeleton.jointPoints[0].X != lastSkeletons[i].jointPoints[0].X)
+                        {
+                            lastSkeletons[i] = tempSkeleton;
+                            skeleton = tempSkeleton;
+                            bodyNumber = i;
+                        }
+                    }
                 }
             }
                 
@@ -74,7 +99,7 @@ namespace Kinect_WpfProject.Model
             {
                 if (frame != null)
                 {
-                    rgbImage = ToBitmap(frame);
+                    //rgbImage = ToBitmap(frame);
                 }
             }
 
@@ -118,6 +143,24 @@ namespace Kinect_WpfProject.Model
             int stride = width * format.BitsPerPixel / 8;
 
             return BitmapSource.Create(width, height, 96, 96, format, null, pixels, stride);
+        }
+
+        private void RecordTimerTick()
+        {
+            if (recordSquence.Count < Common.FRAMES_COUNT)
+                recordSquence.Add(lastSkeletons[bodyNumber]);
+            else
+            {
+                recordTimer.StopTimer();
+                SkeletonFileConvertor.Save(recordSquence, fileName);
+            }
+        }
+
+        public void Save(string fileName)
+        {
+            recordSquence = new List<Skeleton>();
+            this.fileName = fileName;
+            recordTimer.StartTimer();
         }
     }
 }
