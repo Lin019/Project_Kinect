@@ -65,6 +65,22 @@ namespace Kinect_WpfProject.ViewModel
             }
         }
 
+        private int _recordProgress;
+        public int recordProgress
+        {
+            get { return _recordProgress; }
+            set
+            {
+                _recordProgress = value;
+                NotifyPropertyChanged("recordProgress");
+            }
+        }
+
+        public int recordEnd
+        {
+            get { return Common.FRAMES_COUNT; }
+        }
+
         private ImageSource _image;
         public ImageSource image
         {
@@ -149,6 +165,7 @@ namespace Kinect_WpfProject.ViewModel
         {
             image = kinectCamera.GetRGBImage();
             gestureName = kinectCamera.GetFileName();
+            recordProgress = kinectCamera.GetRecordProgress();
 
             if (!skeletonTimer.IsActive())
             {

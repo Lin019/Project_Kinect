@@ -192,5 +192,10 @@ namespace Kinect_WpfProject.Model
         {
             return recordSquence;
         }
+
+        public int GetRecordProgress()
+        {
+            return recordSquence.Count;
+        }
     }
 }
