@@ -162,6 +162,7 @@ namespace Kinect_WpfProject.Model
             }
             else if (instr == INSTR_RECORD)
             {
+                recordTimer.StopTimer();
                 KinectModel kinectModel = new KinectModel();
                 fileName = kinectModel.Recognize(recordSquence);
             }
@@ -185,6 +186,11 @@ namespace Kinect_WpfProject.Model
         public string GetFileName()
         {
             return fileName;
+        }
+
+        public List<Skeleton> GetRecordSequence()
+        {
+            return recordSquence;
         }
     }
 }

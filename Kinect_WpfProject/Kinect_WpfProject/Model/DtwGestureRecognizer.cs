@@ -149,7 +149,7 @@ namespace Kinect_WpfProject
             for (int j = 0; j < examples.Count; j++)
             {
                 Console.WriteLine("@" + exampleNames[j]);
-                for (int i = 0; i < 24; i++)
+                for (int i = 0; i < Common.JOINTS_COUNT; i++)
                 {
                     d = Dtw(test.JointSequence[i], examples[j].JointSequence[i]);
                     Console.WriteLine(d);
@@ -167,6 +167,69 @@ namespace Kinect_WpfProject
             Console.WriteLine(minDist);
             Console.WriteLine(finalName);
             return (minDist < _globalThreshold ? finalName : "__UNKNOWN");
+        }
+
+        //use
+        public void Recognize(List<Skeleton> userSequence, string fileName)
+        {
+            Gesture userGesture = new Gesture(userSequence);
+            Gesture sampleGesture = new Gesture(fileName);
+
+            List<JointPointType> handsjoints = GetTwoHandJoint();
+
+            for (int i = 0; i < Common.JOINTS_COUNT; i++)
+            {
+                for (int j = 0; j < handsjoints.Count; j++)
+                {
+                    if (i == (int)handsjoints[j])
+                        Console.WriteLine(Dtw(userGesture.JointSequence[i], sampleGesture.JointSequence[i]));
+                }
+            }
+        }
+
+        public List<JointPointType> RecognizeAndGetError(List<Skeleton> userSequence, string fileName)
+        {
+            Gesture userGesture = new Gesture(userSequence);
+            Gesture sampleGesture = new Gesture(fileName);
+
+            List<JointPointType> handsjoints = GetTwoHandJoint();
+
+            List<JointPointType> errorJoints = new List<JointPointType>();
+
+            for (int i = 0; i < Common.JOINTS_COUNT; i++)
+            {
+                for (int j = 0; j < handsjoints.Count; j++)
+                {
+                    if (i == (int)handsjoints[j])
+                    {
+                        if (Dtw(userGesture.JointSequence[i], sampleGesture.JointSequence[i]) > _globalThreshold)
+                            errorJoints.Add((JointPointType)i);
+                    }
+                        
+                }
+            }
+
+            return errorJoints;
+        }
+
+        private List<JointPointType> GetTwoHandJoint()
+        {
+            List<JointPointType> handsJoints = new List<JointPointType>();
+            handsJoints.Add(JointPointType.ShoulderLeft);
+            handsJoints.Add(JointPointType.ElbowLeft);
+            handsJoints.Add(JointPointType.WristLeft);
+            handsJoints.Add(JointPointType.HandLeft);
+            handsJoints.Add(JointPointType.HandTipLeft);
+            handsJoints.Add(JointPointType.ThumbLeft);
+            
+            handsJoints.Add(JointPointType.ShoulderRight);
+            handsJoints.Add(JointPointType.ElbowRight);
+            handsJoints.Add(JointPointType.WristRight);
+            handsJoints.Add(JointPointType.HandRight);
+            handsJoints.Add(JointPointType.HandTipRight);
+            handsJoints.Add(JointPointType.ThumbRight);
+
+            return handsJoints;
         }
 
         /// <summary>

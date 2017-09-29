@@ -139,6 +139,8 @@ namespace Kinect_WpfProject.ViewModel
         private void RecognizeExecute()
         {
             kinectCamera.Record();
+
+            kinectModel.Recognize_Test();
         }
 
         #region Timer

@@ -29,45 +29,22 @@ namespace Kinect_WpfProject
         {
             dtw = new DtwGestureRecognizer(3, 34, 2, 20);
         }
-        
-        private List<ArrayList> AddSequence(string bodypart)
-        {
-            List<ArrayList> sequence = new List<ArrayList>();
-            if (bodypart == "hands")
-            {
-                sequence.Add(dtwGesture.JointSequence[(int)JointPointType.ShoulderLeft]);
-                sequence.Add(dtwGesture.JointSequence[(int)JointPointType.ElbowLeft]);
-                sequence.Add(dtwGesture.JointSequence[(int)JointPointType.WristLeft]);
-                sequence.Add(dtwGesture.JointSequence[(int)JointPointType.HandLeft]);
-                sequence.Add(dtwGesture.JointSequence[(int)JointPointType.HandTipLeft]);
-                sequence.Add(dtwGesture.JointSequence[(int)JointPointType.ThumbLeft]);
-                sequence.Add(dtwGesture.JointSequence[(int)JointPointType.ShoulderRight]);
-                sequence.Add(dtwGesture.JointSequence[(int)JointPointType.ElbowRight]);
-                sequence.Add(dtwGesture.JointSequence[(int)JointPointType.WristRight]);
-                sequence.Add(dtwGesture.JointSequence[(int)JointPointType.HandRight]);
-                sequence.Add(dtwGesture.JointSequence[(int)JointPointType.HandTipRight]);
-                sequence.Add(dtwGesture.JointSequence[(int)JointPointType.ThumbRight]);
-            }
-            return sequence;
-        }
-
-        
 
         #region DTW
-
-        public void Recognize(List<Skeleton> sequence, string bodypart)
-        {
-            dtwGesture = new Gesture(sequence);
-            List<ArrayList> seqHands = new List<ArrayList>();
-            seqHands = AddSequence(bodypart);
-            dtw.Recognize(sequence);
-            
-            //Console.WriteLine(dtw.Recognize(sequence));
-        }
-
         public string Recognize(List<Skeleton> bodySequence)
         {
             return dtw.Recognize(bodySequence);
+        }
+
+        public void Recognize_Test()
+        {
+            //Gesture test = new Gesture("right_hand_down_test");
+            //dtw.Recognize(test.skeletons, "right_hand_down");
+        }
+
+        public List<JointPointType> GetErrorJoint(List<Skeleton> userSequence, string fileName)
+        {
+            return dtw.RecognizeAndGetError(userSequence, fileName);
         }
         #endregion
     }
