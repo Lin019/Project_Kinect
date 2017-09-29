@@ -20,7 +20,7 @@ namespace Kinect_WpfProject.View
     /// </summary>
     public partial class UserGestureRecognize : Window
     {
-        public UserGestureRecognize()
+        public UserGestureRecognize(string gestureName)
         {
             InitializeComponent();
         }
@@ -30,6 +30,11 @@ namespace Kinect_WpfProject.View
             Menu menu = new Menu();
             App.Current.MainWindow = menu;
             menu.Show();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

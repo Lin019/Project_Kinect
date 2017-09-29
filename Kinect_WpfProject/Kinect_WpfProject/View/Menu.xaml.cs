@@ -59,12 +59,19 @@ namespace Kinect_WpfProject.View
                 Order = 1;////畫面旗標設為主畫面
             }
         }
-        private void button3_Click(object sender, RoutedEventArgs e)
+        private void buttonSampleRecord_Click(object sender, RoutedEventArgs e)
         {
             SampleRecord sampleRecordForm = new SampleRecord();
             App.Current.MainWindow = sampleRecordForm;
             this.Close();
             sampleRecordForm.Show();
+        }
+        private void buttonUserGestureRecognize_Click(object sender, RoutedEventArgs e)
+        {
+            GestureSelect gestureSelectForm = new GestureSelect();
+            App.Current.MainWindow = gestureSelectForm;
+            this.Close();
+            gestureSelectForm.Show();
         }
     }
 }

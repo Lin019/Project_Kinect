@@ -63,8 +63,14 @@
     <Compile Include="Model\TimerTool.cs" />
     <Compile Include="ViewModel\DebuggerConverter.cs" />
     <Compile Include="ViewModel\UserGestureRecognizeViewModel.cs" />
+    <Compile Include="View\GestureSelect.xaml.cs">
+      <DependentUpon>GestureSelect.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Menu.xaml.cs">
       <DependentUpon>Menu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\PartialView\FilmMenu.xaml.cs">
+      <DependentUpon>FilmMenu.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\SampleRecord.xaml.cs">
       <DependentUpon>SampleRecord.xaml</DependentUpon>
@@ -72,6 +78,10 @@
     <Compile Include="View\UserGestureRecognize.xaml.cs">
       <DependentUpon>UserGestureRecognize.xaml</DependentUpon>
     </Compile>
+    <Page Include="View\GestureSelect.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -93,6 +103,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="View\Menu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\PartialView\FilmMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -135,7 +149,18 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="View\PartialView\" />
+    <Resource Include="Record.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Recognize.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ShoulderExtension.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ShoulderExtension.mp4" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
