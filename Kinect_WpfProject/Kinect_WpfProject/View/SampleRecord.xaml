@@ -4,18 +4,18 @@
         xmlns:local="clr-namespace:Kinect_WpfProject.ViewModel"
         xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
         Closing="SampleRecordForm_Closing"
-        Title="錄製標準動作" Height="363.971" Width="606.617">
+        Title="錄製標準動作" Height="363.971" Width="606.617"  Background="#008B8B" Cursor="Hand" WindowState="Normal" WindowStartupLocation="CenterScreen">
     <Window.DataContext>
         <!-- 實例化PostViewModel -->
         <local:SampleRecordViewModel/>
 
     </Window.DataContext>
     <Grid>
-        <Grid Margin="32,22,315,113">
-            <Image Source="{Binding image}"></Image>
+        <Grid Margin="32,22,304,94"    Background="#2DB1B7">
+            <Image Source="{Binding image}" Margin="0,0,-11,0"/>
         </Grid>
 
-        <Grid HorizontalAlignment="Left" Height="266" Margin="359,22,0,0" VerticalAlignment="Top" Width="215">
+        <Grid Background="#2DB1B7" HorizontalAlignment="Left" Height="290" Margin="359,22,0,0" VerticalAlignment="Top" Width="215">
 
             <Line X1="{Binding x1[0]}" Y1="{Binding y1[0]}" X2="{Binding x2[0]}" Y2="{Binding y2[0]}" Stroke="LightBlue" StrokeThickness="4" />
             <Line X1="{Binding x1[1]}" Y1="{Binding y1[1]}" X2="{Binding x2[1]}" Y2="{Binding y2[1]}" Stroke="LightBlue" StrokeThickness="4" />
@@ -44,18 +44,20 @@
 
         </Grid>
 
-        <TextBox HorizontalAlignment="Left" Height="24" Margin="97,253,0,0" TextWrapping="Wrap" Text="{Binding fileName}" VerticalAlignment="Top" Width="138"/>
+        <TextBox BorderThickness="0" HorizontalAlignment="Left" Height="35" Margin="32,239,0,0" TextWrapping="Wrap" Text="{Binding fileName}" VerticalAlignment="Top" Width="187"/>
 
-        <Button Content="開啟" HorizontalAlignment="Left" Height="24" Margin="250,253,0,0" VerticalAlignment="Top" Width="56" >
+        <Button Content="開啟" BorderThickness="0"  FontSize="22" Foreground="White" Background="#00C5CD" Height="37" Margin="219,239,304,0" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"  >
+
             <Button.InputBindings>
                 <MouseBinding Gesture="LeftDoubleClick" Command="{Binding LoadSample}" />
             </Button.InputBindings>
         </Button>
 
-        <Button Content="儲存" HorizontalAlignment="Left" Margin="250,291,0,0" VerticalAlignment="Top" Width="56" Height="23">
+        <Button Content="儲存" BorderThickness="0"  FontSize="22" Foreground="White" Background="#00C5CD" Height="38" Margin="32,274,304,0" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"   >
             <Button.InputBindings>
                 <MouseBinding Gesture="LeftDoubleClick" Command="{Binding Save}" />
             </Button.InputBindings>
         </Button>
+        <TextBlock x:Name="textBlock" Foreground="#143B38" FontSize="26.667" HorizontalAlignment="Center" Height="290" Margin="311,22,256,21" TextWrapping="Wrap" VerticalAlignment="Center" Width="32"><Run Text="錄"/><LineBreak/><Run Text="製"/><LineBreak/><Run Text="標"/><LineBreak/><Run Text="準"/><LineBreak/><Run Text="動"/><LineBreak/><Run Text="作"/></TextBlock>
     </Grid>
 </Window>

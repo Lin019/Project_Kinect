@@ -4,7 +4,7 @@
         xmlns:local="clr-namespace:Kinect_WpfProject.ViewModel"
         xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
         Closing="UserGestureRecognizeForm_Closing"
-        Title="使用者動作比對" Height="363.971" Width="606.617">
+        Title="使用者動作比對" Height="363.971" Width="606.617"  Background="#008B8B" Cursor="Hand" WindowState="Normal" WindowStartupLocation="CenterScreen">
     <Window.DataContext>
         <!-- 實例化PostViewModel -->
         <local:UserGestureRecognizeViewModel/>
@@ -40,7 +40,7 @@
             
         </Grid>
 
-        <Button Content="比對" HorizontalAlignment="Left" Margin="239,265,0,0" VerticalAlignment="Top" Width="56" Height="23">
+        <Button Content="比對" BorderThickness="0" FontSize="22" Foreground="White" Background="#00C5CD" Height="72" Margin="33,234,315,0" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Click="Button_Click">
             <Button.InputBindings>
                 <MouseBinding Gesture="LeftDoubleClick" Command="{Binding Recognize}" />
             </Button.InputBindings>
