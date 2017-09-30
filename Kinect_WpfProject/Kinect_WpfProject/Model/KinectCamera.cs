@@ -2,9 +2,11 @@
 using Microsoft.Kinect;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
@@ -15,6 +17,8 @@ namespace Kinect_WpfProject.Model
         private const int INSTR_SAVE = 0;
         private const int INSTR_RECORD = 1;
 
+
+        KinectModel kinectModel = new KinectModel();
         private KinectSensor _sensor;
         private MultiSourceFrameReader _reader;
 
@@ -31,14 +35,25 @@ namespace Kinect_WpfProject.Model
 
 
         private string fileName;
+        private ObservableCollection<Visibility> errorJoint;
+
+        private TimerTool dtwTimer;
 
         public KinectCamera()
         {
+            dtwTimer = new TimerTool(DtwTick, 0, 100000);
+
             recordTimer = new TimerTool(RecordTimerTick, 0, Common.FRAME_RATE);
             lastSkeletons = new List<Skeleton>();
             for (int i = 0; i < 6; i++)
             {
                 lastSkeletons.Add(new Skeleton());
+            }
+
+            errorJoint = new ObservableCollection<Visibility>();
+            for (int j = 0; j < Common.HANDS_JOINTS_COUNT; j++)
+            {
+                errorJoint.Add(Visibility.Hidden);
             }
 
             skeleton = new Skeleton();
@@ -162,10 +177,15 @@ namespace Kinect_WpfProject.Model
             }
             else if (instr == INSTR_RECORD)
             {
+                dtwTimer.StartTimer();
                 recordTimer.StopTimer();
-                KinectModel kinectModel = new KinectModel();
-                fileName = kinectModel.Recognize(recordSquence);
             }
+        }
+
+        private void DtwTick()
+        {
+            errorJoint = kinectModel.GetErrorJoint(recordSquence, "Shoulder_flexion");
+            dtwTimer.StopTimer();
         }
 
         public void Save(string fileName)
@@ -191,6 +211,11 @@ namespace Kinect_WpfProject.Model
         public List<Skeleton> GetRecordSequence()
         {
             return recordSquence;
+        }
+
+        public ObservableCollection<Visibility> GetErrorJoint()
+        {
+            return errorJoint;
         }
 
         public int GetRecordProgress()

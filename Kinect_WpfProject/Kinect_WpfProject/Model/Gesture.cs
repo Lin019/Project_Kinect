@@ -34,7 +34,7 @@ namespace Kinect_WpfProject
             for (int i = 0; i < Common.JOINTS_COUNT; i++)
             {
                 JointSequence.Add(new ArrayList());
-                for (int j = 0; j < Common.FRAMES_COUNT; j++)
+                for (int j = 0; j < skeletons.Count; j++)
                     JointSequence[i].Add(skeletons[j].jointPoints[i]);
             }
         }

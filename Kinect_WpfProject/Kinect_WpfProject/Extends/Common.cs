@@ -9,9 +9,9 @@ namespace Kinect_WpfProject.Extends
     class Common
     {
         /// <summary>
-        /// FRAMES_COUNT = 22
+        /// FRAMES_COUNT = 100
         /// </summary>
-        public const int FRAMES_COUNT = 22;
+        public const int FRAMES_COUNT = 100;
 
         /// <summary>
         /// HANDS_JOINTS_COUNT = 12
@@ -32,8 +32,8 @@ namespace Kinect_WpfProject.Extends
 
         public const int SKELETON_POSITION_SHIFT = 100;
 
-        public const int TIMER_PERIOD = 300;
+        public const int TIMER_PERIOD = 60;
 
-        public const int FRAME_RATE = 300;
+        public const int FRAME_RATE = 60;
     }
 }

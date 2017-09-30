@@ -136,6 +136,7 @@ namespace Kinect_WpfProject.ViewModel
             {
                 return false;
             }
+            if (bodySequence == null) return false;
             return true;
         }
         private void LoadSampleExecute()

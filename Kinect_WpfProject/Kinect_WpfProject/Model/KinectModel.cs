@@ -29,7 +29,7 @@ namespace Kinect_WpfProject
 
         public KinectModel ()
         {
-            dtw = new DtwGestureRecognizer(3, 34, 2, 20);
+            dtw = new DtwGestureRecognizer(2, 130, 2, 150);
         }
 
         #region DTW
@@ -48,7 +48,7 @@ namespace Kinect_WpfProject
         {
             List<JointPointType> errorJoints = dtw.RecognizeAndGetError(userSequence, fileName);
             ObservableCollection<Visibility> jointSequence = new ObservableCollection<Visibility>();
-            for (int i = 0; i < 12; i++)
+            for (int i = 0; i < Common.HANDS_JOINTS_COUNT; i++)
                 jointSequence.Add(Visibility.Hidden);
             
             if (errorJoints.Contains(JointPointType.ShoulderLeft)) jointSequence[0] = Visibility.Visible;

@@ -16,8 +16,8 @@ namespace Kinect_WpfProject.ViewModel
 {
     class UserGestureRecognizeViewModel:INotifyPropertyChanged
     {
-        private ObservableCollection<UIElement> _visibility;
-        public ObservableCollection<UIElement> visibility
+        private ObservableCollection<Visibility> _visibility;
+        public ObservableCollection<Visibility> visibility
         {
             get { return _visibility; }
             set
@@ -136,8 +136,6 @@ namespace Kinect_WpfProject.ViewModel
 
         public UserGestureRecognizeViewModel()
         {
-            
-
             kinectModel = new KinectModel();
             kinectCamera = new KinectCamera();
             skeletonTimer = new TimerTool(Timer_Tick, 0, Common.TIMER_PERIOD);
@@ -203,7 +201,6 @@ namespace Kinect_WpfProject.ViewModel
             {
                 preTimer.StopTimer();
                 kinectCamera.Record();
-                kinectModel.Recognize_Test();
             }
         }
 
@@ -213,6 +210,7 @@ namespace Kinect_WpfProject.ViewModel
             gestureName = kinectCamera.GetFileName();
             recordProgress = kinectCamera.GetRecordProgress();
             progressRatio = 33 + (int)(244 * ( (double)recordProgress / (double)recordEnd));
+            visibility = kinectCamera.GetErrorJoint();
 
             if (!skeletonTimer.IsActive())
             {

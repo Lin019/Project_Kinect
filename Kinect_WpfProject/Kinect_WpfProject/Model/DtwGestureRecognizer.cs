@@ -195,14 +195,17 @@ namespace Kinect_WpfProject
             List<JointPointType> handsjoints = GetTwoHandJoint();
 
             List<JointPointType> errorJoints = new List<JointPointType>();
-
+            double d;
             for (int i = 0; i < Common.JOINTS_COUNT; i++)
             {
                 for (int j = 0; j < handsjoints.Count; j++)
                 {
                     if (i == (int)handsjoints[j])
                     {
-                        if (Dtw(userGesture.JointSequence[i], sampleGesture.JointSequence[i]) > _globalThreshold)
+
+                        d = Dtw(userGesture.JointSequence[i], sampleGesture.JointSequence[i]);
+                        Console.WriteLine(d);
+                        if (d > _globalThreshold)
                             errorJoints.Add((JointPointType)i);
                     }
                         
@@ -245,7 +248,7 @@ namespace Kinect_WpfProject
             seq1R.Reverse();
             var seq2R = new ArrayList(seq2);
             seq2R.Reverse();
-            var tab = new double[seq1R.Count + 1, seq2R.Count + 1];
+            var tab = new int[seq1R.Count + 1, seq2R.Count + 1];
             var slopeI = new int[seq1R.Count + 1, seq2R.Count + 1];
             var slopeJ = new int[seq1R.Count + 1, seq2R.Count + 1];
 
@@ -253,7 +256,7 @@ namespace Kinect_WpfProject
             {
                 for (int j = 0; j < seq2R.Count + 1; j++)
                 {
-                    tab[i, j] = double.PositiveInfinity;
+                    tab[i, j] = int.MaxValue;
                     slopeI[i, j] = 0;
                     slopeJ[i, j] = 0;
                 }
@@ -269,26 +272,25 @@ namespace Kinect_WpfProject
                     if (tab[i, j - 1] < tab[i - 1, j - 1] && tab[i, j - 1] < tab[i - 1, j] &&
                         slopeI[i, j - 1] < _maxSlope)
                     {
-                        tab[i, j] = Dist2((JointPoint)seq1R[i - 1], (JointPoint)seq2R[j - 1]) + tab[i, j - 1];
+                        tab[i, j] = (int)Dist2((JointPoint)seq1R[i - 1], (JointPoint)seq2R[j - 1]) + tab[i, j - 1];
                         slopeI[i, j] = slopeJ[i, j - 1] + 1;
                         slopeJ[i, j] = 0;
                     }
                     else if (tab[i - 1, j] < tab[i - 1, j - 1] && tab[i - 1, j] < tab[i, j - 1] &&
                              slopeJ[i - 1, j] < _maxSlope)
                     {
-                        tab[i, j] = Dist2((JointPoint)seq1R[i - 1], (JointPoint)seq2R[j - 1]) + tab[i - 1, j];
+                        tab[i, j] = (int)Dist2((JointPoint)seq1R[i - 1], (JointPoint)seq2R[j - 1]) + tab[i - 1, j];
                         slopeI[i, j] = 0;
                         slopeJ[i, j] = slopeJ[i - 1, j] + 1;
                     }
                     else
                     {
-                        tab[i, j] = Dist2((JointPoint)seq1R[i - 1], (JointPoint)seq2R[j - 1]) + tab[i - 1, j - 1];
+                        tab[i, j] = (int)Dist2((JointPoint)seq1R[i - 1], (JointPoint)seq2R[j - 1]) + tab[i - 1, j - 1];
                         slopeI[i, j] = 0;
                         slopeJ[i, j] = 0;
                     }
                 }
             }
-
             // Find best between seq2 and an ending (postfix) of seq1.
             /*double bestMatch = double.PositiveInfinity;
             for (int i = 1; i < (seq1R.Count + 1) - _minimumLength; i++)
@@ -298,23 +300,23 @@ namespace Kinect_WpfProject
                     bestMatch = tab[i, seq2R.Count];
                 }
             }*/
-
+            
             double minDist = 0;
             int x = 0, y = 0;
             
             while(x != seq1R.Count || y != seq2R.Count)
             {
-                if (y == 22)
+                if (y == Common.FRAMES_COUNT)
                 {
                     minDist++;
                     x++;
                 }
-                else if (x == 22)
+                else if (x == Common.FRAMES_COUNT)
                 {
                     minDist++;
                     y++;
                 }
-                else if (tab[x+1, y+1] < tab[x+1, y] && tab[x+1, y+1] < tab[x, y+1])
+                else if (tab[x+1, y+1] <= tab[x+1, y] && tab[x+1, y+1] <= tab[x, y+1])
                 {
                     minDist++;
                     x++;
@@ -332,7 +334,6 @@ namespace Kinect_WpfProject
                 }
             }
             
-
             return minDist;
         }
 
@@ -362,12 +363,9 @@ namespace Kinect_WpfProject
         private double Dist2(JointPoint a, JointPoint b)
         {
             double d = 0;
-            
-
-            d += Math.Pow(a.X - b.X, 2);
-            d += Math.Pow(a.Y - b.Y, 2);
-            d += Math.Pow(a.Z - b.Z, 2);
-
+            int ratio = 10;
+            d += Math.Pow(ratio * a.X - ratio * b.X, 2);
+            d += Math.Pow(ratio * a.Y - ratio * b.Y, 2);
 
             return Math.Sqrt(d);
         }
