@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Kinect_WpfProject.Model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -20,10 +21,13 @@ namespace Kinect_WpfProject.View
     /// </summary>
     public partial class GestureSelect : Window
     {
+
         public GestureSelect()
         {
             InitializeComponent();
         }
+        
+
 
         public void Button_Click(object sender, EventArgs e)
         {
@@ -34,6 +38,24 @@ namespace Kinect_WpfProject.View
             this.Close();
             sampleRecognizeForm.Show();
         }
+
+        public void ScrollDownStart(object sender, EventArgs e)
+        {
+
+            for(int i = 5; i > 0;i--)
+            {
+                ScrollViewer.LineDown();
+            }
+        }
+        public void ScrollUpStart(object sender, EventArgs e)
+        {
+
+            for (int i = 5; i > 0; i--)
+            {
+                ScrollViewer.LineUp();
+            }
+        }
+
 
         void GestureSelectForm_Closing(object sender, CancelEventArgs e)
         {
