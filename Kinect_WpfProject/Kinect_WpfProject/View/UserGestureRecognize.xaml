@@ -4,14 +4,14 @@
         xmlns:local="clr-namespace:Kinect_WpfProject.ViewModel"
         xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
         Closing="UserGestureRecognizeForm_Closing"
-        Title="使用者動作比對" Height="363.971" Width="606.617"  Background="#008B8B" Cursor="Hand" WindowState="Normal" WindowStartupLocation="CenterScreen">
+        Title="使用者動作比對" Height="363.971" Width="606.617"    Background="#343838"  Cursor="Hand" WindowState="Normal" WindowStartupLocation="CenterScreen">
     <Window.DataContext>
         <!-- 實例化PostViewModel -->
         <local:UserGestureRecognizeViewModel/>
     </Window.DataContext>
     <Grid>
 
-        <Grid HorizontalAlignment="Left" Height="266" Margin="359,22,0,0" VerticalAlignment="Top" Width="215">
+        <Grid HorizontalAlignment="Left" Height="266" Margin="329,22,0,0" VerticalAlignment="Top" Width="215">
 
             <Line X1="{Binding x1[0]}" Y1="{Binding y1[0]}" X2="{Binding x2[0]}" Y2="{Binding y2[0]}" Stroke="LightBlue" StrokeThickness="4" />
             <Line X1="{Binding x1[1]}" Y1="{Binding y1[1]}" X2="{Binding x2[1]}" Y2="{Binding y2[1]}" Stroke="LightBlue" StrokeThickness="4" />
@@ -46,6 +46,10 @@
             </Button.InputBindings>
         </Button>
         <Label Content="{Binding gestureName}" HorizontalAlignment="Left" Margin="314,22,0,0" VerticalAlignment="Top"/>
+        <Line X1="33" Y1="230" X2="275" Y2="230" Stroke="#00C5CD" StrokeThickness="4" />
+        <Line X1="33" Y1="230" X2="{Binding progressRatio}" Y2="230" Stroke="LightBlue" StrokeThickness="4" />
+        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" FontSize="22" Height="38"  Margin="61,22,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="194"><Run Text="將於"/><Run Text="{Binding countdown}" Foreground="DarkRed" /><Run Text="秒內開始比對"/></TextBlock>
+
     </Grid>
 </Window>
 

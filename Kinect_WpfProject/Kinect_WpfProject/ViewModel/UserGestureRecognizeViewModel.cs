@@ -65,7 +65,7 @@ namespace Kinect_WpfProject.ViewModel
             }
         }
 
-        private int _recordProgress;
+        private int _recordProgress = 0;
         public int recordProgress
         {
             get { return _recordProgress; }
@@ -75,10 +75,31 @@ namespace Kinect_WpfProject.ViewModel
                 NotifyPropertyChanged("recordProgress");
             }
         }
+        private int _progressRatio;
+        public int progressRatio
+        {
+            get { return _progressRatio; }
+            set
+            {
+                _progressRatio = value;
+                NotifyPropertyChanged("progressRatio");
+            }
+        }
 
         public int recordEnd
         {
             get { return Common.FRAMES_COUNT; }
+        }
+
+        private int _countdown = 4;
+        public int countdown
+        {
+            get { return _countdown; }
+            set
+            {
+                _countdown = value;
+                NotifyPropertyChanged("countdown");
+            }
         }
 
         private ImageSource _image;
@@ -96,6 +117,7 @@ namespace Kinect_WpfProject.ViewModel
 
         private TimerTool skeletonTimer;
         private TimerTool rgbTimer;
+        private TimerTool preTimer;
 
         private KinectModel kinectModel;
         private KinectCamera kinectCamera;
@@ -106,6 +128,7 @@ namespace Kinect_WpfProject.ViewModel
             kinectCamera = new KinectCamera();
             skeletonTimer = new TimerTool(Timer_Tick, 0, Common.TIMER_PERIOD);
             rgbTimer = new TimerTool(RGBTimerTick, 0, Common.FRAME_RATE);
+            preTimer = new TimerTool(PreTimerTick, 0, 1000);
             rgbTimer.StartTimer();
 
             x1 = new ObservableCollection<double>();
@@ -154,18 +177,28 @@ namespace Kinect_WpfProject.ViewModel
         }
         private void RecognizeExecute()
         {
-            kinectCamera.Record();
-
-            kinectModel.Recognize_Test();
+            preTimer.StartTimer();
+            
         }
 
         #region Timer
+
+        private void PreTimerTick()
+        {
+            if (countdown-- < 2)
+            {
+                preTimer.StopTimer();
+                kinectCamera.Record();
+                kinectModel.Recognize_Test();
+            }
+        }
 
         private void RGBTimerTick()
         {
             image = kinectCamera.GetRGBImage();
             gestureName = kinectCamera.GetFileName();
             recordProgress = kinectCamera.GetRecordProgress();
+            progressRatio = 33 + (int)(244 * ( (double)recordProgress / (double)recordEnd));
 
             if (!skeletonTimer.IsActive())
             {
