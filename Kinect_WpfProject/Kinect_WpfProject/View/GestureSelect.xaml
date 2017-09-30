@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="FilmMenu" Height="363.971" Width="606.617"  Background="#343838" Cursor="Hand" WindowState="Normal" WindowStartupLocation="CenterScreen">
     <Grid>
-        <ScrollViewer >
+        <ScrollViewer x:Name="ScrollViewer" >
             <StackPanel>
                 <Button x:Name="ShoulderExtension_button" Height="165" Width="483" Margin="100,30,10,0" Click="Button_Click">
                     <Image Source="/ShoulderExtension.jpg" Width="510" Height="165"/>
@@ -29,10 +29,15 @@
                 </Button>
 
 
+
             </StackPanel>
+
         </ScrollViewer>
+
         <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Height="252" Margin="10,37,0,0" TextWrapping="Wrap" FontSize="24" Foreground="#FFF1E7E7" VerticalAlignment="Top" Width="69"><Run Text="選"/><LineBreak/><Run Text="擇"/><LineBreak/><Run Text="復"/><Run Text="　　　"/><Run Text="健"/><LineBreak/><Run Text="動"/><LineBreak/><Run Text="作"/></TextBlock>
         <Button x:Name="button" Content="MainMenu" Foreground="White" Background="Black" HorizontalAlignment="Left" Height="27" Margin="10,270,0,30" VerticalAlignment="Top" Width="76"/>
+        <Button x:Name="button_ScrollDown" MouseEnter="ScrollDownStart"  HorizontalAlignment="Left" Height="9" Margin="0,324,0,0" VerticalAlignment="Top" Width="582"/>
+        <Button x:Name="button_ScrollUp" MouseEnter="ScrollUpStart"  HorizontalAlignment="Left" Height="9" VerticalAlignment="Top" Width="582"/>
 
 
 

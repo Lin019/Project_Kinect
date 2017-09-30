@@ -64,7 +64,7 @@
         <Label Content="{Binding gestureName}" HorizontalAlignment="Left" Margin="314,22,0,0" VerticalAlignment="Top"/>
         <Line X1="33" Y1="230" X2="275" Y2="230" Stroke="#00C5CD" StrokeThickness="4" />
         <Line X1="33" Y1="230" X2="{Binding progressRatio}" Y2="230" Stroke="LightBlue" StrokeThickness="4" />
-        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" FontSize="22" Height="38"  Margin="61,22,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="194"><Run Text="將於"/><Run Text="{Binding countdown}" Foreground="DarkRed" /><Run Text="秒內開始比對"/></TextBlock>
+        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" FontSize="22" Height="38"  Margin="61,22,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="194"><Run Text="將於" Foreground="#D8E6E7"/><Run Text="{Binding countdown}" Foreground="#F16B6F" /><Run Text="秒內開始比對" Foreground="#D8E6E7"/></TextBlock>
 
     </Grid>
 </Window>

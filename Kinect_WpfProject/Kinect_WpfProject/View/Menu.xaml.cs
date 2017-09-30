@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Kinect_WpfProject.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,12 +24,42 @@ namespace Kinect_WpfProject.View
         public Menu()
         {
             InitializeComponent();
+            triggerTimer = new TimerTool(TimerTick, 0, 3000);
+           
         }
 
         private Storyboard my_sb;
         int Order = 1;
-        
-        private void button1_Click(object sender, RoutedEventArgs e)
+        private TimerTool triggerTimer;
+
+        private void TimerTick()
+        {
+            triggerTimer.StopTimer();
+            button1_Click();
+        }
+
+        private void button1_ClickTrigger(object sender , RoutedEventArgs e)
+        {
+            if (Order == 1)//主畫面
+            {
+                my_sb = (Storyboard)FindResource("LeftStoryboard_F");
+                my_sb.Begin(this);//畫面切至左畫面
+                Order = 0;//畫面旗標設為左畫面
+            }
+            else if (Order == 0)//左畫面
+            {
+                my_sb = (Storyboard)FindResource("LeftStoryboard_B");
+                my_sb.Begin(this);//畫面切至主畫面
+                Order = 1;//畫面旗標設為主畫面
+            }
+            //triggerTimer.StartTimer();
+        }
+        private void button1_Leave(object sender, RoutedEventArgs e)
+        {
+            triggerTimer.StopTimer();
+        }
+
+        private void button1_Click()
         {
             if (Order == 1)//主畫面
             {
@@ -44,21 +75,6 @@ namespace Kinect_WpfProject.View
             }
         }
 
-        private void button2_Click(object sender, RoutedEventArgs e)
-        {
-            if (Order == 1)//主畫面
-            {
-                my_sb = (Storyboard)FindResource("RightStoryboard_F");//畫面切至右畫面
-                my_sb.Begin(this);
-                Order = 2;//畫面旗標設為右畫面
-            }
-            else if (Order == 2)//右畫面
-            {
-                my_sb = (Storyboard)FindResource("RightStoryboard_B");//畫面切至主畫面
-                my_sb.Begin(this);
-                Order = 1;////畫面旗標設為主畫面
-            }
-        }
         private void buttonSampleRecord_Click(object sender, RoutedEventArgs e)
         {
             SampleRecord sampleRecordForm = new SampleRecord();
