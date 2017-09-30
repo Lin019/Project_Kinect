@@ -14,6 +14,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows;
+using System.Collections.ObjectModel;
 
 namespace Kinect_WpfProject
 {
@@ -42,9 +44,27 @@ namespace Kinect_WpfProject
             //dtw.Recognize(test.skeletons, "right_hand_down");
         }
 
-        public List<JointPointType> GetErrorJoint(List<Skeleton> userSequence, string fileName)
+        public ObservableCollection<Visibility> GetErrorJoint(List<Skeleton> userSequence, string fileName)
         {
-            return dtw.RecognizeAndGetError(userSequence, fileName);
+            List<JointPointType> errorJoints = dtw.RecognizeAndGetError(userSequence, fileName);
+            ObservableCollection<Visibility> jointSequence = new ObservableCollection<Visibility>();
+            for (int i = 0; i < 12; i++)
+                jointSequence.Add(Visibility.Hidden);
+            
+            if (errorJoints.Contains(JointPointType.ShoulderLeft)) jointSequence[0] = Visibility.Visible;
+            if (errorJoints.Contains(JointPointType.ElbowLeft)) jointSequence[1] = Visibility.Visible;
+            if (errorJoints.Contains(JointPointType.WristLeft)) jointSequence[2] = Visibility.Visible;
+            if (errorJoints.Contains(JointPointType.HandLeft)) jointSequence[3] = Visibility.Visible;
+            if (errorJoints.Contains(JointPointType.HandTipLeft)) jointSequence[4] = Visibility.Visible;
+            if (errorJoints.Contains(JointPointType.ThumbLeft)) jointSequence[5] = Visibility.Visible;
+            if (errorJoints.Contains(JointPointType.ShoulderRight)) jointSequence[6] = Visibility.Visible;
+            if (errorJoints.Contains(JointPointType.ElbowRight)) jointSequence[7] = Visibility.Visible;
+            if (errorJoints.Contains(JointPointType.WristRight)) jointSequence[8] = Visibility.Visible;
+            if (errorJoints.Contains(JointPointType.HandRight)) jointSequence[9] = Visibility.Visible;
+            if (errorJoints.Contains(JointPointType.HandTipRight)) jointSequence[10] = Visibility.Visible;
+            if (errorJoints.Contains(JointPointType.ThumbRight)) jointSequence[11] = Visibility.Visible;
+
+            return jointSequence;
         }
         #endregion
     }

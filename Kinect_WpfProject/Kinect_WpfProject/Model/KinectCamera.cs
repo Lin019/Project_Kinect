@@ -195,6 +195,8 @@ namespace Kinect_WpfProject.Model
 
         public int GetRecordProgress()
         {
+            if (recordSquence == null)
+                return 0; 
             return recordSquence.Count;
         }
     }

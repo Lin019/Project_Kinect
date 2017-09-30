@@ -8,6 +8,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 
@@ -15,6 +16,17 @@ namespace Kinect_WpfProject.ViewModel
 {
     class UserGestureRecognizeViewModel:INotifyPropertyChanged
     {
+        private ObservableCollection<UIElement> _visibility;
+        public ObservableCollection<UIElement> visibility
+        {
+            get { return _visibility; }
+            set
+            {
+                _visibility = value;
+                NotifyPropertyChanged("visibility");
+            }
+        }
+
         private ObservableCollection<double> _x1, _y1, _x2, _y2;
 
         public ObservableCollection<double> x1
@@ -102,6 +114,8 @@ namespace Kinect_WpfProject.ViewModel
 
         public UserGestureRecognizeViewModel()
         {
+            
+
             kinectModel = new KinectModel();
             kinectCamera = new KinectCamera();
             skeletonTimer = new TimerTool(Timer_Tick, 0, Common.TIMER_PERIOD);

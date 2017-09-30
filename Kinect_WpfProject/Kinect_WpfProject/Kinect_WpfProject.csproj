@@ -70,9 +70,6 @@
     <Compile Include="View\Menu.xaml.cs">
       <DependentUpon>Menu.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\PartialView\FilmMenu.xaml.cs">
-      <DependentUpon>FilmMenu.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\SampleRecord.xaml.cs">
       <DependentUpon>SampleRecord.xaml</DependentUpon>
     </Compile>
@@ -82,10 +79,6 @@
     <Page Include="View\GestureSelect.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
@@ -99,10 +92,6 @@
     <Compile Include="Model\SkeletonFileConvertor.cs" />
     <Compile Include="ViewModel\SampleRecordViewModel.cs" />
     <Page Include="View\Menu.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\PartialView\FilmMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -156,6 +145,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ShoulderExtension.mp4" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="View\PartialView\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
