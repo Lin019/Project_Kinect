@@ -197,6 +197,7 @@ namespace Kinect_WpfProject.Model
         {
             if (recordSquence == null)
                 return 0; 
+			
             return recordSquence.Count;
         }
     }

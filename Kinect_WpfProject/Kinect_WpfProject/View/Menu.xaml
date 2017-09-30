@@ -102,7 +102,7 @@
                     <TranslateTransform/>
                 </TransformGroup>
             </Canvas.RenderTransform>
-            <Grid x:Name="grid" Height="468" Canvas.Top="190" Width="510" RenderTransformOrigin="0.5,0.5" Canvas.Left="-76">
+            <Grid x:Name="grid" Height="468" Canvas.Top="-42" Width="510" RenderTransformOrigin="0.5,0.5" Canvas.Left="-43">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="251*"/>
                     <RowDefinition Height="21*"/>
@@ -122,7 +122,7 @@
                 </Grid.RenderTransform>
 
                 <Button Height="341" x:Name="button1" BorderThickness="0"   Background="#343838" 
-        			 Click="button1_Click" Margin="40,-189,38,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5">
+        			 Click="button1_Click" Margin="8,41,70,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5">
                     <Button.RenderTransform>
                         <TransformGroup>
                             <ScaleTransform/>
@@ -135,7 +135,7 @@
                 </Button>
 
                 <Button  x:Name="button3" 
-        			HorizontalContentAlignment="Right" BorderThickness="0" VerticalContentAlignment="Bottom"  Click="buttonUserGestureRecognize_Click"  Margin="29,-111,-34,298" Grid.ColumnSpan="2" Height="245" VerticalAlignment="Bottom" RenderTransformOrigin="0.5,0.5" Grid.Column="1">
+        			HorizontalContentAlignment="Right" BorderThickness="0" VerticalContentAlignment="Bottom"  Click="buttonUserGestureRecognize_Click"  Margin="0,0,-5,78" Grid.ColumnSpan="2" Height="245" VerticalAlignment="Bottom" RenderTransformOrigin="0.5,0.5" Grid.Column="1">
                     <Image Source="/Recognize.jpg" Height="245" Width="339" />
                     <Button.RenderTransform>
                         <TransformGroup>
