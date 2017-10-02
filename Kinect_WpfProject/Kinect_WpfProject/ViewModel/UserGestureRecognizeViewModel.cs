@@ -69,7 +69,7 @@ namespace Kinect_WpfProject.ViewModel
         private string _gestureName;
         public string gestureName
         {
-            get { return _gestureName; }
+            
             set
             {
                 _gestureName = value;
@@ -189,8 +189,8 @@ namespace Kinect_WpfProject.ViewModel
         }
         private void RecognizeExecute()
         {
+            countdown = 4;
             preTimer.StartTimer();
-            
         }
 
         #region Timer
@@ -207,7 +207,6 @@ namespace Kinect_WpfProject.ViewModel
         private void RGBTimerTick()
         {
             image = kinectCamera.GetRGBImage();
-            gestureName = kinectCamera.GetFileName();
             recordProgress = kinectCamera.GetRecordProgress();
             progressRatio = 33 + (int)(244 * ( (double)recordProgress / (double)recordEnd));
             visibility = kinectCamera.GetErrorJoint();

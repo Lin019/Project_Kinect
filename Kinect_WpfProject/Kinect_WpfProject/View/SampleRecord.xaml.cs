@@ -21,16 +21,19 @@ namespace Kinect_WpfProject.View
     /// </summary>
     public partial class SampleRecord : Window
     {
+        KinectControl kinectControl;
         public SampleRecord()
         {
             InitializeComponent();
             DataContext = new SampleRecordViewModel();
+            kinectControl = new KinectControl();
         }
 
         void SampleRecordForm_Closing(object sender, CancelEventArgs e)
         {
             Menu menu = new Menu();
             App.Current.MainWindow = menu;
+            kinectControl.Close();
             menu.Show();
         }
     }

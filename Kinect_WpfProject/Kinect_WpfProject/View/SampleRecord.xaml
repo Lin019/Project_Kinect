@@ -55,7 +55,7 @@
 
         <Button Content="儲存" BorderThickness="0"  FontSize="22" Foreground="White" Background="#00C5CD" Height="38" Margin="32,274,304,0" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"   >
             <Button.InputBindings>
-                <MouseBinding Gesture="LeftDoubleClick" Command="{Binding Save}" />
+                <MouseBinding Gesture="LeftClick" Command="{Binding Save}" />
             </Button.InputBindings>
         </Button>
         <TextBlock x:Name="textBlock" Foreground="#143B38" FontSize="26.667" HorizontalAlignment="Center" Height="290" Margin="311,22,256,21" TextWrapping="Wrap" VerticalAlignment="Center" Width="32"><Run Text="錄"/><LineBreak/><Run Text="製"/><LineBreak/><Run Text="標"/><LineBreak/><Run Text="準"/><LineBreak/><Run Text="動"/><LineBreak/><Run Text="作"/></TextBlock>

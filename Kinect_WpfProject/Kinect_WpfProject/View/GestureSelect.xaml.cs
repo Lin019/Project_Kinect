@@ -21,13 +21,12 @@ namespace Kinect_WpfProject.View
     /// </summary>
     public partial class GestureSelect : Window
     {
-
+        KinectControl kinectControl;
         public GestureSelect()
         {
             InitializeComponent();
+            kinectControl = new KinectControl();
         }
-        
-
 
         public void Button_Click(object sender, EventArgs e)
         {
@@ -35,6 +34,7 @@ namespace Kinect_WpfProject.View
             
             UserGestureRecognize sampleRecognizeForm = new UserGestureRecognize(btn.Name);
             App.Current.MainWindow = sampleRecognizeForm;
+            kinectControl.Close();
             this.Close();
             sampleRecognizeForm.Show();
         }

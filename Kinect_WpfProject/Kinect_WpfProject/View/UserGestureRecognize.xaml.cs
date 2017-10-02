@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Kinect_WpfProject.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -20,15 +21,20 @@ namespace Kinect_WpfProject.View
     /// </summary>
     public partial class UserGestureRecognize : Window
     {
+        KinectControl kinectControl;
         public UserGestureRecognize(string gestureName)
         {
             InitializeComponent();
+            var vm = (UserGestureRecognizeViewModel)this.DataContext;
+            vm.gestureName = gestureName;
+            kinectControl = new KinectControl();
         }
 
         void UserGestureRecognizeForm_Closing(object sender, CancelEventArgs e)
         {
             Menu menu = new Menu();
             App.Current.MainWindow = menu;
+            kinectControl.Close();
             menu.Show();
         }
 

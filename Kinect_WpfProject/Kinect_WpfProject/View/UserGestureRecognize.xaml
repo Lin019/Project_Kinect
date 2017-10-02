@@ -58,10 +58,10 @@
         
             <Button Content="比對" BorderThickness="0" FontSize="22" Foreground="White" Background="#00C5CD" Height="72" Margin="33,234,315,0" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Click="Button_Click">
             <Button.InputBindings>
-                <MouseBinding Gesture="LeftDoubleClick" Command="{Binding Recognize}" />
+                <MouseBinding Gesture="LeftClick" Command="{Binding Recognize}" />
             </Button.InputBindings>
         </Button>
-        <Label Content="{Binding gestureName}" HorizontalAlignment="Left" Margin="314,22,0,0" VerticalAlignment="Top"/>
+        <Label Content="" HorizontalAlignment="Left" Margin="314,22,0,0" VerticalAlignment="Top"/>
         <Line X1="33" Y1="230" X2="275" Y2="230" Stroke="#00C5CD" StrokeThickness="4" />
         <Line X1="33" Y1="230" X2="{Binding progressRatio}" Y2="230" Stroke="LightBlue" StrokeThickness="4" />
         <TextBlock x:Name="textBlock" HorizontalAlignment="Left" FontSize="22" Height="38"  Margin="61,22,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="194"><Run Text="將於" Foreground="#D8E6E7"/><Run Text="{Binding countdown}" Foreground="#F16B6F" /><Run Text="秒內開始比對" Foreground="#D8E6E7"/></TextBlock>

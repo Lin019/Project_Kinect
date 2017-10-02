@@ -21,11 +21,12 @@ namespace Kinect_WpfProject.View
     /// </summary>
     public partial class Menu : Window
     {
+        KinectControl kinectControl;
         public Menu()
         {
             InitializeComponent();
             triggerTimer = new TimerTool(TimerTick, 0, 3000);
-           
+            kinectControl = new KinectControl();
         }
 
         private Storyboard my_sb;
@@ -79,6 +80,7 @@ namespace Kinect_WpfProject.View
         {
             SampleRecord sampleRecordForm = new SampleRecord();
             App.Current.MainWindow = sampleRecordForm;
+            
             this.Close();
             sampleRecordForm.Show();
         }
@@ -87,6 +89,7 @@ namespace Kinect_WpfProject.View
         {
             GestureSelect gestureSelectForm = new GestureSelect();
             App.Current.MainWindow = gestureSelectForm;
+            kinectControl.Close();
             this.Close();
             gestureSelectForm.Show();
         }
