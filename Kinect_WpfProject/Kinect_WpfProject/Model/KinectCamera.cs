@@ -206,6 +206,14 @@ namespace Kinect_WpfProject.Model
             recordTimer.StartTimer();
         }
 
+        public void Record(string fileName)
+        {
+            this.fileName = fileName;
+            recordSquence = new List<Skeleton>();
+            instr = INSTR_RECORD;
+            recordTimer.StartTimer();
+        }
+
         public string GetFileName()
         {
             return fileName;

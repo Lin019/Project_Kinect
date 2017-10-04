@@ -4,68 +4,63 @@
         xmlns:local="clr-namespace:Kinect_WpfProject.ViewModel"
         xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
         Closing="UserGestureRecognizeForm_Closing"
-        Title="使用者動作比對" Height="363.971" Width="606.617"    Background="#343838"  Cursor="Hand" WindowState="Normal" WindowStartupLocation="CenterScreen">
+        Title="使用者動作比對" Height="363.971" Width="606.617"    Background="#343838"  Cursor="Hand" WindowState="Maximized" WindowStartupLocation="CenterScreen">
     <Window.DataContext>
         <!-- 實例化PostViewModel -->
         <local:UserGestureRecognizeViewModel/>
     </Window.DataContext>
-    <Grid>
-
-        <Grid HorizontalAlignment="Left" Height="266" Margin="359,22,0,0" VerticalAlignment="Top" Width="215">
-            <Canvas>
-
-            <Line X1="{Binding x1[0]}" Y1="{Binding y1[0]}" X2="{Binding x2[0]}" Y2="{Binding y2[0]}" Stroke="LightBlue" StrokeThickness="4" />
-            <Line X1="{Binding x1[1]}" Y1="{Binding y1[1]}" X2="{Binding x2[1]}" Y2="{Binding y2[1]}" Stroke="LightBlue" StrokeThickness="4" />
-            <Line X1="{Binding x1[2]}" Y1="{Binding y1[2]}" X2="{Binding x2[2]}" Y2="{Binding y2[2]}" Stroke="LightBlue" StrokeThickness="4" />
-            <Line X1="{Binding x1[3]}" Y1="{Binding y1[3]}" X2="{Binding x2[3]}" Y2="{Binding y2[3]}" Stroke="LightBlue" StrokeThickness="4" />
-            <Line X1="{Binding x1[4]}" Y1="{Binding y1[4]}" X2="{Binding x2[4]}" Y2="{Binding y2[4]}" Stroke="LightBlue" StrokeThickness="4" />
-            <Line X1="{Binding x1[5]}" Y1="{Binding y1[5]}" X2="{Binding x2[5]}" Y2="{Binding y2[5]}" Stroke="LightBlue" StrokeThickness="4" />
-            <Line X1="{Binding x1[6]}" Y1="{Binding y1[6]}" X2="{Binding x2[6]}" Y2="{Binding y2[6]}" Stroke="LightBlue" StrokeThickness="4" />
-            <Line X1="{Binding x1[7]}" Y1="{Binding y1[7]}" X2="{Binding x2[7]}" Y2="{Binding y2[7]}" Stroke="LightBlue" StrokeThickness="4" />
-            <Line X1="{Binding x1[8]}" Y1="{Binding y1[8]}" X2="{Binding x2[8]}" Y2="{Binding y2[8]}" Stroke="LightBlue" StrokeThickness="4" />
-            <Line X1="{Binding x1[9]}" Y1="{Binding y1[9]}" X2="{Binding x2[9]}" Y2="{Binding y2[9]}" Stroke="LightBlue" StrokeThickness="4" />
-            <Line X1="{Binding x1[10]}" Y1="{Binding y1[10]}" X2="{Binding x2[10]}" Y2="{Binding y2[10]}" Stroke="LightBlue" StrokeThickness="4" />
-            <Line X1="{Binding x1[11]}" Y1="{Binding y1[11]}" X2="{Binding x2[11]}" Y2="{Binding y2[11]}" Stroke="LightBlue" StrokeThickness="4" />
-            <Line X1="{Binding x1[12]}" Y1="{Binding y1[12]}" X2="{Binding x2[12]}" Y2="{Binding y2[12]}" Stroke="LightBlue" StrokeThickness="4" />
-            <Line X1="{Binding x1[13]}" Y1="{Binding y1[13]}" X2="{Binding x2[13]}" Y2="{Binding y2[13]}" Stroke="LightBlue" StrokeThickness="4" />
-            <Line X1="{Binding x1[14]}" Y1="{Binding y1[14]}" X2="{Binding x2[14]}" Y2="{Binding y2[14]}" Stroke="LightBlue" StrokeThickness="4" />
-            <Line X1="{Binding x1[15]}" Y1="{Binding y1[15]}" X2="{Binding x2[15]}" Y2="{Binding y2[15]}" Stroke="LightBlue" StrokeThickness="4" />
-            <Line X1="{Binding x1[16]}" Y1="{Binding y1[16]}" X2="{Binding x2[16]}" Y2="{Binding y2[16]}" Stroke="LightBlue" StrokeThickness="4" />
-            <Line X1="{Binding x1[17]}" Y1="{Binding y1[17]}" X2="{Binding x2[17]}" Y2="{Binding y2[17]}" Stroke="LightBlue" StrokeThickness="4" />
-            <Line X1="{Binding x1[18]}" Y1="{Binding y1[18]}" X2="{Binding x2[18]}" Y2="{Binding y2[18]}" Stroke="LightBlue" StrokeThickness="4" />
-            <Line X1="{Binding x1[19]}" Y1="{Binding y1[19]}" X2="{Binding x2[19]}" Y2="{Binding y2[19]}" Stroke="LightBlue" StrokeThickness="4" />
-            <Line X1="{Binding x1[20]}" Y1="{Binding y1[20]}" X2="{Binding x2[20]}" Y2="{Binding y2[20]}" Stroke="LightBlue" StrokeThickness="4" />
-            <Line X1="{Binding x1[21]}" Y1="{Binding y1[21]}" X2="{Binding x2[21]}" Y2="{Binding y2[21]}" Stroke="LightBlue" StrokeThickness="4" />
-            <Line X1="{Binding x1[22]}" Y1="{Binding y1[22]}" X2="{Binding x2[22]}" Y2="{Binding y2[22]}" Stroke="LightBlue" StrokeThickness="4" />
-            <Line X1="{Binding x1[23]}" Y1="{Binding y1[23]}" X2="{Binding x2[23]}" Y2="{Binding y2[23]}" Stroke="LightBlue" StrokeThickness="4" />
-                <Ellipse Visibility="{Binding visibility[0]}" Canvas.Left="{Binding x1[5]}" Canvas.Top="{Binding y1[5]}" Stroke="Black" HorizontalAlignment="Left" VerticalAlignment="Top" Height="8" Width="8" Fill="Red"/>
-                <Ellipse Visibility="{Binding visibility[1]}" Canvas.Left="{Binding x1[6]}" Canvas.Top="{Binding y1[6]}" Stroke="Black" HorizontalAlignment="Left" VerticalAlignment="Top" Height="8" Width="8" Fill="Red"/>
-                <Ellipse Visibility="{Binding visibility[2]}" Canvas.Left="{Binding x1[7]}" Canvas.Top="{Binding y1[7]}" Stroke="Black" HorizontalAlignment="Left" VerticalAlignment="Top" Height="8" Width="8" Fill="Red"/>
-                <Ellipse Visibility="{Binding visibility[3]}" Canvas.Left="{Binding x1[8]}" Canvas.Top="{Binding y1[8]}" Stroke="Black" HorizontalAlignment="Left" VerticalAlignment="Top" Height="8" Width="8" Fill="Red"/>
-                <Ellipse Visibility="{Binding visibility[4]}" Canvas.Left="{Binding x2[8]}" Canvas.Top="{Binding y2[8]}" Stroke="Black" HorizontalAlignment="Left" VerticalAlignment="Top" Height="8" Width="8" Fill="Red"/>
-                <Ellipse Visibility="{Binding visibility[5]}" Canvas.Left="{Binding x2[9]}" Canvas.Top="{Binding y2[9]}" Stroke="Black" HorizontalAlignment="Left" VerticalAlignment="Top" Height="8" Width="8" Fill="Red"/>
-                <Ellipse Visibility="{Binding visibility[6]}" Canvas.Left="{Binding x1[11]}" Canvas.Top="{Binding y1[11]}" Stroke="Black" HorizontalAlignment="Left" VerticalAlignment="Top" Height="8" Width="8" Fill="Red"/>
-                <Ellipse Visibility="{Binding visibility[7]}" Canvas.Left="{Binding x1[12]}" Canvas.Top="{Binding y1[12]}" Stroke="Black" HorizontalAlignment="Left" VerticalAlignment="Top" Height="8" Width="8" Fill="Red"/>
-                <Ellipse Visibility="{Binding visibility[8]}" Canvas.Left="{Binding x1[13]}" Canvas.Top="{Binding y1[13]}" Stroke="Black" HorizontalAlignment="Left" VerticalAlignment="Top" Height="8" Width="8" Fill="Red"/>
-                <Ellipse Visibility="{Binding visibility[9]}" Canvas.Left="{Binding x1[14]}" Canvas.Top="{Binding y1[14]}" Stroke="Black" HorizontalAlignment="Left" VerticalAlignment="Top" Height="8" Width="8" Fill="Red"/>
-                <Ellipse Visibility="{Binding visibility[10]}" Canvas.Left="{Binding x2[14]}" Canvas.Top="{Binding y2[14]}" Stroke="Black" HorizontalAlignment="Left" VerticalAlignment="Top" Height="8" Width="8" Fill="Red"/>
-                <Ellipse Visibility="{Binding visibility[11]}" Canvas.Left="{Binding x2[15]}" Canvas.Top="{Binding y2[15]}" Stroke="Black" HorizontalAlignment="Left" VerticalAlignment="Top" Height="8" Width="8" Fill="Red"/>
-                
-                
-
-            </Canvas>
-        </Grid>
-        
+    <Viewbox Stretch="UniformToFill">
+        <Grid>
+            <Grid HorizontalAlignment="Left" Height="266" Margin="359,22,0,0" VerticalAlignment="Top" Width="215">
+                <Canvas>
+                    <Line X1="{Binding x1[0]}" Y1="{Binding y1[0]}" X2="{Binding x2[0]}" Y2="{Binding y2[0]}" Stroke="LightBlue" StrokeThickness="4" />
+                    <Line X1="{Binding x1[1]}" Y1="{Binding y1[1]}" X2="{Binding x2[1]}" Y2="{Binding y2[1]}" Stroke="LightBlue" StrokeThickness="4" />
+                    <Line X1="{Binding x1[2]}" Y1="{Binding y1[2]}" X2="{Binding x2[2]}" Y2="{Binding y2[2]}" Stroke="LightBlue" StrokeThickness="4" />
+                    <Line X1="{Binding x1[3]}" Y1="{Binding y1[3]}" X2="{Binding x2[3]}" Y2="{Binding y2[3]}" Stroke="LightBlue" StrokeThickness="4" />
+                    <Line X1="{Binding x1[4]}" Y1="{Binding y1[4]}" X2="{Binding x2[4]}" Y2="{Binding y2[4]}" Stroke="LightBlue" StrokeThickness="4" />
+                    <Line X1="{Binding x1[5]}" Y1="{Binding y1[5]}" X2="{Binding x2[5]}" Y2="{Binding y2[5]}" Stroke="LightBlue" StrokeThickness="4" />
+                    <Line X1="{Binding x1[6]}" Y1="{Binding y1[6]}" X2="{Binding x2[6]}" Y2="{Binding y2[6]}" Stroke="LightBlue" StrokeThickness="4" />
+                    <Line X1="{Binding x1[7]}" Y1="{Binding y1[7]}" X2="{Binding x2[7]}" Y2="{Binding y2[7]}" Stroke="LightBlue" StrokeThickness="4" />
+                    <Line X1="{Binding x1[8]}" Y1="{Binding y1[8]}" X2="{Binding x2[8]}" Y2="{Binding y2[8]}" Stroke="LightBlue" StrokeThickness="4" />
+                    <Line X1="{Binding x1[9]}" Y1="{Binding y1[9]}" X2="{Binding x2[9]}" Y2="{Binding y2[9]}" Stroke="LightBlue" StrokeThickness="4" />
+                    <Line X1="{Binding x1[10]}" Y1="{Binding y1[10]}" X2="{Binding x2[10]}" Y2="{Binding y2[10]}" Stroke="LightBlue" StrokeThickness="4" />
+                    <Line X1="{Binding x1[11]}" Y1="{Binding y1[11]}" X2="{Binding x2[11]}" Y2="{Binding y2[11]}" Stroke="LightBlue" StrokeThickness="4" />
+                    <Line X1="{Binding x1[12]}" Y1="{Binding y1[12]}" X2="{Binding x2[12]}" Y2="{Binding y2[12]}" Stroke="LightBlue" StrokeThickness="4" />
+                    <Line X1="{Binding x1[13]}" Y1="{Binding y1[13]}" X2="{Binding x2[13]}" Y2="{Binding y2[13]}" Stroke="LightBlue" StrokeThickness="4" />
+                    <Line X1="{Binding x1[14]}" Y1="{Binding y1[14]}" X2="{Binding x2[14]}" Y2="{Binding y2[14]}" Stroke="LightBlue" StrokeThickness="4" />
+                    <Line X1="{Binding x1[15]}" Y1="{Binding y1[15]}" X2="{Binding x2[15]}" Y2="{Binding y2[15]}" Stroke="LightBlue" StrokeThickness="4" />
+                    <Line X1="{Binding x1[16]}" Y1="{Binding y1[16]}" X2="{Binding x2[16]}" Y2="{Binding y2[16]}" Stroke="LightBlue" StrokeThickness="4" />
+                    <Line X1="{Binding x1[17]}" Y1="{Binding y1[17]}" X2="{Binding x2[17]}" Y2="{Binding y2[17]}" Stroke="LightBlue" StrokeThickness="4" />
+                    <Line X1="{Binding x1[18]}" Y1="{Binding y1[18]}" X2="{Binding x2[18]}" Y2="{Binding y2[18]}" Stroke="LightBlue" StrokeThickness="4" />
+                    <Line X1="{Binding x1[19]}" Y1="{Binding y1[19]}" X2="{Binding x2[19]}" Y2="{Binding y2[19]}" Stroke="LightBlue" StrokeThickness="4" />
+                    <Line X1="{Binding x1[20]}" Y1="{Binding y1[20]}" X2="{Binding x2[20]}" Y2="{Binding y2[20]}" Stroke="LightBlue" StrokeThickness="4" />
+                    <Line X1="{Binding x1[21]}" Y1="{Binding y1[21]}" X2="{Binding x2[21]}" Y2="{Binding y2[21]}" Stroke="LightBlue" StrokeThickness="4" />
+                    <Line X1="{Binding x1[22]}" Y1="{Binding y1[22]}" X2="{Binding x2[22]}" Y2="{Binding y2[22]}" Stroke="LightBlue" StrokeThickness="4" />
+                    <Line X1="{Binding x1[23]}" Y1="{Binding y1[23]}" X2="{Binding x2[23]}" Y2="{Binding y2[23]}" Stroke="LightBlue" StrokeThickness="4" />
+                    <Ellipse Visibility="{Binding visibility[0]}" Canvas.Left="{Binding x1[5]}" Canvas.Top="{Binding y1[5]}" Stroke="Black" HorizontalAlignment="Left" VerticalAlignment="Top" Height="8" Width="8" Fill="Red"/>
+                    <Ellipse Visibility="{Binding visibility[1]}" Canvas.Left="{Binding x1[6]}" Canvas.Top="{Binding y1[6]}" Stroke="Black" HorizontalAlignment="Left" VerticalAlignment="Top" Height="8" Width="8" Fill="Red"/>
+                    <Ellipse Visibility="{Binding visibility[2]}" Canvas.Left="{Binding x1[7]}" Canvas.Top="{Binding y1[7]}" Stroke="Black" HorizontalAlignment="Left" VerticalAlignment="Top" Height="8" Width="8" Fill="Red"/>
+                    <Ellipse Visibility="{Binding visibility[3]}" Canvas.Left="{Binding x1[8]}" Canvas.Top="{Binding y1[8]}" Stroke="Black" HorizontalAlignment="Left" VerticalAlignment="Top" Height="8" Width="8" Fill="Red"/>
+                    <Ellipse Visibility="{Binding visibility[4]}" Canvas.Left="{Binding x2[8]}" Canvas.Top="{Binding y2[8]}" Stroke="Black" HorizontalAlignment="Left" VerticalAlignment="Top" Height="8" Width="8" Fill="Red"/>
+                    <Ellipse Visibility="{Binding visibility[5]}" Canvas.Left="{Binding x2[9]}" Canvas.Top="{Binding y2[9]}" Stroke="Black" HorizontalAlignment="Left" VerticalAlignment="Top" Height="8" Width="8" Fill="Red"/>
+                    <Ellipse Visibility="{Binding visibility[6]}" Canvas.Left="{Binding x1[11]}" Canvas.Top="{Binding y1[11]}" Stroke="Black" HorizontalAlignment="Left" VerticalAlignment="Top" Height="8" Width="8" Fill="Red"/>
+                    <Ellipse Visibility="{Binding visibility[7]}" Canvas.Left="{Binding x1[12]}" Canvas.Top="{Binding y1[12]}" Stroke="Black" HorizontalAlignment="Left" VerticalAlignment="Top" Height="8" Width="8" Fill="Red"/>
+                    <Ellipse Visibility="{Binding visibility[8]}" Canvas.Left="{Binding x1[13]}" Canvas.Top="{Binding y1[13]}" Stroke="Black" HorizontalAlignment="Left" VerticalAlignment="Top" Height="8" Width="8" Fill="Red"/>
+                    <Ellipse Visibility="{Binding visibility[9]}" Canvas.Left="{Binding x1[14]}" Canvas.Top="{Binding y1[14]}" Stroke="Black" HorizontalAlignment="Left" VerticalAlignment="Top" Height="8" Width="8" Fill="Red"/>
+                    <Ellipse Visibility="{Binding visibility[10]}" Canvas.Left="{Binding x2[14]}" Canvas.Top="{Binding y2[14]}" Stroke="Black" HorizontalAlignment="Left" VerticalAlignment="Top" Height="8" Width="8" Fill="Red"/>
+                    <Ellipse Visibility="{Binding visibility[11]}" Canvas.Left="{Binding x2[15]}" Canvas.Top="{Binding y2[15]}" Stroke="Black" HorizontalAlignment="Left" VerticalAlignment="Top" Height="8" Width="8" Fill="Red"/>
+                </Canvas>
+            </Grid>
             <Button Content="比對" BorderThickness="0" FontSize="22" Foreground="White" Background="#00C5CD" Height="72" Margin="33,234,315,0" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Click="Button_Click">
-            <Button.InputBindings>
-                <MouseBinding Gesture="LeftClick" Command="{Binding Recognize}" />
-            </Button.InputBindings>
-        </Button>
-        <Label Content="" HorizontalAlignment="Left" Margin="314,22,0,0" VerticalAlignment="Top"/>
-        <Line X1="33" Y1="230" X2="275" Y2="230" Stroke="#00C5CD" StrokeThickness="4" />
-        <Line X1="33" Y1="230" X2="{Binding progressRatio}" Y2="230" Stroke="LightBlue" StrokeThickness="4" />
-        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" FontSize="22" Height="38"  Margin="61,22,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="194"><Run Text="將於" Foreground="#D8E6E7"/><Run Text="{Binding countdown}" Foreground="#F16B6F" /><Run Text="秒內開始比對" Foreground="#D8E6E7"/></TextBlock>
-
-    </Grid>
+                <Button.InputBindings>
+                    <MouseBinding Gesture="LeftClick" Command="{Binding Recognize}" />
+                </Button.InputBindings>
+            </Button>
+            <Label x:Name="gestureNameLabel" Content="{Binding gestureName}" HorizontalAlignment="Left" Margin="314,22,0,0" VerticalAlignment="Top"/>
+            <Line X1="33" Y1="230" X2="259" Y2="230" Stroke="#00C5CD" StrokeThickness="4" />
+            <Line X1="33" Y1="230" X2="{Binding progressRatio}" Y2="230" Stroke="LightBlue" StrokeThickness="4" />
+            <TextBlock x:Name="textBlock" HorizontalAlignment="Left" FontSize="22" Height="38"  Margin="61,22,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="194"><Run Text="將於" Foreground="#D8E6E7"/><Run Text="{Binding countdown}" Foreground="#F16B6F" /><Run Text="秒內開始比對" Foreground="#D8E6E7"/></TextBlock>
+        </Grid>
+    </Viewbox>
 </Window>
 

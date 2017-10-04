@@ -66,7 +66,6 @@ namespace Kinect_WpfProject.ViewModel
                 NotifyPropertyChanged("y2");
             }
         }
-
         private string _gestureName;
         public string gestureName
         {
@@ -210,7 +209,7 @@ namespace Kinect_WpfProject.ViewModel
         {
             image = kinectCamera.GetRGBImage();
             recordProgress = kinectCamera.GetRecordProgress();
-            progressRatio = 33 + (int)(244 * ( (double)recordProgress / (double)recordEnd));
+            progressRatio = 33 + (int)(226 * ( (double)recordProgress / (double)recordEnd));
             visibility = kinectCamera.GetErrorJoint();
 
             if (!skeletonTimer.IsActive())

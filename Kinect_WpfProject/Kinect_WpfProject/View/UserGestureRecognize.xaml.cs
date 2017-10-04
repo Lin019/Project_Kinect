@@ -21,6 +21,7 @@ namespace Kinect_WpfProject.View
     /// </summary>
     public partial class UserGestureRecognize : Window
     {
+        
         public UserGestureRecognize(string gestureName)
         {
             InitializeComponent();

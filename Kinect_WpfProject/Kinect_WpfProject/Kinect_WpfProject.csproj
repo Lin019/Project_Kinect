@@ -147,7 +147,20 @@
     <Resource Include="ShoulderExtension.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="WristFlexion.jpg" />
+    <Resource Include="WristExtension2.jpg" />
+    <Resource Include="WristExtension.jpg" />
+    <Resource Include="ShoulderInternalRotation.jpg" />
+    <Resource Include="ShoulderExternalRotation.jpg" />
+    <Resource Include="ShoulderAbduction.jpg" />
+    <Resource Include="ElbowFlexion.JPG" />
+    <Resource Include="ElbowExtension.jpg" />
+    <Resource Include="ForearmPronation.jpg" />
+    <Resource Include="ElbowFlexion2.jpg" />
     <Content Include="ShoulderExtension.mp4" />
+    <Resource Include="ShoulderHorizontalAbduction.jpg" />
+    <Resource Include="ShoulderScaption.jpg" />
+    <Resource Include="ShoulderFlexion.JPG" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="View\PartialView\" />
