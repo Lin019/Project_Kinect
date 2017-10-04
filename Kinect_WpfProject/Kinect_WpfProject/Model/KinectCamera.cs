@@ -184,7 +184,10 @@ namespace Kinect_WpfProject.Model
 
         private void DtwTick()
         {
-            errorJoint = kinectModel.GetErrorJoint(recordSquence, "Shoulder_flexion");
+            if (fileName != null || fileName != "")
+                errorJoint = kinectModel.GetErrorJoint(recordSquence, fileName);
+            else
+                errorJoint = kinectModel.GetErrorJoint(recordSquence, "Shoulder_extension");
             dtwTimer.StopTimer();
         }
 
@@ -198,6 +201,14 @@ namespace Kinect_WpfProject.Model
         
         public void Record()
         {
+            recordSquence = new List<Skeleton>();
+            instr = INSTR_RECORD;
+            recordTimer.StartTimer();
+        }
+
+        public void Record(string fileName)
+        {
+            this.fileName = fileName;
             recordSquence = new List<Skeleton>();
             instr = INSTR_RECORD;
             recordTimer.StartTimer();

@@ -65,17 +65,8 @@ namespace Kinect_WpfProject.ViewModel
                 NotifyPropertyChanged("y2");
             }
         }
-
-        private string _gestureName;
-        public string gestureName
-        {
-            get { return _gestureName; }
-            set
-            {
-                _gestureName = value;
-                NotifyPropertyChanged("gestureName");
-            }
-        }
+        
+        public string gestureName { get; set; }
 
         private int _recordProgress = 0;
         public int recordProgress
@@ -207,9 +198,9 @@ namespace Kinect_WpfProject.ViewModel
         private void RGBTimerTick()
         {
             image = kinectCamera.GetRGBImage();
-            gestureName = kinectCamera.GetFileName();
+            
             recordProgress = kinectCamera.GetRecordProgress();
-            progressRatio = 33 + (int)(244 * ( (double)recordProgress / (double)recordEnd));
+            progressRatio = 33 + (int)(226 * ( (double)recordProgress / (double)recordEnd));
             visibility = kinectCamera.GetErrorJoint();
 
             if (!skeletonTimer.IsActive())
