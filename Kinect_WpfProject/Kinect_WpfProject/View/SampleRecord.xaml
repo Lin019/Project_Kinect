@@ -4,60 +4,78 @@
         xmlns:local="clr-namespace:Kinect_WpfProject.ViewModel"
         xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
         Closing="SampleRecordForm_Closing"
-        Title="錄製標準動作" Height="363.971" Width="606.617"  Background="#008B8B" Cursor="Hand" WindowState="Normal" WindowStartupLocation="CenterScreen">
+        Title="錄製標準動作" Height="363.971" Width="606.617" Background="#282c37"  Cursor="Hand" WindowState="Normal" WindowStartupLocation="CenterScreen">
     <Window.DataContext>
         <!-- 實例化PostViewModel -->
         <local:SampleRecordViewModel/>
 
     </Window.DataContext>
-    <Grid>
-        <Grid Margin="32,22,304,94"    Background="#2DB1B7">
-            <Image Source="{Binding image}" Margin="0,0,-11,0"/>
+    <Viewbox Stretch="UniformToFill">
+        <Grid>
+            <Grid Margin="10,22,10,10"    Background="#d9e1e8"/>
+
+            <Grid HorizontalAlignment="Left"  Height="272" Margin="26,38,0,0" VerticalAlignment="Top" Width="253"      >
+                <Rectangle  Fill="#9DC3C1"  Stroke="#7C7877" StrokeThickness="2"           StrokeDashArray="3 5" RadiusX="5" RadiusY="5"/>
+                <Line X1="{Binding x1[0]}" Y1="{Binding y1[0]}" X2="{Binding x2[0]}" Y2="{Binding y2[0]}" Stroke="LightBlue" StrokeThickness="4" />
+                <Line X1="{Binding x1[1]}" Y1="{Binding y1[1]}" X2="{Binding x2[1]}" Y2="{Binding y2[1]}" Stroke="LightBlue" StrokeThickness="4" />
+                <Line X1="{Binding x1[2]}" Y1="{Binding y1[2]}" X2="{Binding x2[2]}" Y2="{Binding y2[2]}" Stroke="LightBlue" StrokeThickness="4" />
+                <Line X1="{Binding x1[3]}" Y1="{Binding y1[3]}" X2="{Binding x2[3]}" Y2="{Binding y2[3]}" Stroke="LightBlue" StrokeThickness="4" />
+                <Line X1="{Binding x1[4]}" Y1="{Binding y1[4]}" X2="{Binding x2[4]}" Y2="{Binding y2[4]}" Stroke="LightBlue" StrokeThickness="4" />
+                <Line X1="{Binding x1[5]}" Y1="{Binding y1[5]}" X2="{Binding x2[5]}" Y2="{Binding y2[5]}" Stroke="LightBlue" StrokeThickness="4" />
+                <Line X1="{Binding x1[6]}" Y1="{Binding y1[6]}" X2="{Binding x2[6]}" Y2="{Binding y2[6]}" Stroke="LightBlue" StrokeThickness="4" />
+                <Line X1="{Binding x1[7]}" Y1="{Binding y1[7]}" X2="{Binding x2[7]}" Y2="{Binding y2[7]}" Stroke="LightBlue" StrokeThickness="4" />
+                <Line X1="{Binding x1[8]}" Y1="{Binding y1[8]}" X2="{Binding x2[8]}" Y2="{Binding y2[8]}" Stroke="LightBlue" StrokeThickness="4" />
+                <Line X1="{Binding x1[9]}" Y1="{Binding y1[9]}" X2="{Binding x2[9]}" Y2="{Binding y2[9]}" Stroke="LightBlue" StrokeThickness="4" />
+                <Line X1="{Binding x1[10]}" Y1="{Binding y1[10]}" X2="{Binding x2[10]}" Y2="{Binding y2[10]}" Stroke="LightBlue" StrokeThickness="4" />
+                <Line X1="{Binding x1[11]}" Y1="{Binding y1[11]}" X2="{Binding x2[11]}" Y2="{Binding y2[11]}" Stroke="LightBlue" StrokeThickness="4" />
+                <Line X1="{Binding x1[12]}" Y1="{Binding y1[12]}" X2="{Binding x2[12]}" Y2="{Binding y2[12]}" Stroke="LightBlue" StrokeThickness="4" />
+                <Line X1="{Binding x1[13]}" Y1="{Binding y1[13]}" X2="{Binding x2[13]}" Y2="{Binding y2[13]}" Stroke="LightBlue" StrokeThickness="4" />
+                <Line X1="{Binding x1[14]}" Y1="{Binding y1[14]}" X2="{Binding x2[14]}" Y2="{Binding y2[14]}" Stroke="LightBlue" StrokeThickness="4" />
+                <Line X1="{Binding x1[15]}" Y1="{Binding y1[15]}" X2="{Binding x2[15]}" Y2="{Binding y2[15]}" Stroke="LightBlue" StrokeThickness="4" />
+                <Line X1="{Binding x1[16]}" Y1="{Binding y1[16]}" X2="{Binding x2[16]}" Y2="{Binding y2[16]}" Stroke="LightBlue" StrokeThickness="4" />
+                <Line X1="{Binding x1[17]}" Y1="{Binding y1[17]}" X2="{Binding x2[17]}" Y2="{Binding y2[17]}" Stroke="LightBlue" StrokeThickness="4" />
+                <Line X1="{Binding x1[18]}" Y1="{Binding y1[18]}" X2="{Binding x2[18]}" Y2="{Binding y2[18]}" Stroke="LightBlue" StrokeThickness="4" />
+                <Line X1="{Binding x1[19]}" Y1="{Binding y1[19]}" X2="{Binding x2[19]}" Y2="{Binding y2[19]}" Stroke="LightBlue" StrokeThickness="4" />
+                <Line X1="{Binding x1[20]}" Y1="{Binding y1[20]}" X2="{Binding x2[20]}" Y2="{Binding y2[20]}" Stroke="LightBlue" StrokeThickness="4" />
+                <Line X1="{Binding x1[21]}" Y1="{Binding y1[21]}" X2="{Binding x2[21]}" Y2="{Binding y2[21]}" Stroke="LightBlue" StrokeThickness="4" />
+                <Line X1="{Binding x1[22]}" Y1="{Binding y1[22]}" X2="{Binding x2[22]}" Y2="{Binding y2[22]}" Stroke="LightBlue" StrokeThickness="4" />
+                <Line X1="{Binding x1[23]}" Y1="{Binding y1[23]}" X2="{Binding x2[23]}" Y2="{Binding y2[23]}" Stroke="LightBlue" StrokeThickness="4" />
+
+
+            </Grid>
+            <Rectangle  Fill="#c9d6de"  Stroke="#D8E6E0" StrokeThickness="2"           RadiusX="5" RadiusY="5" Margin="298,98,22,143"/>
+            <TextBox BorderThickness="0" FontSize="26" Foreground="#52616a" HorizontalAlignment="Left" Height="33" Margin="308,109,0,0" TextWrapping="Wrap" Text="{Binding fileNameLoad}" VerticalAlignment="Top" Width="260"/>
+            <Button Content="開啟" BorderThickness="0"  FontSize="22" Foreground="#d9e1e8" Background="#9baec8" Height="34" Margin="487,134,41,0" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"  >
+                <Button.BitmapEffect>
+                    <DropShadowBitmapEffect ShadowDepth="5"
+                                  Direction="300"
+                                  Color="#282c37"
+                                  Opacity="0.5"
+                                  Softness="0.75" />
+                </Button.BitmapEffect>
+                <Button.InputBindings>
+                    <MouseBinding Gesture="LeftClick" Command="{Binding LoadSample}" />
+                </Button.InputBindings>
+            </Button>
+            <TextBlock x:Name="textBlock_Copy" Foreground="#6E7783" FontSize="12" HorizontalAlignment="Center" Height="43" Margin="308,156,117,134" TextWrapping="Wrap" VerticalAlignment="Center" Width="174"><Run Text="輸入動作名稱"/><Run Text="按下&quot;開啟&quot;"/><Run Text="後，"/><Run Text="即"/><Run Text="可"/><Run Text="播"/><Run Text="放動作"/><Run Text="。"/></TextBlock>
+
+            <Rectangle  Fill="#c9d6de"  Stroke="#D8E6E0" StrokeThickness="2"           RadiusX="5" RadiusY="5" Margin="298,214,22,27"/>
+            <TextBox BorderThickness="0" FontSize="26" Foreground="#52616a" HorizontalAlignment="Left" Height="33" Margin="308,223,0,0" TextWrapping="Wrap" Text="{Binding fileNameSave}" VerticalAlignment="Top" Width="260" TextChanged="TextBox_TextChanged"/>
+
+            <Button Content="儲存" BorderThickness="0"  FontSize="22" Foreground="#d9e1e8" Background="#9baec8" Height="34" Margin="487,250,41,0" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Click="Button_Click"   >
+                <Button.BitmapEffect>
+                    <DropShadowBitmapEffect ShadowDepth="5"
+                                  Direction="300"
+                                  Color="#282c37"
+                                  Opacity="0.5"
+                                  Softness="0.75" />
+                </Button.BitmapEffect>
+                <Button.InputBindings>
+                    <MouseBinding Gesture="LeftClick" Command="{Binding Save}" />
+                </Button.InputBindings>
+            </Button>
+            <TextBlock x:Name="textBlock" Foreground="#263959" FontSize="26" HorizontalAlignment="Center" Height="43" Margin="298,50,94,240" TextWrapping="Wrap" VerticalAlignment="Center" Width="207" Text="錄製標準動作"/>
+            <TextBlock x:Name="textBlock_Copy1" Foreground="#6E7783" FontSize="12" HorizontalAlignment="Center" Height="43" Margin="308,267,117,23" TextWrapping="Wrap" VerticalAlignment="Center" Width="174"><Run Text="輸入動作名稱，"/><Run Text="按下&quot;儲存&quot;即開始錄製動作"/><Run Text="並儲存"/><Run Text="。"/></TextBlock>
         </Grid>
-
-        <Grid Background="#2DB1B7" HorizontalAlignment="Left" Height="290" Margin="359,22,0,0" VerticalAlignment="Top" Width="215">
-
-            <Line X1="{Binding x1[0]}" Y1="{Binding y1[0]}" X2="{Binding x2[0]}" Y2="{Binding y2[0]}" Stroke="LightBlue" StrokeThickness="4" />
-            <Line X1="{Binding x1[1]}" Y1="{Binding y1[1]}" X2="{Binding x2[1]}" Y2="{Binding y2[1]}" Stroke="LightBlue" StrokeThickness="4" />
-            <Line X1="{Binding x1[2]}" Y1="{Binding y1[2]}" X2="{Binding x2[2]}" Y2="{Binding y2[2]}" Stroke="LightBlue" StrokeThickness="4" />
-            <Line X1="{Binding x1[3]}" Y1="{Binding y1[3]}" X2="{Binding x2[3]}" Y2="{Binding y2[3]}" Stroke="LightBlue" StrokeThickness="4" />
-            <Line X1="{Binding x1[4]}" Y1="{Binding y1[4]}" X2="{Binding x2[4]}" Y2="{Binding y2[4]}" Stroke="LightBlue" StrokeThickness="4" />
-            <Line X1="{Binding x1[5]}" Y1="{Binding y1[5]}" X2="{Binding x2[5]}" Y2="{Binding y2[5]}" Stroke="LightBlue" StrokeThickness="4" />
-            <Line X1="{Binding x1[6]}" Y1="{Binding y1[6]}" X2="{Binding x2[6]}" Y2="{Binding y2[6]}" Stroke="LightBlue" StrokeThickness="4" />
-            <Line X1="{Binding x1[7]}" Y1="{Binding y1[7]}" X2="{Binding x2[7]}" Y2="{Binding y2[7]}" Stroke="LightBlue" StrokeThickness="4" />
-            <Line X1="{Binding x1[8]}" Y1="{Binding y1[8]}" X2="{Binding x2[8]}" Y2="{Binding y2[8]}" Stroke="LightBlue" StrokeThickness="4" />
-            <Line X1="{Binding x1[9]}" Y1="{Binding y1[9]}" X2="{Binding x2[9]}" Y2="{Binding y2[9]}" Stroke="LightBlue" StrokeThickness="4" />
-            <Line X1="{Binding x1[10]}" Y1="{Binding y1[10]}" X2="{Binding x2[10]}" Y2="{Binding y2[10]}" Stroke="LightBlue" StrokeThickness="4" />
-            <Line X1="{Binding x1[11]}" Y1="{Binding y1[11]}" X2="{Binding x2[11]}" Y2="{Binding y2[11]}" Stroke="LightBlue" StrokeThickness="4" />
-            <Line X1="{Binding x1[12]}" Y1="{Binding y1[12]}" X2="{Binding x2[12]}" Y2="{Binding y2[12]}" Stroke="LightBlue" StrokeThickness="4" />
-            <Line X1="{Binding x1[13]}" Y1="{Binding y1[13]}" X2="{Binding x2[13]}" Y2="{Binding y2[13]}" Stroke="LightBlue" StrokeThickness="4" />
-            <Line X1="{Binding x1[14]}" Y1="{Binding y1[14]}" X2="{Binding x2[14]}" Y2="{Binding y2[14]}" Stroke="LightBlue" StrokeThickness="4" />
-            <Line X1="{Binding x1[15]}" Y1="{Binding y1[15]}" X2="{Binding x2[15]}" Y2="{Binding y2[15]}" Stroke="LightBlue" StrokeThickness="4" />
-            <Line X1="{Binding x1[16]}" Y1="{Binding y1[16]}" X2="{Binding x2[16]}" Y2="{Binding y2[16]}" Stroke="LightBlue" StrokeThickness="4" />
-            <Line X1="{Binding x1[17]}" Y1="{Binding y1[17]}" X2="{Binding x2[17]}" Y2="{Binding y2[17]}" Stroke="LightBlue" StrokeThickness="4" />
-            <Line X1="{Binding x1[18]}" Y1="{Binding y1[18]}" X2="{Binding x2[18]}" Y2="{Binding y2[18]}" Stroke="LightBlue" StrokeThickness="4" />
-            <Line X1="{Binding x1[19]}" Y1="{Binding y1[19]}" X2="{Binding x2[19]}" Y2="{Binding y2[19]}" Stroke="LightBlue" StrokeThickness="4" />
-            <Line X1="{Binding x1[20]}" Y1="{Binding y1[20]}" X2="{Binding x2[20]}" Y2="{Binding y2[20]}" Stroke="LightBlue" StrokeThickness="4" />
-            <Line X1="{Binding x1[21]}" Y1="{Binding y1[21]}" X2="{Binding x2[21]}" Y2="{Binding y2[21]}" Stroke="LightBlue" StrokeThickness="4" />
-            <Line X1="{Binding x1[22]}" Y1="{Binding y1[22]}" X2="{Binding x2[22]}" Y2="{Binding y2[22]}" Stroke="LightBlue" StrokeThickness="4" />
-            <Line X1="{Binding x1[23]}" Y1="{Binding y1[23]}" X2="{Binding x2[23]}" Y2="{Binding y2[23]}" Stroke="LightBlue" StrokeThickness="4" />
-
-        </Grid>
-
-        <TextBox BorderThickness="0" HorizontalAlignment="Left" Height="35" Margin="32,239,0,0" TextWrapping="Wrap" Text="{Binding fileName}" VerticalAlignment="Top" Width="187"/>
-
-        <Button Content="開啟" BorderThickness="0"  FontSize="22" Foreground="White" Background="#00C5CD" Height="37" Margin="219,239,304,0" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"  >
-
-            <Button.InputBindings>
-                <MouseBinding Gesture="LeftClick" Command="{Binding LoadSample}" />
-            </Button.InputBindings>
-        </Button>
-
-        <Button Content="儲存" BorderThickness="0"  FontSize="22" Foreground="White" Background="#00C5CD" Height="38" Margin="32,274,304,0" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"   >
-            <Button.InputBindings>
-                <MouseBinding Gesture="LeftClick" Command="{Binding Save}" />
-            </Button.InputBindings>
-        </Button>
-        <TextBlock x:Name="textBlock" Foreground="#143B38" FontSize="26.667" HorizontalAlignment="Center" Height="290" Margin="311,22,256,21" TextWrapping="Wrap" VerticalAlignment="Center" Width="32"><Run Text="錄"/><LineBreak/><Run Text="製"/><LineBreak/><Run Text="標"/><LineBreak/><Run Text="準"/><LineBreak/><Run Text="動"/><LineBreak/><Run Text="作"/></TextBlock>
-    </Grid>
+    </Viewbox>
 </Window>

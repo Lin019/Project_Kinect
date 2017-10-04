@@ -15,7 +15,7 @@
             <Viewbox Stretch="UniformToFill ">
                 <StackPanel>
 
-                    <Button x:Name="ShoulderExtension_button" Click="Button_Click" Height="165" Width="483" Margin="100,30,10,0" >
+                    <Button x:Name="Shoulder_extension1" Click="Button_Click" Height="165" Width="483" Margin="100,30,10,0" >
                         <Image Source="/ShoulderExtension.jpg" Width="510" Height="165"/>
                     </Button>
                     <Button x:Name="Shoulder_flexion" Click="Button_Click"  Height="165" Width="483" Margin="100,0,10,0">
