@@ -29,7 +29,7 @@ namespace Kinect_WpfProject
 
         public KinectModel ()
         {
-            dtw = new DtwGestureRecognizer(2, 130, 2, 150);
+            dtw = new DtwGestureRecognizer(2, 140, 2, 150);
         }
 
         #region DTW

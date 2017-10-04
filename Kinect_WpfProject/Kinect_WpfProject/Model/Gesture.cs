@@ -38,5 +38,18 @@ namespace Kinect_WpfProject
                     JointSequence[i].Add(skeletons[j].jointPoints[i]);
             }
         }
+
+        public List<ArrayList> GetPartialJointSequence(int start, int end)
+        {
+            List<ArrayList> partial = new List<ArrayList>();
+
+            for (int i = 0; i < Common.JOINTS_COUNT; i++)
+            {
+                partial.Add(new ArrayList());
+                for (int j = start; j < end; j++)
+                    partial[i].Add(skeletons[j].jointPoints[i]);
+            }
+            return partial;
+        }
     }
 }

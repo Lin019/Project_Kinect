@@ -170,7 +170,15 @@ namespace Kinect_WpfProject.Model
         private void RecordTimerTick()
         {
             if (recordSquence.Count < Common.FRAMES_COUNT)
+            {
                 recordSquence.Add(lastSkeletons[bodyNumber]);
+                if (recordSquence.Count == 20 || recordSquence.Count == 40 ||
+                    recordSquence.Count == 60 || recordSquence.Count == 80)
+                {
+                    errorJoint = kinectModel.GetErrorJoint(recordSquence, fileName);
+                    Console.WriteLine(" ");
+                }
+            }
             else if (instr == INSTR_SAVE)
             {
                 recordTimer.StopTimer();
@@ -198,14 +206,6 @@ namespace Kinect_WpfProject.Model
             recordTimer.StartTimer();
         }
         
-        public void Record(string fileName)
-        {
-            this.fileName = fileName;
-            recordSquence = new List<Skeleton>();
-            instr = INSTR_RECORD;
-            recordTimer.StartTimer();
-        }
-
         public void Record(string fileName)
         {
             this.fileName = fileName;

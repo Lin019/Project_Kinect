@@ -203,10 +203,10 @@ namespace Kinect_WpfProject
                 {
                     if (i == (int)handsjoints[j])
                     {
-
-                        d = Dtw(userGesture.JointSequence[i], sampleGesture.JointSequence[i]);
+                        d = Dtw(userGesture.GetPartialJointSequence(userGesture.skeletons.Count - Common.RECOGNIZE_INTERNAL, userGesture.skeletons.Count)[i],
+                                sampleGesture.GetPartialJointSequence(userGesture.skeletons.Count - Common.RECOGNIZE_INTERNAL, userGesture.skeletons.Count)[i]);
                         Console.WriteLine(d);
-                        if (d > _globalThreshold)
+                        if ((double)d > (double)_globalThreshold / ((double)Common.FRAMES_COUNT / (double)Common.RECOGNIZE_INTERNAL))
                             errorJoints.Add((JointPointType)i);
                     }
                         
@@ -224,31 +224,17 @@ namespace Kinect_WpfProject
             {
                 handsJoints.Add(JointPointType.ShoulderLeft);
                 handsJoints.Add(JointPointType.ElbowLeft);
-                handsJoints.Add(JointPointType.WristLeft);
-                handsJoints.Add(JointPointType.HandLeft);
-                handsJoints.Add(JointPointType.HandTipLeft);
-                handsJoints.Add(JointPointType.ThumbLeft);
 
                 handsJoints.Add(JointPointType.ShoulderRight);
                 handsJoints.Add(JointPointType.ElbowRight);
-                handsJoints.Add(JointPointType.WristRight);
-                handsJoints.Add(JointPointType.HandRight);
-                handsJoints.Add(JointPointType.HandTipRight);
-                handsJoints.Add(JointPointType.ThumbRight);
             }
             else if (bodyPart[0] == "Elbow")
             {
                 handsJoints.Add(JointPointType.ElbowLeft);
                 handsJoints.Add(JointPointType.WristLeft);
-                handsJoints.Add(JointPointType.HandLeft);
-                handsJoints.Add(JointPointType.HandTipLeft);
-                handsJoints.Add(JointPointType.ThumbLeft);
                 
                 handsJoints.Add(JointPointType.ElbowRight);
                 handsJoints.Add(JointPointType.WristRight);
-                handsJoints.Add(JointPointType.HandRight);
-                handsJoints.Add(JointPointType.HandTipRight);
-                handsJoints.Add(JointPointType.ThumbRight);
             }
             else if (bodyPart[0] == "Forearm" || bodyPart[0] == "Wrist")
             {
@@ -331,27 +317,22 @@ namespace Kinect_WpfProject
                     }
                 }
             }
-            // Find best between seq2 and an ending (postfix) of seq1.
-            /*double bestMatch = double.PositiveInfinity;
-            for (int i = 1; i < (seq1R.Count + 1) - _minimumLength; i++)
-            {
-                if (tab[i, seq2R.Count] < bestMatch)
-                {
-                    bestMatch = tab[i, seq2R.Count];
-                }
-            }*/
             
             double minDist = 0;
             int x = 0, y = 0;
+
+            //temp
+            //var testTable = new int[100, 100];
             
             while(x != seq1R.Count || y != seq2R.Count)
             {
-                if (y == Common.FRAMES_COUNT)
+                //try { testTable[x, y] = 1; } catch { }
+                if (y == seq1R.Count)
                 {
                     minDist++;
                     x++;
                 }
-                else if (x == Common.FRAMES_COUNT)
+                else if (x == seq1R.Count)
                 {
                     minDist++;
                     y++;
@@ -373,7 +354,16 @@ namespace Kinect_WpfProject
                     y++;
                 }
             }
-            
+            /*
+            for(int i = 0; i < 100; i++)
+            {
+                for (int j = 0; j < 100; j++)
+                {
+                    Console.Write(testTable[j, i] + " ");
+                }
+                Console.WriteLine("");
+            }
+            */
             return minDist;
         }
 

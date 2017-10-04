@@ -35,5 +35,7 @@ namespace Kinect_WpfProject.Extends
         public const int TIMER_PERIOD = 60;
 
         public const int FRAME_RATE = 60;
+
+        public const int RECOGNIZE_INTERNAL = 20;
     }
 }
