@@ -25,7 +25,7 @@ namespace Kinect_WpfProject
         {
             this.skeletons = skeletons;
             setJointSequence();
-        }
+        } 
 
         private void setJointSequence()
         {

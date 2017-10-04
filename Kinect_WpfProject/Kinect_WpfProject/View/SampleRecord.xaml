@@ -49,7 +49,7 @@
         <Button Content="開啟" BorderThickness="0"  FontSize="22" Foreground="White" Background="#00C5CD" Height="37" Margin="219,239,304,0" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"  >
 
             <Button.InputBindings>
-                <MouseBinding Gesture="LeftDoubleClick" Command="{Binding LoadSample}" />
+                <MouseBinding Gesture="LeftClick" Command="{Binding LoadSample}" />
             </Button.InputBindings>
         </Button>
 

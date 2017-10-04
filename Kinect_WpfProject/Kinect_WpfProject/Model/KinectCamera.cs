@@ -1,4 +1,5 @@
 ﻿using Kinect_WpfProject.Extends;
+using Kinect_WpfProject.View;
 using Microsoft.Kinect;
 using System;
 using System.Collections.Generic;
@@ -184,7 +185,8 @@ namespace Kinect_WpfProject.Model
 
         private void DtwTick()
         {
-            errorJoint = kinectModel.GetErrorJoint(recordSquence, "Shoulder_flexion");
+            errorJoint = kinectModel.GetErrorJoint(recordSquence, fileName);
+            Menu.kinectControl.mouseSensitivity = KinectControl.MOUSE_SENSITIVITY;
             dtwTimer.StopTimer();
         }
 
@@ -196,8 +198,9 @@ namespace Kinect_WpfProject.Model
             recordTimer.StartTimer();
         }
         
-        public void Record()
+        public void Record(string fileName)
         {
+            this.fileName = fileName;
             recordSquence = new List<Skeleton>();
             instr = INSTR_RECORD;
             recordTimer.StartTimer();

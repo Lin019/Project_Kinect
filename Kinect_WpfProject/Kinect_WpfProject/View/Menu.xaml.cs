@@ -21,7 +21,7 @@ namespace Kinect_WpfProject.View
     /// </summary>
     public partial class Menu : Window
     {
-        KinectControl kinectControl;
+        public static KinectControl kinectControl;
         public Menu()
         {
             InitializeComponent();
@@ -89,7 +89,6 @@ namespace Kinect_WpfProject.View
         {
             GestureSelect gestureSelectForm = new GestureSelect();
             App.Current.MainWindow = gestureSelectForm;
-            kinectControl.Close();
             this.Close();
             gestureSelectForm.Show();
         }

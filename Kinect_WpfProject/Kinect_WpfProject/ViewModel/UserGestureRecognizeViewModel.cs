@@ -1,5 +1,6 @@
 ﻿using Kinect_WpfProject.Extends;
 using Kinect_WpfProject.Model;
+using Kinect_WpfProject.View;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -197,10 +198,11 @@ namespace Kinect_WpfProject.ViewModel
 
         private void PreTimerTick()
         {
+            Menu.kinectControl.mouseSensitivity = 0;
             if (countdown-- < 2)
             {
                 preTimer.StopTimer();
-                kinectCamera.Record();
+                kinectCamera.Record(_gestureName);
             }
         }
 

@@ -6,7 +6,7 @@ using Microsoft.Kinect;
 
 namespace Kinect_WpfProject
 {
-    class KinectControl
+    public class KinectControl
     {
         /// <summary>
         /// Active Kinect sensor

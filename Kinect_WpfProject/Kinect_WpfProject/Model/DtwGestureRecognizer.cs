@@ -169,13 +169,13 @@ namespace Kinect_WpfProject
             return (minDist < _globalThreshold ? finalName : "__UNKNOWN");
         }
 
-        //use
+        
         public void Recognize(List<Skeleton> userSequence, string fileName)
         {
             Gesture userGesture = new Gesture(userSequence);
             Gesture sampleGesture = new Gesture(fileName);
 
-            List<JointPointType> handsjoints = GetTwoHandJoint();
+            List<JointPointType> handsjoints = GetPartialJoint(fileName);
 
             for (int i = 0; i < Common.JOINTS_COUNT; i++)
             {
@@ -187,12 +187,13 @@ namespace Kinect_WpfProject
             }
         }
 
+        //use
         public List<JointPointType> RecognizeAndGetError(List<Skeleton> userSequence, string fileName)
         {
             Gesture userGesture = new Gesture(userSequence);
             Gesture sampleGesture = new Gesture(fileName);
 
-            List<JointPointType> handsjoints = GetTwoHandJoint();
+            List<JointPointType> handsjoints = GetPartialJoint(fileName);
 
             List<JointPointType> errorJoints = new List<JointPointType>();
             double d;
@@ -215,22 +216,61 @@ namespace Kinect_WpfProject
             return errorJoints;
         }
 
-        private List<JointPointType> GetTwoHandJoint()
+        private List<JointPointType> GetPartialJoint(string fileName)
         {
             List<JointPointType> handsJoints = new List<JointPointType>();
-            handsJoints.Add(JointPointType.ShoulderLeft);
-            handsJoints.Add(JointPointType.ElbowLeft);
-            handsJoints.Add(JointPointType.WristLeft);
-            handsJoints.Add(JointPointType.HandLeft);
-            handsJoints.Add(JointPointType.HandTipLeft);
-            handsJoints.Add(JointPointType.ThumbLeft);
-            
-            handsJoints.Add(JointPointType.ShoulderRight);
-            handsJoints.Add(JointPointType.ElbowRight);
-            handsJoints.Add(JointPointType.WristRight);
-            handsJoints.Add(JointPointType.HandRight);
-            handsJoints.Add(JointPointType.HandTipRight);
-            handsJoints.Add(JointPointType.ThumbRight);
+            string[] bodyPart = fileName.Split('_');
+            if (bodyPart[0] == "Shoulder")
+            {
+                handsJoints.Add(JointPointType.ShoulderLeft);
+                handsJoints.Add(JointPointType.ElbowLeft);
+                handsJoints.Add(JointPointType.WristLeft);
+                handsJoints.Add(JointPointType.HandLeft);
+                handsJoints.Add(JointPointType.HandTipLeft);
+                handsJoints.Add(JointPointType.ThumbLeft);
+
+                handsJoints.Add(JointPointType.ShoulderRight);
+                handsJoints.Add(JointPointType.ElbowRight);
+                handsJoints.Add(JointPointType.WristRight);
+                handsJoints.Add(JointPointType.HandRight);
+                handsJoints.Add(JointPointType.HandTipRight);
+                handsJoints.Add(JointPointType.ThumbRight);
+            }
+            else if (bodyPart[0] == "Elbow")
+            {
+                handsJoints.Add(JointPointType.ElbowLeft);
+                handsJoints.Add(JointPointType.WristLeft);
+                handsJoints.Add(JointPointType.HandLeft);
+                handsJoints.Add(JointPointType.HandTipLeft);
+                handsJoints.Add(JointPointType.ThumbLeft);
+                
+                handsJoints.Add(JointPointType.ElbowRight);
+                handsJoints.Add(JointPointType.WristRight);
+                handsJoints.Add(JointPointType.HandRight);
+                handsJoints.Add(JointPointType.HandTipRight);
+                handsJoints.Add(JointPointType.ThumbRight);
+            }
+            else if (bodyPart[0] == "Forearm" || bodyPart[0] == "Wrist")
+            {
+                handsJoints.Add(JointPointType.WristLeft);
+                handsJoints.Add(JointPointType.HandLeft);
+                handsJoints.Add(JointPointType.HandTipLeft);
+                handsJoints.Add(JointPointType.ThumbLeft);
+                
+                handsJoints.Add(JointPointType.WristRight);
+                handsJoints.Add(JointPointType.HandRight);
+                handsJoints.Add(JointPointType.HandTipRight);
+                handsJoints.Add(JointPointType.ThumbRight);
+            }
+            else
+            {
+                handsJoints.Add(JointPointType.ShoulderRight);
+                handsJoints.Add(JointPointType.ElbowRight);
+                handsJoints.Add(JointPointType.WristRight);
+                handsJoints.Add(JointPointType.HandRight);
+                handsJoints.Add(JointPointType.HandTipRight);
+                handsJoints.Add(JointPointType.ThumbRight);
+            }
 
             return handsJoints;
         }
