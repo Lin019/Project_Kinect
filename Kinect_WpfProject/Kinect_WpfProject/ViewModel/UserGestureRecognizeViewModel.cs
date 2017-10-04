@@ -241,10 +241,17 @@ namespace Kinect_WpfProject.ViewModel
 
         private void SetSkeletonLines(Skeleton skeleton)
         {
-            x1 = new ObservableCollection<double>(skeleton.getDrawingSequences()["x1"]);
-            y1 = new ObservableCollection<double>(skeleton.getDrawingSequences()["y1"]);
-            x2 = new ObservableCollection<double>(skeleton.getDrawingSequences()["x2"]);
-            y2 = new ObservableCollection<double>(skeleton.getDrawingSequences()["y2"]);
+            try
+            {
+                x1 = new ObservableCollection<double>(skeleton.getDrawingSequences()["x1"]);
+                y1 = new ObservableCollection<double>(skeleton.getDrawingSequences()["y1"]);
+                x2 = new ObservableCollection<double>(skeleton.getDrawingSequences()["x2"]);
+                y2 = new ObservableCollection<double>(skeleton.getDrawingSequences()["y2"]);
+            }
+            catch
+            {
+
+            }
         }
 
         #region INotifyPropertyChanged
