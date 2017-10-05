@@ -172,8 +172,8 @@ namespace Kinect_WpfProject.Model
             if (recordSquence.Count < Common.FRAMES_COUNT)
             {
                 recordSquence.Add(lastSkeletons[bodyNumber]);
-                if (recordSquence.Count == 20 || recordSquence.Count == 40 ||
-                    recordSquence.Count == 60 || recordSquence.Count == 80)
+                if (instr == INSTR_RECORD && (recordSquence.Count == 20 || recordSquence.Count == 40 ||
+                    recordSquence.Count == 60 || recordSquence.Count == 80))
                 {
                     errorJoint = kinectModel.GetErrorJoint(recordSquence, fileName);
                     Console.WriteLine(" ");

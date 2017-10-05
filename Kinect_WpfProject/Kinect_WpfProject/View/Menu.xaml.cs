@@ -80,7 +80,6 @@ namespace Kinect_WpfProject.View
         {
             SampleRecord sampleRecordForm = new SampleRecord();
             App.Current.MainWindow = sampleRecordForm;
-            
             this.Close();
             sampleRecordForm.Show();
         }

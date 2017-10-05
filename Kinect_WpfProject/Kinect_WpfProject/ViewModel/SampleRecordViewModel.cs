@@ -56,9 +56,11 @@ namespace Kinect_WpfProject.ViewModel
                 NotifyPropertyChanged("y2");
             }
         }
+        private string _fileNameSave;
+        public string fileNameSave { set { _fileNameSave = value; NotifyPropertyChanged("fileNameSave"); } }
 
-        public string fileNameSave { get; set; }
-        public string fileNameLoad { get; set; }
+        private string _fileNameLoad;
+        public string fileNameLoad { set { _fileNameLoad = value; NotifyPropertyChanged("fileNameLoad"); } }
 
         private ImageSource _image;
         public ImageSource image
@@ -131,7 +133,7 @@ namespace Kinect_WpfProject.ViewModel
         {
             try
             {
-                bodySequence = SkeletonFileConvertor.Load(fileNameNode);
+                bodySequence = SkeletonFileConvertor.Load(_fileNameLoad);
             }
             catch
             {
@@ -143,7 +145,7 @@ namespace Kinect_WpfProject.ViewModel
         private void LoadSampleExecute()
         {
             bodySequence = new ArrayList();
-            bodySequence = SkeletonFileConvertor.Load(fileNameLoad);
+            bodySequence = SkeletonFileConvertor.Load(_fileNameLoad);
             
             skeletonTimer.StartTimer();
         }
@@ -169,7 +171,7 @@ namespace Kinect_WpfProject.ViewModel
         }
         private void SaveExecute()
         {
-            kinectCamera.Save(fileNameSave);
+            kinectCamera.Save(_fileNameSave);
         }
 
         #region Timer
