@@ -131,7 +131,7 @@ namespace Kinect_WpfProject.ViewModel
         {
             try
             {
-                bodySequence = SkeletonFileConvertor.Load(fileNameNode);
+                bodySequence = SkeletonFileConvertor.Load(fileNameLoad);
             }
             catch
             {

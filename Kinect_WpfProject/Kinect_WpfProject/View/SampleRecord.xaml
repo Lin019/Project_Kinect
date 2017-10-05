@@ -15,7 +15,7 @@
             <Grid Margin="10,22,10,10"    Background="#d9e1e8"/>
 
             <Grid HorizontalAlignment="Left"  Height="272" Margin="26,38,0,0" VerticalAlignment="Top" Width="253"      >
-                <Rectangle  Fill="#9DC3C1"  Stroke="#7C7877" StrokeThickness="2"           StrokeDashArray="3 5" RadiusX="5" RadiusY="5"/>
+                <Rectangle  Fill="#9DC3C1"  Stroke="#7C7877" StrokeThickness="2" StrokeDashArray="3 5" RadiusX="5" RadiusY="5"/>
                 <Line X1="{Binding x1[0]}" Y1="{Binding y1[0]}" X2="{Binding x2[0]}" Y2="{Binding y2[0]}" Stroke="LightBlue" StrokeThickness="4" />
                 <Line X1="{Binding x1[1]}" Y1="{Binding y1[1]}" X2="{Binding x2[1]}" Y2="{Binding y2[1]}" Stroke="LightBlue" StrokeThickness="4" />
                 <Line X1="{Binding x1[2]}" Y1="{Binding y1[2]}" X2="{Binding x2[2]}" Y2="{Binding y2[2]}" Stroke="LightBlue" StrokeThickness="4" />
@@ -43,7 +43,7 @@
 
 
             </Grid>
-            <Rectangle  Fill="#c9d6de"  Stroke="#D8E6E0" StrokeThickness="2"           RadiusX="5" RadiusY="5" Margin="298,98,22,143"/>
+            <Rectangle  Fill="#c9d6de"  Stroke="#D8E6E0" StrokeThickness="2"           RadiusX="5" RadiusY="5" Margin="298,98,22,134"/>
             <TextBox BorderThickness="0" FontSize="26" Foreground="#52616a" HorizontalAlignment="Left" Height="33" Margin="308,109,0,0" TextWrapping="Wrap" Text="{Binding fileNameLoad}" VerticalAlignment="Top" Width="260"/>
             <Button Content="開啟" BorderThickness="0"  FontSize="22" Foreground="#d9e1e8" Background="#9baec8" Height="34" Margin="487,134,41,0" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"  >
                 <Button.BitmapEffect>
@@ -59,7 +59,7 @@
             </Button>
             <TextBlock x:Name="textBlock_Copy" Foreground="#6E7783" FontSize="12" HorizontalAlignment="Center" Height="43" Margin="308,156,117,134" TextWrapping="Wrap" VerticalAlignment="Center" Width="174"><Run Text="輸入動作名稱"/><Run Text="按下&quot;開啟&quot;"/><Run Text="後，"/><Run Text="即"/><Run Text="可"/><Run Text="播"/><Run Text="放動作"/><Run Text="。"/></TextBlock>
 
-            <Rectangle  Fill="#c9d6de"  Stroke="#D8E6E0" StrokeThickness="2"           RadiusX="5" RadiusY="5" Margin="298,214,22,27"/>
+            <Rectangle  Fill="#c9d6de"  Stroke="#D8E6E0" StrokeThickness="2"           RadiusX="5" RadiusY="5" Margin="298,214,22,23"/>
             <TextBox BorderThickness="0" FontSize="26" Foreground="#52616a" HorizontalAlignment="Left" Height="33" Margin="308,223,0,0" TextWrapping="Wrap" Text="{Binding fileNameSave}" VerticalAlignment="Top" Width="260" TextChanged="TextBox_TextChanged"/>
 
             <Button Content="儲存" BorderThickness="0"  FontSize="22" Foreground="#d9e1e8" Background="#9baec8" Height="34" Margin="487,250,41,0" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Click="Button_Click"   >
