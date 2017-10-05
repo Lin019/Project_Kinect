@@ -69,11 +69,17 @@ namespace Kinect_WpfProject.ViewModel
         private string _gestureName;
         public string gestureName
         {
-            
             set
             {
                 _gestureName = value;
                 NotifyPropertyChanged("gestureName");
+                NotifyPropertyChanged("viewGestureName");
+            }
+        }
+        public string viewGestureName
+        {
+            get {
+                return _gestureName;
             }
         }
 
