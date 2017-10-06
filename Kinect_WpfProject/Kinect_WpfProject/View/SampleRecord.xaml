@@ -12,10 +12,10 @@
     </Window.DataContext>
     <Viewbox Stretch="UniformToFill">
         <Grid>
-            <Grid Margin="10,22,10,10"    Background="#d9e1e8"/>
+            <Grid Margin="10,16"    Background="#d9e1e8"/>
 
             <Grid HorizontalAlignment="Left"  Height="272" Margin="26,38,0,0" VerticalAlignment="Top" Width="253"      >
-                <Rectangle  Fill="#9DC3C1"  Stroke="#7C7877" StrokeThickness="2" StrokeDashArray="3 5" RadiusX="5" RadiusY="5"/>
+                <Rectangle  Fill="#282c37"  Stroke="#5e5e5f" StrokeThickness="2" RadiusX="5" RadiusY="5"/>
                 <Line X1="{Binding x1[0]}" Y1="{Binding y1[0]}" X2="{Binding x2[0]}" Y2="{Binding y2[0]}" Stroke="LightBlue" StrokeThickness="4" />
                 <Line X1="{Binding x1[1]}" Y1="{Binding y1[1]}" X2="{Binding x2[1]}" Y2="{Binding y2[1]}" Stroke="LightBlue" StrokeThickness="4" />
                 <Line X1="{Binding x1[2]}" Y1="{Binding y1[2]}" X2="{Binding x2[2]}" Y2="{Binding y2[2]}" Stroke="LightBlue" StrokeThickness="4" />
@@ -74,8 +74,18 @@
                     <MouseBinding Gesture="LeftClick" Command="{Binding Save}" />
                 </Button.InputBindings>
             </Button>
+
             <TextBlock x:Name="textBlock" Foreground="#263959" FontSize="26" HorizontalAlignment="Center" Height="43" Margin="298,50,94,240" TextWrapping="Wrap" VerticalAlignment="Center" Width="207" Text="錄製標準動作"/>
             <TextBlock x:Name="textBlock_Copy1" Foreground="#6E7783" FontSize="12" HorizontalAlignment="Center" Height="43" Margin="308,267,117,23" TextWrapping="Wrap" VerticalAlignment="Center" Width="174"><Run Text="輸入動作名稱，"/><Run Text="按下&quot;儲存&quot;即開始錄製動作"/><Run Text="並儲存"/><Run Text="。"/></TextBlock>
+            <Button Content="MENU"  BorderThickness="0" Click="BackButton" FontSize="22" Foreground="#d9e1e8" Background="#9baec8" Margin="10,284,518,16"  >
+                <Button.BitmapEffect>
+                    <DropShadowBitmapEffect ShadowDepth="5"
+                                  Direction="300"
+                                  Color="#282c37"
+                                  Opacity="0.5"
+                                  Softness="0.75" />
+                </Button.BitmapEffect>
+            </Button>
         </Grid>
     </Viewbox>
 </Window>

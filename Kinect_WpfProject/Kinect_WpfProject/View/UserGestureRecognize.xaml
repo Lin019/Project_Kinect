@@ -11,7 +11,7 @@
     </Window.DataContext>
     <Viewbox Stretch="UniformToFill">
         <Grid>
-            <Grid Margin="10,22,25,10"    Background="#d9e1e8"/>
+            <Grid Margin="10,10,10,30"    Background="#d9e1e8"/>
             <Grid Margin="37,65,359,62">
                 <Canvas>
                     <Line X1="{Binding x1[0]}" Y1="{Binding y1[0]}" X2="{Binding x2[0]}" Y2="{Binding y2[0]}" Stroke="LightBlue" StrokeThickness="4" />
@@ -52,13 +52,13 @@
                     <Ellipse Visibility="{Binding visibility[11]}" Canvas.Left="{Binding x2[15]}" Canvas.Top="{Binding y2[15]}" Stroke="Black" HorizontalAlignment="Left" VerticalAlignment="Top" Height="8" Width="8" Fill="Red"/>
                 </Canvas>
             </Grid>
-            <Rectangle  Fill="#c9d6de"  Stroke="#D8E6E0" StrokeThickness="2" RadiusX="5" RadiusY="5" Margin="13,40,328,30"/>
-            <Rectangle  Fill="#9DC3C1"  Stroke="#7C7877" StrokeThickness="2" StrokeDashArray="3 5" RadiusX="5" RadiusY="5" Margin="31,59,345,77"/>
-            <Rectangle  Fill="#c9d6de"  Stroke="#D8E6E0" StrokeThickness="2" RadiusX="5" RadiusY="5" Margin="287,209,33,30"/>
-            <Rectangle  Fill="#c9d6de"  Stroke="#D8E6E0" StrokeThickness="2" RadiusX="5" RadiusY="5" Margin="287,50,33,129"/>
-            <Label x:Name="gestureNameLabelTitle" Foreground="#6E7783" FontSize="12" Content="動作名稱:" HorizontalAlignment="Left" Margin="297,59,0,0" VerticalAlignment="Top"/>
-            <Label x:Name="gestureNameLabel" Foreground="#6E7783" FontSize="12" Content="{Binding viewGestureName}" HorizontalAlignment="Left" Margin="358,59,0,0" VerticalAlignment="Top"/>
-            <Button Content="比對" BorderThickness="0"  FontSize="22" Foreground="#d9e1e8" Background="#9baec8" Height="34" Margin="485,257,43,0" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"  >
+            <Rectangle  Fill="#c9d6de"  Stroke="#D8E6E0" StrokeThickness="2" RadiusX="5" RadiusY="5" Margin="18,31,323,39"/>
+            <Rectangle  Fill="#282c37"  Stroke="#5e5e5f" StrokeThickness="2" RadiusX="5" RadiusY="5" Margin="36,50,340,86"/>
+            <Rectangle  Fill="#c9d6de"  Stroke="#D8E6E0" StrokeThickness="2" RadiusX="5" RadiusY="5" Margin="287,198,33,41"/>
+            <Rectangle  Fill="#c9d6de"  Stroke="#D8E6E0" StrokeThickness="2" RadiusX="5" RadiusY="5" Margin="287,31,33,148"/>
+            <Label x:Name="gestureNameLabelTitle" Foreground="#6E7783" FontSize="12" Content="動作名稱:" HorizontalAlignment="Left" Margin="297,33,0,0" VerticalAlignment="Top"/>
+            <Label x:Name="gestureNameLabel" Foreground="#6E7783" FontSize="12" Content="{Binding viewGestureName}" HorizontalAlignment="Left" Margin="358,33,0,0" VerticalAlignment="Top"/>
+            <Button Content="比對" BorderThickness="0"  FontSize="22" Foreground="#d9e1e8" Background="#9baec8" Height="34" Margin="485,246,43,0" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"  >
                 <Button.BitmapEffect>
                     <DropShadowBitmapEffect ShadowDepth="5"
                                   Direction="300"
@@ -70,10 +70,23 @@
                     <MouseBinding Gesture="LeftClick" Command="{Binding Recognize}" />
                 </Button.InputBindings>
             </Button>
-            <TextBlock x:Name="textBlock_Recognize" Foreground="#6E7783" FontSize="12" HorizontalAlignment="Center" Height="49" Margin="297,222,128,62" TextWrapping="Wrap" VerticalAlignment="Center" Width="174" Text="按下&quot;比對&quot;後，試與上方影片做出一樣動作。若有誤，錯誤關節點將會亮紅燈。"/>
-            <Line X1="33" Y1="230" X2="259" Y2="230" Stroke="#00C5CD" StrokeThickness="4" Margin="-4,-180,5,181" />
-            <Line X1="33" Y1="230" X2="{Binding progressRatio}" Y2="230" Stroke="LightBlue" StrokeThickness="4" Margin="-4,-180,4,180" />
-            <TextBlock x:Name="textBlock" HorizontalAlignment="Left" FontSize="12" Height="38"  Margin="31,265,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="223"><Run Foreground="#FF6E7783" Text="將於"/><Run Foreground="#FFF16B6F" Text="{Binding countdown, TargetNullValue=countdown}"/><Run Foreground="#FF6E7783" Text="秒內開始比對"/><Run Foreground="#FF6E7783" Text="，請於時間內做完動作。"/></TextBlock>
+            <TextBlock x:Name="textBlock_Recognize" Foreground="#6E7783" FontSize="12" HorizontalAlignment="Center" Height="49" Margin="297,211,128,73" TextWrapping="Wrap" VerticalAlignment="Center" Width="174" Text="按下&quot;比對&quot;後，試與上方影片做出一樣動作。若有誤，錯誤關節點將會亮紅燈。"/>
+            <Line X1="33" Y1="230" X2="259" Y2="230" Stroke="#00C5CD" StrokeThickness="4" Margin="1,-189,0,190" />
+            <Line X1="33" Y1="230" X2="{Binding progressRatio}" Y2="230" Stroke="LightBlue" StrokeThickness="4" Margin="0,-189,0,189" />
+            <TextBlock x:Name="textBlock" HorizontalAlignment="Left" FontSize="12" Height="38"  Margin="36,256,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="223"><Run Foreground="#FF6E7783" Text="將於"/><Run Foreground="#FFF16B6F" Text="{Binding countdown, TargetNullValue=countdown}"/><Run Foreground="#FF6E7783" Text="秒內開始比對"/><Run Foreground="#FF6E7783" Text="，請於時間內做完動作。"/></TextBlock>
+            <Grid HorizontalAlignment="Left" Height="114" Margin="297,84,0,0" VerticalAlignment="Top" Width="259">
+                <MediaElement x:Name="film" MediaEnded="FilmEnded" Margin="0,-23,0,23" />
+            </Grid>
+            <Button Content="MENU"  BorderThickness="0" Click="BackButton" FontSize="22" Foreground="#d9e1e8" Background="#9baec8" Margin="10,290,518,10"  >
+                <Button.BitmapEffect>
+                    <DropShadowBitmapEffect ShadowDepth="5"
+                                  Direction="300"
+                                  Color="#282c37"
+                                  Opacity="0.5"
+                                  Softness="0.75" />
+                </Button.BitmapEffect>
+            </Button>
+            
         </Grid>
     </Viewbox>
 </Window>

@@ -62,7 +62,6 @@ namespace Kinect_WpfProject
             Gesture gesture;
             for (int i = 0; i < allSampleNames.Count; i++)
             {
-                Console.WriteLine(allSampleNames[i]);
                 gesture = new Gesture(allSampleNames[i]);
                 _sampleGestures.Add(gesture);
             }
