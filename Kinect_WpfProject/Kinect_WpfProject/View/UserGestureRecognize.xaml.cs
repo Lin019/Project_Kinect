@@ -27,6 +27,11 @@ namespace Kinect_WpfProject.View
             InitializeComponent();
             var vm = (UserGestureRecognizeViewModel)this.DataContext;
             vm.gestureName = gestureName;
+            film.Source = new Uri(@"C:\Film\" + gestureName+".MOV");
+        }
+        private void FilmEnded(object sender, RoutedEventArgs e)
+        {
+            film.Position = new TimeSpan(0, 0, 1);
         }
 
         void UserGestureRecognizeForm_Closing(object sender, CancelEventArgs e)
@@ -39,6 +44,14 @@ namespace Kinect_WpfProject.View
         private void Button_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void BackButton(object sender, RoutedEventArgs e)
+        {
+            Menu menuForm = new Menu();
+            App.Current.MainWindow = menuForm;
+            this.Close();
+            menuForm.Show();
         }
     }
 }

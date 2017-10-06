@@ -157,6 +157,9 @@
     <Resource Include="ElbowExtension.jpg" />
     <Resource Include="ForearmPronation.jpg" />
     <Resource Include="ElbowFlexion2.jpg" />
+    <Resource Include="back.png" />
+    <Resource Include="back %281%29.png" />
+    <Resource Include="back%282%29.png" />
     <Content Include="ShoulderExtension.mp4" />
     <Resource Include="ShoulderHorizontalAbduction.jpg" />
     <Resource Include="ShoulderScaption.jpg" />

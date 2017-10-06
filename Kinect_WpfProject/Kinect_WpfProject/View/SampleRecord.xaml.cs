@@ -39,6 +39,13 @@ namespace Kinect_WpfProject.View
 
         }
 
+        private void BackButton(object sender, RoutedEventArgs e)
+        {
+            Menu menuForm = new Menu();
+            App.Current.MainWindow = menuForm;
+            this.Close();
+            menuForm.Show();
+        }
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
 
