@@ -1,4 +1,5 @@
-﻿using Kinect_WpfProject.ViewModel;
+﻿using Kinect_WpfProject.Model;
+using Kinect_WpfProject.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -48,10 +49,12 @@ namespace Kinect_WpfProject.View
 
         private void BackButton(object sender, RoutedEventArgs e)
         {
-            Menu menuForm = new Menu();
-            App.Current.MainWindow = menuForm;
             this.Close();
-            menuForm.Show();
+        }
+
+        private void Window_MouseEnter(object sender, MouseEventArgs e)
+        {
+            CursorLock.LockCursor(this);
         }
     }
 }

@@ -60,5 +60,10 @@ namespace Kinect_WpfProject.View
             App.Current.MainWindow = menu;
             menu.Show();
         }
+
+        private void Window_MouseEnter(object sender, MouseEventArgs e)
+        {
+            CursorLock.LockCursor(this);
+        }
     }
 }

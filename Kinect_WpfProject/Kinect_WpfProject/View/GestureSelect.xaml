@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Kinect_WpfProject.View"
         mc:Ignorable="d"
-        Title="FilmMenu" Height="480.971" Width="640.617"  Background="#343838" Cursor="Hand" WindowState="Maximized" WindowStartupLocation="CenterScreen">
+        Title="FilmMenu" Height="480.971" Width="640.617"  Background="#343838" Cursor="Hand" WindowState="Maximized" WindowStartupLocation="CenterScreen" MouseEnter="Window_MouseEnter">
    
         <Grid >
         <Viewbox Stretch="UniformToFill">

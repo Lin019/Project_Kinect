@@ -16,6 +16,7 @@ using System.Windows.Shapes;
 
 namespace Kinect_WpfProject.View
 {
+
     /// <summary>
     /// Menu.xaml 的互動邏輯
     /// </summary>
@@ -90,6 +91,16 @@ namespace Kinect_WpfProject.View
             App.Current.MainWindow = gestureSelectForm;
             this.Close();
             gestureSelectForm.Show();
+        }
+
+        private void Window_MouseEnter(object sender, MouseEventArgs e)
+        {
+            CursorLock.LockCursor(this);
+        }
+
+        private void Main_menu_Loaded(object sender, RoutedEventArgs e)
+        {
+            CursorLock.LockCursor(this);
         }
     }
 }

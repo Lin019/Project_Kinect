@@ -4,7 +4,7 @@
         xmlns:local="clr-namespace:Kinect_WpfProject.ViewModel"
         xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
         Closing="SampleRecordForm_Closing"
-        Title="錄製標準動作" Height="363.971" Width="606.617" Background="#282c37"  Cursor="Hand" WindowState="Normal" WindowStartupLocation="CenterScreen">
+        Title="錄製標準動作" Height="363.971" Width="606.617" Background="#282c37"  Cursor="Hand" WindowState="Maximized" WindowStartupLocation="CenterScreen" MouseEnter="Window_MouseEnter">
     <Window.DataContext>
         <!-- 實例化PostViewModel -->
         <local:SampleRecordViewModel/>
@@ -77,7 +77,7 @@
 
             <TextBlock x:Name="textBlock" Foreground="#263959" FontSize="26" HorizontalAlignment="Center" Height="43" Margin="298,50,94,240" TextWrapping="Wrap" VerticalAlignment="Center" Width="207" Text="錄製標準動作"/>
             <TextBlock x:Name="textBlock_Copy1" Foreground="#6E7783" FontSize="12" HorizontalAlignment="Center" Height="43" Margin="308,267,117,23" TextWrapping="Wrap" VerticalAlignment="Center" Width="174"><Run Text="輸入動作名稱，"/><Run Text="按下&quot;儲存&quot;即開始錄製動作"/><Run Text="並儲存"/><Run Text="。"/></TextBlock>
-            <Button Content="MENU"  BorderThickness="0" Click="BackButton" FontSize="22" Foreground="#d9e1e8" Background="#9baec8" Margin="10,284,518,16"  >
+            <Button Content="MENU"  BorderThickness="0" Click="BackButton" FontSize="22" Foreground="#d9e1e8" Background="#9baec8" Margin="10,277,517.667,23.333"  >
                 <Button.BitmapEffect>
                     <DropShadowBitmapEffect ShadowDepth="5"
                                   Direction="300"

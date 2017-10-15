@@ -59,6 +59,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\CursorLock.cs" />
     <Compile Include="Model\KinectCamera.cs" />
     <Compile Include="Model\KinectControl.cs" />
     <Compile Include="Model\Model.cs" />
