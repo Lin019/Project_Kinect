@@ -56,7 +56,7 @@ namespace Kinect_WpfProject
         public DtwGestureRecognizer(int dim, double threshold, double firstThreshold, double minLen)
         {
             _sampleGestures = new List<Gesture>();
-            
+
             List<string> allSampleNames = new List<string>();
             allSampleNames = SkeletonFileConvertor.GetAllSampleNames();
             Gesture gesture;
@@ -67,7 +67,7 @@ namespace Kinect_WpfProject
             }
 
             _dimension = dim;
-            
+
             _labels = new ArrayList();
             _globalThreshold = threshold;
             _firstThreshold = firstThreshold;
@@ -95,39 +95,6 @@ namespace Kinect_WpfProject
             _maxSlope = ms;
             _minimumLength = minLen;
         }
-        
-
-        /// <summary>
-        /// Add a seqence with a label to the known sequences library.
-        /// The gesture MUST start on the first observation of the sequence and end on the last one.
-        /// Sequences may have different lengths.
-        /// </summary>
-        /// <param name="seq">The sequence</param>
-        /// <param name="lab">Sequence name</param>
-        public void AddOrUpdate(ArrayList seq, string lab)
-        {
-            // First we check whether there is already a recording for this label. If so overwrite it, otherwise add a new entry
-            int existingIndex = -1;
-
-            for (int i = 0; i < _labels.Count; i++)
-            {
-                if ((string)_labels[i] == lab)
-                {
-                    existingIndex = i;
-                }
-            }
-
-            // If we have a match then remove the entries at the existing index to avoid duplicates. We will add the new entries later anyway
-            if (existingIndex >= 0)
-            {
-                _sampleGestures.RemoveAt(existingIndex);
-                _labels.RemoveAt(existingIndex);
-            }
-
-            // Add the new entries
-            //_sequences.Add(seq);
-            _labels.Add(lab);
-        }
 
         public string Recognize(List<Skeleton> sequence)
         {
@@ -137,11 +104,11 @@ namespace Kinect_WpfProject
             List<string> exampleNames = new List<string>();
             exampleNames = SkeletonFileConvertor.GetAllSampleNames();
 
-            for (int i = 0; i < exampleNames.Count; i++ )
+            for (int i = 0; i < exampleNames.Count; i++)
             {
                 examples.Add(new Gesture(exampleNames[i]));
             }
-            
+
             double d, maxDist = double.PositiveInfinity;
             double minDist = double.PositiveInfinity;
             string name = "", finalName = "";
@@ -168,7 +135,7 @@ namespace Kinect_WpfProject
             return (minDist < _globalThreshold ? finalName : "__UNKNOWN");
         }
 
-        
+
         public void Recognize(List<Skeleton> userSequence, string fileName)
         {
             Gesture userGesture = new Gesture(userSequence);
@@ -186,7 +153,6 @@ namespace Kinect_WpfProject
             }
         }
 
-        //use
         public List<JointPointType> RecognizeAndGetError(List<Skeleton> userSequence, string fileName)
         {
             Gesture userGesture = new Gesture(userSequence);
@@ -208,7 +174,7 @@ namespace Kinect_WpfProject
                         if ((double)d > (double)_globalThreshold / ((double)Common.FRAMES_COUNT / (double)Common.RECOGNIZE_INTERNAL))
                             errorJoints.Add((JointPointType)i);
                     }
-                        
+
                 }
             }
 
@@ -219,7 +185,16 @@ namespace Kinect_WpfProject
         {
             List<JointPointType> handsJoints = new List<JointPointType>();
             string[] bodyPart = fileName.Split('_');
-            if (bodyPart[0] == "Shoulder")
+            
+            if (bodyPart[0] == "Elbow" || fileName == "Shoulder_internal_rotation" || fileName == "Shoulder_external_rotation")
+            {
+                handsJoints.Add(JointPointType.ElbowLeft);
+                handsJoints.Add(JointPointType.WristLeft);
+
+                handsJoints.Add(JointPointType.ElbowRight);
+                handsJoints.Add(JointPointType.WristRight);
+            }
+            else if (bodyPart[0] == "Shoulder")
             {
                 handsJoints.Add(JointPointType.ShoulderLeft);
                 handsJoints.Add(JointPointType.ElbowLeft);
@@ -227,21 +202,13 @@ namespace Kinect_WpfProject
                 handsJoints.Add(JointPointType.ShoulderRight);
                 handsJoints.Add(JointPointType.ElbowRight);
             }
-            else if (bodyPart[0] == "Elbow")
-            {
-                handsJoints.Add(JointPointType.ElbowLeft);
-                handsJoints.Add(JointPointType.WristLeft);
-                
-                handsJoints.Add(JointPointType.ElbowRight);
-                handsJoints.Add(JointPointType.WristRight);
-            }
             else if (bodyPart[0] == "Forearm" || bodyPart[0] == "Wrist")
             {
                 handsJoints.Add(JointPointType.WristLeft);
                 handsJoints.Add(JointPointType.HandLeft);
                 handsJoints.Add(JointPointType.HandTipLeft);
                 handsJoints.Add(JointPointType.ThumbLeft);
-                
+
                 handsJoints.Add(JointPointType.WristRight);
                 handsJoints.Add(JointPointType.HandRight);
                 handsJoints.Add(JointPointType.HandTipRight);
@@ -316,14 +283,14 @@ namespace Kinect_WpfProject
                     }
                 }
             }
-            
+
             double minDist = 0;
             int x = 0, y = 0;
 
             //temp
             //var testTable = new int[100, 100];
-            
-            while(x != seq1R.Count || y != seq2R.Count)
+
+            while (x != seq1R.Count || y != seq2R.Count)
             {
                 //try { testTable[x, y] = 1; } catch { }
                 if (y == seq1R.Count)
@@ -336,13 +303,13 @@ namespace Kinect_WpfProject
                     minDist++;
                     y++;
                 }
-                else if (tab[x+1, y+1] <= tab[x+1, y] && tab[x+1, y+1] <= tab[x, y+1])
+                else if (tab[x + 1, y + 1] <= tab[x + 1, y] && tab[x + 1, y + 1] <= tab[x, y + 1])
                 {
                     minDist++;
                     x++;
                     y++;
                 }
-                else if(tab[x+1, y] < tab[x, y+1])
+                else if (tab[x + 1, y] < tab[x, y + 1])
                 {
                     minDist++;
                     x++;
@@ -353,16 +320,6 @@ namespace Kinect_WpfProject
                     y++;
                 }
             }
-            /*
-            for(int i = 0; i < 100; i++)
-            {
-                for (int j = 0; j < 100; j++)
-                {
-                    Console.Write(testTable[j, i] + " ");
-                }
-                Console.WriteLine("");
-            }
-            */
             return minDist;
         }
 
@@ -397,57 +354,6 @@ namespace Kinect_WpfProject
             d += Math.Pow(ratio * a.Y - ratio * b.Y, 2);
 
             return Math.Sqrt(d);
-        }
-
-
-        /// <summary>
-        /// Recognize gesture in the given sequence.
-        /// It will always assume that the gesture ends on the last observation of that sequence.
-        /// If the distance between the last observations of each sequence is too great, or if the overall DTW distance between the two sequence is too great, no gesture will be recognized.
-        /// </summary>
-        /// <param name="seq">The sequence to recognise</param>
-        /// <returns>The recognised gesture name</returns>
-        public string Recognize(List<ArrayList> seq, string bodypart)
-        {
-            string[] intervalClassification = new string[Common.HANDS_JOINTS_COUNT];
-            double minDist = double.PositiveInfinity;
-            seqJointPoint = new List<ArrayList>();
-            string classification = "__UNKNOWN";
-
-            if (bodypart == "hands")
-            {
-                for (int i = 0; i < _sampleGestures.Count; i++)
-                {
-                    seqJointPoint.Add(new ArrayList());
-                    seqJointPoint[i].Add(_sampleGestures[i].JointSequence[(int)JointPointType.HandRight]);
-                }
-            }
-            for (int j = 0; j < Common.HANDS_JOINTS_COUNT; j++)
-            {
-                for (int i = 0; i < _sampleGestures.Count; i++)
-                {
-                    ArrayList example = new ArrayList(seqJointPoint[i]);
-
-                    if (Dist2((JointPoint)seq[j][seq[j].Count - 1], (JointPoint)((ArrayList)example[j])[21]) < _firstThreshold)
-                    {
-                        double d = Dtw(seq[j], (ArrayList)example[j]) / ((ArrayList)example[j]).Count;
-                        if (d < minDist)
-                        {
-                            minDist = d;
-                            intervalClassification[j] = _sampleGestures[i].name;
-                        }
-                    }
-                }
-                int count = 0;
-                for (int i = 0; i < 11; i++)
-                {
-                    if (intervalClassification[i] == intervalClassification[i + 1]) count++;
-                }
-                if (count == 11) classification = intervalClassification[11];
-                else classification = "__UNKNOWN";
-            }
-            Console.WriteLine((minDist < _globalThreshold ? classification : "__UNKNOWN") + "2");
-            return (minDist < _globalThreshold ? classification : "__UNKNOWN") + "2";
         }
     }
 }

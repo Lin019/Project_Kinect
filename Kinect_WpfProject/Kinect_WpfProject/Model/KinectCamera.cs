@@ -40,6 +40,9 @@ namespace Kinect_WpfProject.Model
 
         private TimerTool dtwTimer;
 
+        private List<int> firstError;
+        private List<int> lastError;
+
         public KinectCamera()
         {
             dtwTimer = new TimerTool(DtwTick, 0, 100000);
@@ -176,6 +179,7 @@ namespace Kinect_WpfProject.Model
                     recordSquence.Count == 60 || recordSquence.Count == 80))
                 {
                     errorJoint = kinectModel.GetErrorJoint(recordSquence, fileName);
+                    SetError(errorJoint);
                     Console.WriteLine(" ");
                 }
             }
@@ -191,9 +195,31 @@ namespace Kinect_WpfProject.Model
             }
         }
 
+        private void SetError(ObservableCollection<Visibility> visibility)
+        {
+            for (int i = 0; i < visibility.Count; i++)
+            {
+                if (recordSquence.Count < 50)
+                {
+                    if (visibility[i] == Visibility.Visible) firstError.Add(i);
+                }
+                else
+                {
+                    if (visibility[i] == Visibility.Visible) lastError.Add(i);
+                }
+            }
+        }
+
+        private void ShowResult()
+        {
+            Console.WriteLine("分數：" + (100 - ((double)(firstError.Count + lastError.Count) / (double)20.0 * 100)) + "分");
+        }
+
         private void DtwTick()
         {
             errorJoint = kinectModel.GetErrorJoint(recordSquence, fileName);
+            SetError(errorJoint);
+            ShowResult();
             Menu.kinectControl.mouseSensitivity = KinectControl.MOUSE_SENSITIVITY;
             dtwTimer.StopTimer();
         }
@@ -208,6 +234,8 @@ namespace Kinect_WpfProject.Model
         
         public void Record(string fileName)
         {
+            firstError = new List<int>();
+            lastError = new List<int>();
             this.fileName = fileName;
             recordSquence = new List<Skeleton>();
             instr = INSTR_RECORD;
